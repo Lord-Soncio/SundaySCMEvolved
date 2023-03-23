@@ -1,0 +1,47 @@
+namespace = habbscap
+
+country_event = {
+    id = habbscap.1
+    hide_window = yes
+    is_triggered_only = yes
+
+	immediate = {
+		country_event = { id = habbscap.2 days = 1 }
+	}
+}
+
+country_event = {
+	id = habbscap.2
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			is_country_type = default
+			is_country_type = ascended_empire
+			is_country_type = lost_empire
+		}
+	}
+	
+    immediate = {
+        if = {
+            limit = { NOT = { has_origin = origin_void_dwellers } }
+            habbs_no_void_borne = yes
+        }
+
+        if = {
+            limit = { has_origin = origin_void_dwellers }
+            habbs_void_borne = yes
+        }
+    }
+}
+
+planet_event = {
+    id = habbscap.3
+    hide_window = yes
+    is_triggered_only = yes
+
+    immediate = {
+        solar_system.owner = { country_event = { id = habbscap.2 days = 1 } }
+    }
+}
