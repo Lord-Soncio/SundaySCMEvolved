@@ -2974,7 +2974,7 @@ trait_tec_replicant_budding = {
 			}
 		}
 		modifier = {
-			add = -1
+			add = -5
 			has_country_flag = tec_replicant_combined
 		}
 	}
