@@ -1,0 +1,71 @@
+trait_tec_replicant_budding = {
+	sorting_priority = 4		# Expensive trait 2
+	icon = gfx/interface/icons/traits/ascension_traits/trait_tec_replicant_budding.dds
+	cost = {
+		base = 99
+		modifier = {
+			add = -1
+			OR = {
+				has_country_flag = tec_gene_advanced_malleability
+				has_country_flag = tec_cyborg_malleability
+			}
+		}
+		modifier = {
+			add = -1
+			has_country_flag = tec_replicant_combined
+		}
+	}
+	initial = no
+	randomized = no
+	potential_crossbreeding_chance = 0
+	# Archetypes
+	inline_script = traits/inline_evolved_replicant_archetypes
+	opposites = {
+		"trait_rapid_breeders" "trait_rapid_breeders_lithoid"
+		"trait_slow_breeders"
+
+		"trait_tec_robot_fractal"
+				
+		"trait_necrophage"
+		"trait_clone_soldier_infertile"
+		"trait_clone_soldier_infertile_full_potential"
+		
+		"trait_plantoid_budding" "trait_lithoid_budding" "trait_tec_lithoid_sedimentary" "trait_advanced_budding" "trait_tiyanki"
+	}
+	# Tooltip
+	modifier = {
+		trait_tec_replicant_budding_tooltip = 1
+	}
+	# Modifier handled in pop categories
+	triggered_pop_modifier = {
+		potential = {
+			tec_can_assemble_replicant_budding_species = yes
+			exists = owner
+			owner = {
+				has_country_flag = tec_replicant_upgraded
+			}
+		}
+		tec_planet_pop_assembly_organic_add_per_pop = @tec_replicant_budding_rate
+	}
+	triggered_pop_modifier = {
+		potential = {
+			tec_can_assemble_replicant_budding_species = yes
+			exists = owner
+			owner = {
+				has_country_flag = tec_replicant_upgraded
+			}
+		}
+		tec_planet_pop_assembly_organic_add_per_pop = @tec_replicant_budding_rate_upgraded
+	}
+	# Modification
+	species_potential_add = {
+		exists = from
+		from = {
+			has_country_flag = tec_replicant_path_finished
+		}
+	}
+	# External
+	slave_cost = {
+		energy = 2000
+	}
+}

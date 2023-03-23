@@ -1,0 +1,158 @@
+building_tec_cyberpsionic_transmuter = {
+	base_buildtime = @b3_time
+	base_cap_amount = 5
+	position_priority = 11		# Important
+	can_be_disabled = no
+	can_be_ruined = no
+	category = research
+
+	potential = {
+		exists = owner
+		owner = {
+			has_country_flag = tec_cyberpsionic_buildings
+		}
+	}
+
+	destroy_trigger = {
+		exists = owner
+		owner = {
+			NOT = {
+				has_country_flag = tec_cyberpsionic_buildings
+			}
+		}
+	}
+
+	resources = {
+		category = planet_buildings
+		inline_script = {
+			script = buildings/resources/inline_evolved_resource_cost
+			tier = 3
+		}
+		upkeep = {
+			energy = 5
+			sr_zro = 1
+		}
+		# production
+			produces = {	# Energy
+				trigger = {
+					has_generator_designation = yes
+				}
+				energy = 30
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}
+			produces = {	# Minerals
+				trigger = {
+					has_mining_designation = yes
+				}
+				minerals = 20
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}
+			produces = {	# Food
+				trigger = {
+					has_farming_designation = yes
+				}
+				food = 30
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}
+			produces = {	# Industrial
+				trigger = {
+					has_industrial_designation = yes
+				}
+				alloys = 3
+				consumer_goods = 6
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}
+			produces = {	# Foundry
+				trigger = {
+					has_foundry_designation = yes
+				}
+				alloys = 6
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}
+			produces = {	# CG
+				trigger = {
+					has_factory_designation = yes
+				}
+				consumer_goods = 12
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}
+			produces = {	# Unity
+				trigger = {
+					has_unity_designation = yes
+				}
+				unity = 15
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}
+			produces = {	# Research
+				trigger = {
+					has_research_designation = yes
+				}
+				physics_research = 10
+				society_research = 10
+				engineering_research = 10
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}
+			produces = {	# Other
+				trigger = {
+					NOR = {
+						has_generator_designation = yes
+						has_mining_designation = yes
+						has_farming_designation = yes
+						has_industrial_designation = yes
+						has_foundry_designation = yes
+						has_factory_designation = yes
+						has_unity_designation = yes
+						has_research_designation = yes
+						tec_has_giga_mega_designation = yes
+					}
+				}
+				unity = 7.5
+				energy = 15
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}
+			produces = {
+				trigger = {
+					owner = {
+						check_modifier_value = {
+							modifier = tec_entropy
+							value > 1
+						}
+					}
+				}
+				sr_dark_matter = 0.1
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}
+
+		# Giga compat for funsies
+			produces = {	# Mega
+				trigger = {
+					has_global_flag = @giga_amb_flag
+					tec_has_giga_mega_designation = yes
+				}
+				giga_sr_amb_megaconstruction = 1
+				multiplier = value:tec_cyberpsionic_entropy_scaling
+			}	
+		# /	
+	}
+
+	triggered_country_modifier = {
+		potential = {
+			always = yes
+		}
+		tec_entropy = -0.05
+	}
+
+
+	triggered_desc = {
+		trigger = {
+			always = yes
+		}
+		text = building_tec_cyberpsionic_transmuter_entropy
+	}
+	triggered_desc = {
+		trigger = {
+			always = yes
+		}
+		text = building_tec_cyberpsionic_transmuter_designation
+	}
+}
