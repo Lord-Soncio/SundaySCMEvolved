@@ -629,59 +629,59 @@ building_tec_cyberpsionic_transmuter = {
 				trigger = {
 					has_generator_designation = yes
 				}
-				energy = 30
+				energy = 32
 				multiplier = value:tec_cyberpsionic_entropy_scaling
 			}
 			produces = {	# Minerals
 				trigger = {
 					has_mining_designation = yes
 				}
-				minerals = 20
+				minerals = 22
 				multiplier = value:tec_cyberpsionic_entropy_scaling
 			}
 			produces = {	# Food
 				trigger = {
 					has_farming_designation = yes
 				}
-				food = 30
+				food = 32
 				multiplier = value:tec_cyberpsionic_entropy_scaling
 			}
 			produces = {	# Industrial
 				trigger = {
 					has_industrial_designation = yes
 				}
-				alloys = 3
-				consumer_goods = 6
+				alloys = 4
+				consumer_goods = 8
 				multiplier = value:tec_cyberpsionic_entropy_scaling
 			}
 			produces = {	# Foundry
 				trigger = {
 					has_foundry_designation = yes
 				}
-				alloys = 6
+				alloys = 8
 				multiplier = value:tec_cyberpsionic_entropy_scaling
 			}
 			produces = {	# CG
 				trigger = {
 					has_factory_designation = yes
 				}
-				consumer_goods = 12
+				consumer_goods = 16
 				multiplier = value:tec_cyberpsionic_entropy_scaling
 			}
 			produces = {	# Unity
 				trigger = {
 					has_unity_designation = yes
 				}
-				unity = 15
+				unity = 20
 				multiplier = value:tec_cyberpsionic_entropy_scaling
 			}
 			produces = {	# Research
 				trigger = {
 					has_research_designation = yes
 				}
-				physics_research = 12
-				society_research = 12
-				engineering_research = 12
+				physics_research = 16
+				society_research = 16
+				engineering_research = 16
 				multiplier = value:tec_cyberpsionic_entropy_scaling
 			}
 			produces = {	# Other
