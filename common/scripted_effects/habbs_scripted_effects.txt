@@ -1,0 +1,33 @@
+habbs_no_void_borne = {
+    set_variable = { which = habbs value = 3 }
+    every_system_within_border = {
+        prev = { change_variable = { which = habbs value = 0.1 } }
+    }
+    if = {
+        limit = {
+            check_variable = { which = habbs value > 23 }
+        }
+        set_variable = { which = habbs value = 23 }
+    }
+    every_planet_within_border = {
+        limit = { is_planet_class = pc_habitat }
+        prev = { change_variable = { which = habbs value = -1 } }
+    }
+}
+
+habbs_void_borne = {
+    set_variable = { which = habbs value = 6 }
+    every_system_within_border = {
+        prev = { change_variable = { which = habbs value = 0.2 } }
+    }
+    if = {
+        limit = {
+            check_variable = { which = habbs value > 26 }
+        }
+        set_variable = { which = habbs value = 26 }
+    }
+    every_planet_within_border = {
+        limit = { is_planet_class = pc_habitat }
+        prev = { change_variable = { which = habbs value = -1 } }
+    }
+}
