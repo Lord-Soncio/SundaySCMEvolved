@@ -4,5 +4,5 @@ tags={
 	"Fixes"
 	"Loading Screen"
 }
-name="Destroy All MinMaxers - Anal Probe Edition"
+name="Destroy All Minmaxers - Probe Edition"
 supported_version="3.7.3"
