@@ -823,17 +823,17 @@ tec_biopsionic_convergence_trait_scaling = {
 tec_cyberpsionic_entropy_scaling = {
 	base = 0
 	add = owner.value:scripted_modifier_mult|MODIFIER|tec_entropy|
+	subtract = 1
 	mult = 5
 	square_root = yes
-	add = 1
 }
 
 tec_cyberpsionic_entropy_scaling_display = {
 	base = 0
 	add = owner.value:scripted_modifier_mult|MODIFIER|tec_entropy|
+	subtract = 1
 	mult = 5
 	square_root = yes
-	add = 1
 	round_to = 0.01
 }
 
