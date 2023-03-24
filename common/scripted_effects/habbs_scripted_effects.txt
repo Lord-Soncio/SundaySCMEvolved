@@ -1,13 +1,13 @@
 habbs_no_void_borne = {
-    set_variable = { which = habbs value = 3 }
+    set_variable = { which = habbs value = 5 }
     every_system_within_border = {
         prev = { change_variable = { which = habbs value = 0.1 } }
     }
     if = {
         limit = {
-            check_variable = { which = habbs value > 23 }
+            check_variable = { which = habbs value > 15 }
         }
-        set_variable = { which = habbs value = 23 }
+        set_variable = { which = habbs value = 15 }
     }
     every_planet_within_border = {
         limit = { is_planet_class = pc_habitat }
@@ -16,15 +16,15 @@ habbs_no_void_borne = {
 }
 
 habbs_void_borne = {
-    set_variable = { which = habbs value = 6 }
+    set_variable = { which = habbs value = 10 }
     every_system_within_border = {
         prev = { change_variable = { which = habbs value = 0.2 } }
     }
     if = {
         limit = {
-            check_variable = { which = habbs value > 26 }
+            check_variable = { which = habbs value > 30 }
         }
-        set_variable = { which = habbs value = 26 }
+        set_variable = { which = habbs value = 30 }
     }
     every_planet_within_border = {
         limit = { is_planet_class = pc_habitat }

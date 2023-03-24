@@ -1,8 +1,8 @@
-version="3.7.*"
+version="3.7.3"
 tags={
 	"Balance"
 	"Fixes"
+	"Loading Screen"
 }
-name="Soncio-Balance-Evolved-V1.0.0"
+name="Destroy All MinMaxers - Anal Probe Edition"
 supported_version="3.7.3"
-remote_file_id="2951132788"
