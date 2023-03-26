@@ -24,10 +24,20 @@ can_enter_system_by_jump = {
 		# L-Cluster
 		NOT = { has_star_flag = lcluster }
 
-		# War
-		NOT = {
-			root = { is_at_war_with = this.controller }
-		}
+		# returns true if the AND is false
+        NOT = {
+            # returns true only if the system is not controlled by the root country
+            # and root is at war with the system owner
+            AND = {
+                NOT = { is_controlled_by = root }
+                root = {
+                    OR = {
+                        is_at_war_with = this.controller
+                        is_at_war_with = this.owner
+                    }
+                }
+            }
+        }
 	}
 }
 # Can the pop be purged/disassembled individually by its owner
