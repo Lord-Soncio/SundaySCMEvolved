@@ -9,8 +9,8 @@ once = {
 	federation = {
 		trigger = {
 			has_federation = yes
-			NOR = { has_valid_civic = civic_tec_universalism }
 		}
+		
 		resources = {
 			category = federation
 			upkeep = {
@@ -30,6 +30,7 @@ per_relation = {
 		resources = {
 			category = federation
 			upkeep = {
+				
 				influence = 1
 			}
 		}
