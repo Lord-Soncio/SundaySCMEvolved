@@ -25,29 +25,13 @@ per_relation = {
 	# scope: this = current country, FROM : other country in the relation
 	federation = {
 		trigger = {
-			has_federation = yes
-			NOR = { has_valid_civic = civic_tec_universalism }
-				}
+				is_in_federation_with = FROM
+		}
 		resources = {
 			category = federation
 			upkeep = {
-				trigger = {
-					COUNT = {
-						Value = federation_members 
-						Value >= 4
-						}
 				influence = 1
 			}
-		}
-		upkeep = {
-			trigger = {
-				COUNT = {
-					Value = federation_members 
-					Value >= 6
-					}
-			influence = 5
-				}
-			}	
 		}
 	}
 	rivalry = {
