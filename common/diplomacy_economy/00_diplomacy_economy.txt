@@ -29,7 +29,7 @@ per_relation = {
 			has_federation = yes
 			COUNT = {
 			Value = federation_members 
-			Value >= 3
+			Value > 3
 			}
 		}
 			NOR = { has_valid_civic = civic_tec_universalism }
@@ -38,6 +38,24 @@ per_relation = {
 			category = federation
 			upkeep = {
 				influence = 1
+			}
+		}
+	}
+	federation = {
+		trigger = {
+			AND = {
+			has_federation = yes
+			COUNT = {
+			Value = federation_members 
+			Value > 5
+			}
+		}
+			NOR = { has_valid_civic = civic_tec_universalism }
+		}
+		resources = {
+			category = federation
+			upkeep = {
+				influence = 5
 			}
 		}
 	}
