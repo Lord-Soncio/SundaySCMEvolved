@@ -34,7 +34,7 @@ per_relation = {
 				trigger = {
 					COUNT = {
 						Value = federation_members 
-						Value > 3
+						Value >= 4
 						}
 				influence = 1
 			}
@@ -43,7 +43,7 @@ per_relation = {
 			trigger = {
 				COUNT = {
 					Value = federation_members 
-					Value > 5
+					Value >= 6
 					}
 			influence = 5
 				}
