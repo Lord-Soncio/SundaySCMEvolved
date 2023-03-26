@@ -1,0 +1,82 @@
+# Mandatory OverWrites
+# --------------------------------------------------------------------------------------
+# Paradox please replace:
+# [has_authority = auth_hive_mind] with [is_hive_empire = yes]
+# [has_authority = auth_machine_intelligence] with [is_machine_empire = yes]
+# !!
+
+# Root = country attempting to target system for movement
+# This = system being targeted
+can_enter_system_by_jump = {
+	custom_tooltip = {
+#		success_text = "debug: can jump"
+		fail_text = cannot_jump_to_system
+
+		# Sealed system
+		OR = {
+			NOT = { has_star_flag = sealed_system }
+			AND = {
+				root = { has_country_flag = entered_sealed_system }
+				has_star_flag = sealed_system
+			}
+		}
+
+		# L-Cluster
+		NOT = { has_star_flag = lcluster }
+
+		# War
+		NOT = {
+			root = { is_at_war_with = this.controller }
+		}
+	}
+}
+# Can the pop be purged/disassembled individually by its owner
+# scope: pop
+can_purge_pop_manually = {
+	custom_tooltip = {
+		fail_text = "ALREADY_BEING_PURGED"
+		NOT = { has_citizenship_type = { type = citizenship_purge } }
+	}
+	custom_tooltip = {
+		fail_text = "ACTION_CANNOT_PURGE_CITIZEN"
+		exists = owner
+		OR = {
+			is_robot_pop = yes
+			is_sapient = no
+			owner = { is_hive_empire = yes }
+			has_citizenship_type = {
+				type = citizenship_slavery
+				country = owner
+			}
+			has_citizenship_type = {
+				type = citizenship_full_machine
+				country = owner
+			}
+		}
+	}
+	custom_tooltip = {
+		fail_text = "ACTION_CANNOT_PURGE_POLICY"
+		exists = owner
+		OR = {
+			is_robot_pop = yes
+			AND = {
+				is_sapient = no
+				owner = { NOT = { has_policy_flag = pre_sapients_protect } }
+			}
+			owner = { has_ethic = ethic_gestalt_consciousness }
+			owner = { has_policy_flag = purge_allowed }
+		}
+	}
+	custom_tooltip = {
+		fail_text = "ACTION_DISASSEMBLE_SYNTHETICS"
+		exists = owner
+		OR = {
+			is_robot_pop = no
+			owner = { is_hive_empire = yes }
+			NAND = {
+				has_trait = trait_mechanical
+				owner = { has_policy_flag = ai_full_rights }
+			}
+		}
+	}
+}
