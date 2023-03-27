@@ -1458,6 +1458,72 @@ action_invite_to_federation = {	# Evolved - tec_is_pompous_empire // Apathic
 	possible = {
 		if = {
 			limit = {
+				always = yes
+			}
+			custom_tooltip = {
+				fail_text = xeno_scum_too_early
+				OR ={
+					years_passed > 50
+					NOR = {
+						has_ethic = ethic_xenophobe
+						has_ethic = ethic_fanatic_xenophobe
+						has_ethic = ethic_gestalt_consciousness
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				always=yes
+			}
+			custom_tooltip = {
+				fail_text = xeno_scummer_too_early
+				from = {
+					OR = {
+						years_passed > 50
+						NOR = {
+							has_ethic = ethic_xenophobe
+							has_ethic = ethic_fanatic_xenophobe
+							has_ethic = ethic_gestalt_consciousness
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				always=yes
+			}
+			custom_tooltip = {
+				fail_text = xeno_scum_too_early
+				OR = {
+					years_passed > 30
+					OR = {
+						has_ethic = ethic_xenophile
+						has_ethic = ethic_fanatic_xenophile
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				always=yes
+			}
+			custom_tooltip = {
+				fail_text = xeno_scummer_too_early
+				from = {
+					OR = {
+						years_passed > 30
+						OR = {
+							has_ethic = ethic_xenophile
+							has_ethic = ethic_fanatic_xenophile
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
 				has_federation = no
 				is_subject = yes
 			}

@@ -1,2 +1,4 @@
 ﻿l_english:
  habitat_limit_reached:1 "$TRIGGER_FAIL$Your addiction to habitats is beginning to worsen, better if you stop for now."
+ xeno_scum_too_early:1 "$TRIGGER_FAIL$We aren't ready yet to deal with xenos..."
+ xeno_scummer_too_early:1 "$TRIGGER_FAIL$They aren't ready yet to deal with xenos..."
