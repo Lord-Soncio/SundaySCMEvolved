@@ -1,5 +1,8 @@
 NGameplay = {
 
+	LEADER_SCIENTIST_ASSIST_CLOAKING_DETECTION_MULT				= 0.10		# Assist Cloaking Detection modifier-mult per skill level (this value times skill level equals modifier)
+
+	
 	POP_ETHOS_LOWER_ETHIC_THRESHOLD				= 0.5	# If the % of pops following an ethic is <= this relative to its attraction do not diverge away from it
 	POP_ETHOS_UPPER_ETHIC_THRESHOLD				= 2.0	# If the % of pops following an ethic is >= this relative to its attraction do not diverge to it
 	POP_ETHOS_DIVERGENCE_INTERVAL				= 480	# Number of days until a Pop has a change to diverge from empire ethos
