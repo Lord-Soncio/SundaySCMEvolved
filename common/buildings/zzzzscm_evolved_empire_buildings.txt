@@ -222,7 +222,7 @@ building_tec_cyberpsionic_transmuter = {
 				trigger = {
 					has_unity_designation = yes
 				}
-				unity = 20
+				unity = 24
 				multiplier = value:tec_cyberpsionic_entropy_scaling
 			}
 			produces = {	# Research
@@ -248,8 +248,8 @@ building_tec_cyberpsionic_transmuter = {
 						tec_has_giga_mega_designation = yes
 					}
 				}
-				unity = 7.5
-				energy = 15
+				unity = 12
+				energy = 16
 				multiplier = value:tec_cyberpsionic_entropy_scaling
 			}
 			produces = {
