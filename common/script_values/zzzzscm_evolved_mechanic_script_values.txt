@@ -1,0 +1,28 @@
+
+# Cyberpsi entropy
+# ------------------------------------------------------------
+tec_cyberpsionic_entropy_scaling = {
+	base = 0
+	add = owner.value:scripted_modifier_mult|MODIFIER|tec_entropy|
+	subtract = 1
+	mult = 4
+	subtract = 1
+	min = 0.1
+	square_root = yes
+}
+
+tec_cyberpsionic_entropy_scaling_display = {
+	base = 0
+	add = owner.value:scripted_modifier_mult|MODIFIER|tec_entropy|
+	subtract = 1
+	mult = 4
+	square_root = yes
+	round_to = 0.01
+}
+
+tec_cyberpsionic_entropy_total_display = {
+	base = 0
+	add = owner.modifier:tec_entropy
+	mult = 100
+	round = yes
+}
