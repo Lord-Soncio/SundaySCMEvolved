@@ -44,7 +44,6 @@ civic_technocracy = {
 
 	modifier = {
 		planet_researchers_unity_produces_add = 1
-		planet_researchers_consumer_goods_upkeep_add = 0.5
 	}
 
 	random_weight = { base = @civic_default_random_weight }
