@@ -18,7 +18,7 @@ habbs_no_void_borne = {
 habbs_void_borne = {
     set_variable = { which = habbs value = 10 }
     every_system_within_border = {
-        prev = { change_variable = { which = habbs value = 0.2 } }
+        prev = { change_variable = { which = habbs value = 0.25 } }
     }
     if = {
         limit = {
