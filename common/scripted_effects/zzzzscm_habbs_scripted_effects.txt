@@ -5,9 +5,9 @@ habbs_no_void_borne = {
     }
     if = {
         limit = {
-            check_variable = { which = habbs value > 15 }
+            check_variable = { which = habbs value > 10 }
         }
-        set_variable = { which = habbs value = 15 }
+        set_variable = { which = habbs value = 10 }
     }
     every_planet_within_border = {
         limit = { is_planet_class = pc_habitat }
@@ -22,9 +22,9 @@ habbs_void_borne = {
     }
     if = {
         limit = {
-            check_variable = { which = habbs value > 30 }
+            check_variable = { which = habbs value > 20 }
         }
-        set_variable = { which = habbs value = 30 }
+        set_variable = { which = habbs value = 20 }
     }
     every_planet_within_border = {
         limit = { is_planet_class = pc_habitat }
