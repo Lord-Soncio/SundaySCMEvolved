@@ -28,7 +28,6 @@ per_relation = {
 				is_in_federation_with = FROM
 		}
 		resources = {
-			category = federation
 			upkeep = {
 				
 				influence = 1
