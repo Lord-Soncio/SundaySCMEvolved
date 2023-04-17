@@ -1,0 +1,56 @@
+# PSIONICS TRADITION
+# -----------------------------------------
+# 1   2
+#   3
+# 4	  5
+
+tr_psionics_adopt = {
+	possible = {
+		if = {
+			limit = {
+				tec_has_psionic_ascension_origin = yes
+			}
+			has_technology = tech_planetary_unification
+			num_ascension_perks > 2
+		}
+		else = {
+			custom_tooltip = {
+				text = tr_tec_psionics_path_unlocked
+				OR = {
+					has_country_flag = tec_psionic_path_unlocked_tradition_1
+				}
+			}
+		}
+	}
+
+	custom_tooltip = tr_psionics_adopt_tooltip
+
+	on_enabled = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = breached_shroud
+					}
+				}
+				# Gives the shroud access
+				set_country_flag = breached_shroud
+				country_event = {
+					id = tec_psionic_path.110
+				}
+			}
+			if = {
+				limit = {
+					tec_has_psionic_ascension_origin = yes
+				}
+				hidden_effect = {
+					add_research_option = tech_psionic_theory
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		factor = 1000
+	}
+}
