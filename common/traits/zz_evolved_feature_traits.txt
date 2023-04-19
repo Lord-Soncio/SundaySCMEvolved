@@ -2965,7 +2965,7 @@ trait_tec_replicant_budding = {
 	sorting_priority = 4		# Expensive trait 2
 	icon = gfx/interface/icons/traits/ascension_traits/trait_tec_replicant_budding.dds
 	cost = {
-		base = 10
+		base = 8
 		modifier = {
 			add = -1
 			OR = {
@@ -2974,7 +2974,7 @@ trait_tec_replicant_budding = {
 			}
 		}
 		modifier = {
-			add = -5
+			add = -4
 			has_country_flag = tec_replicant_combined
 		}
 	}
