@@ -1,0 +1,4806 @@
+# A Megastructure has been built
+# Root = Country
+# From = Megastructure
+# FromFrom = System
+# FromFromFrom = Fleet
+
+namespace = gpm_habitat
+
+country_event = {
+	id = gpm_habitat.1
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		# from.solar_system = {
+			# any_system_planet = {
+				# gpm_is_planet_class_habitat = yes
+			# }
+		# }
+		from = {
+			is_megastructure_type = habitat_0
+		}
+	}
+
+	immediate = {
+		# log = "000000000 run event gpm_habitat.2 in 1 day"
+		country_event = { id = gpm_habitat.2 days = 1 }
+	}
+}
+
+# Runs seperate delayed event to account for issues issues
+country_event = {
+	id = gpm_habitat.2
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	immediate = {
+		# log = "000000000 from = [From.GetName] -- root = [root.GetName] -- fromfrom = [FromFrom.GetName] -- from.planet = [From.Planet.GetName] -- fromfrom.planet = [FromFrom.Planet.GetName]"
+		fromfrom.solar_system = {
+			every_system_planet = {
+				limit = {
+					NOR = {
+						has_planet_flag = gpm_constructed_habitat_event_complete
+						has_planet_flag = gpm_is_galaxy_generated_habitat
+					}
+					gpm_is_planet_class_habitat = yes
+				}
+				# log = "000000000 SAVING event_target_as = gpm_new_constructed_habitat"
+				save_event_target_as = gpm_new_constructed_habitat
+				# Set new_habitat_flag and lock out this event in the future for this habitat.
+				set_planet_flag = gpm_constructed_habitat_event_complete
+			}
+		}
+
+
+
+		# event_target:gpm_new_constructed_habitat = {
+		# 	# construction bonus based on:
+		# 	#	- has_civic master builders  	+3 districts (total)
+		# 	# 	- is void species (origin)		+5 districts (total)
+		# 	gpm_spawn_habitat_tier_modifier = yes
+
+		# 	# roll constructed habitat modifiers
+		# 	gpm_roll_constructed_habitat_modifiers = yes
+
+		# 	# add features based on parent planet and parent moons
+
+		# 	from.planet = {
+		# 		planet_event = {
+		# 			id = gpm_habitat.2
+		# 			days = 1
+		# 		}
+		# 		# gpm_spawn_habitat_infrastructure = yes
+		# 		# every_moon = {
+		# 		# 	gpm_spawn_habitat_infrastructure = yes
+		# 		# }
+		# 	}
+
+		# }
+
+		# gpm_habitat_asteroid_belt_mining
+		# gpm_habitat_extensive_moon_mining
+		# gpm_habitat_frequent_thunderstorms_research
+		# gpm_habitat_radioactive_mantle_mining
+		# gpm_habitat_frequent_asteroid_flybys
+		# gpm_habitat_highly_charged_particle_collection
+		# gpm_habitat_ancient_temple_expeditions
+		# gpm_habitat_time_displaced_planet_research
+		# gpm_habitat_surface_mining
+		# gpm_habitat_surface_expeditions
+		# gpm_habitat_android_pleasure_palace_tourism
+		# gpm_habitat_delicious_ingredients_trade (spice must flow!)
+		# gpm_habitat_flat_terrain_racing (chance based)
+		# gpm_habitat_strange_alien_eggs_restriction
+		# gpm_habitat_hydrogen_extraction
+		# gpm_habitat_nitrogen_extraction
+		# gpm_habitat_chlorine_extraction
+		# gpm_habitat_phosphorus_extraction
+		# gpm_habitat_sulfur_extraction
+		# gpm_habitat_iron_extraction
+		# if specific asteroid variabe > 2 we add asteroid mining bonus to habitat
+		# if = {
+		# 	limit = {
+		# 		check_variable = {
+		# 			which = "gpm_number_rich_asteroids"
+		# 			value > 2
+		# 		}
+		# 	}
+		# 	event_target:gpm_new_constructed_habitat = {
+		# 		add_modifier = { modifier = gpm_habitat_asteroid_belt_mining days = -1 }
+		# 		#planet_resource_minerals_add = 20  #check at 2.0 update to make it work
+		# 		add_deposit = "gpm_d_moon_mining_infrastructure"
+
+		# 	}
+		# }
+		event_target:gpm_new_constructed_habitat = {
+			# log = "000000000 RUNNING event_target_as = gpm_new_constructed_habitat code"
+			# log = "000000000 gpm_new_constructed_habitat scopes from = [From.GetName] -- root = [root.GetName] -- fromfrom = [FromFrom.GetName] -- from.planet = [From.Planet.GetName] -- fromfrom.planet = [FromFrom.Planet.GetName]"
+			# gpm_has_precursor_modifiers = yes
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							gpm_has_precursor_modifiers = yes
+							any_moon = {
+								gpm_has_precursor_modifiers = yes
+							}
+						}
+					}
+					event_target:gpm_new_constructed_habitat = {
+						set_planet_flag = gpm_is_precursor_orbiting_habitat
+						remove_planet_flag = commercial_habitat
+						remove_planet_flag = energy_habitat
+						remove_planet_flag = mining_habitat
+						if = {
+							limit = {
+								NOT = { has_planet_flag = research_habitat }
+							}
+							set_planet_flag = research_habitat
+						}
+					}
+				}
+			}
+			# extensive_moon_system
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = extensive_moon_system
+							any_moon = {
+								has_modifier = extensive_moon_system
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_extensive_moon_mining days = -1 }
+						set_planet_flag = gpm_is_extensive_moon_mining_habitat
+					}
+				}
+			}
+			# gpm_radioactive_mantle
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_radioactive_mantle
+							any_moon = {
+								has_modifier = gpm_radioactive_mantle
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_radioactive_mantle_mining days = -1 }
+						set_planet_flag = gpm_is_radioactive_mantle_mining_habitat
+					}
+				}
+			}
+			# gpm_periodic_meteor_showers
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_periodic_meteor_showers
+							any_moon = {
+								has_modifier = gpm_periodic_meteor_showers
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_frequent_asteroid_flybys days = -1 }
+						set_planet_flag = gpm_is_frequent_asteroid_flybys_habitat
+					}
+				}
+			}
+			# gpm_highly_charged_air_particles
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_highly_charged_air_particles
+							any_moon = {
+								has_modifier = gpm_highly_charged_air_particles
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_highly_charged_particle_collection days = -1 }
+						set_planet_flag = gpm_is_highly_charged_particle_collection_habitat
+					}
+				}
+			}
+			# gpm_time_displaced_planet
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_time_displaced_planet
+							any_moon = {
+								has_modifier = gpm_time_displaced_planet
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_time_displaced_planet_research days = -1 }
+						set_planet_flag = gpm_is_time_displaced_planet_research_habitat
+					}
+				}
+			}
+			# gpm_iron_planet
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_iron_planet
+							any_moon = { has_modifier = gpm_iron_planet	}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_surface_mining days = -1 }
+						set_planet_flag = gpm_is_iron_mining_habitat
+					}
+				}
+			}
+			# gpm_has_precursor_modifiers = yes
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							gpm_has_precursor_modifiers = yes
+							any_moon = {
+								OR = {
+									gpm_has_precursor_modifiers = yes
+								}
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_surface_expeditions days = -1 }
+						set_planet_flag = gpm_is_surface_expeditions_habitat
+					}
+				}
+			}
+			# gpm_android_pleasure_palace
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_android_pleasure_palace
+							any_moon = {
+								has_modifier = gpm_android_pleasure_palace
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_android_pleasure_palace_tourism days = -1 }
+						set_planet_flag = gpm_is_android_pleasure_palace_tourism_habitat
+					}
+				}
+			}
+			# gpm_delicious_ingredients
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_delicious_ingredients
+							any_moon = {
+								OR = {
+									has_modifier = gpm_delicious_ingredients
+								}
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_delicious_ingredients_trade days = -1 }
+						set_planet_flag = gpm_is_delicious_ingredients_trade_habitat
+					}
+				}
+			}
+			# gpm_flat_terrain
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_flat_terrain
+							any_moon = {
+								has_modifier = gpm_flat_terrain
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_flat_terrain_racing days = -1 }
+						set_planet_flag = gpm_is_flat_terrain_racing_habitat
+					}
+				}
+			}
+			# gpm_strange_alien_eggs
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_strange_alien_eggs
+							any_moon = {
+								has_modifier = gpm_strange_alien_eggs
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_strange_alien_eggs_restriction days = -1 }
+						set_planet_flag = gpm_is_strange_alien_eggs_restriction_habitat
+					}
+				}
+			}
+			# gpm_hydrogen_mist / gpm_hydrogen_ice
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_hydrogen_mist
+							has_modifier = gpm_hydrogen_ice
+							any_moon = {
+								OR = {
+									has_modifier = gpm_hydrogen_mist
+									has_modifier = gpm_hydrogen_ice
+								}
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_hydrogen_extraction days = -1 }
+						set_planet_flag = gpm_is_hydrogen_extraction_habitat
+					}
+				}
+			}
+			# gpm_nitrogen_ice
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_nitrogen_ice
+							any_moon = {
+								has_modifier = gpm_nitrogen_ice
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_nitrogen_extraction days = -1 }
+						set_planet_flag = gpm_is_nitrogen_extraction_habitat
+					}
+				}
+			}
+			# gpm_chlorine_planet
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_chlorine_planet
+							any_moon = {
+								has_modifier = gpm_chlorine_planet
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_chlorine_extraction days = -1 }
+						set_planet_flag = gpm_is_chlorine_extraction_habitat
+					}
+				}
+			}
+			# gpm_phosphorus_planet
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_phosphorus_planet
+							any_moon = {
+								has_modifier = gpm_phosphorus_planet
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_phosphorus_extraction days = -1 }
+						set_planet_flag = gpm_is_phosphorus_extraction_habitat
+					}
+				}
+			}
+			# gpm_sulfur_planet
+			fromfrom.planet = {
+				if = {
+					limit = {
+						OR = {
+							has_modifier = gpm_sulfur_planet
+							any_moon = {
+								has_modifier = gpm_sulfur_planet
+							}
+						}
+					}
+					# spawn matching X habitat modifier
+					event_target:gpm_new_constructed_habitat = {
+						# add_modifier = { modifier = gpm_habitat_sulfur_extraction days = -1 }
+						set_planet_flag = gpm_is_sulfur_extraction_habitat
+					}
+				}
+			}
+#
+# 
+# ADDITIONAL EVENTS SONCIO
+#
+#
+            # gpm_frequent_thunderstorms
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_frequent_thunderstorms
+                            any_moon = {
+                                has_modifier = gpm_frequent_thunderstorms
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_frequent_thunderstorms_habitat
+                    }
+                }
+            }
+            # gpm_global_thunderstorms
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_global_thunderstorms
+                            any_moon = {
+                                has_modifier = gpm_global_thunderstorms
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_global_thunderstorms_habitat
+                    }
+                }
+            }
+            # gpm_global_thunderstorms_gas_giant
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_global_thunderstorms_gas_giant
+                            any_moon = {
+                                has_modifier = gpm_global_thunderstorms_gas_giant
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_global_thunderstorms_gas_giant_habitat
+                    }
+                }
+            }
+            # mineral_rich
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = mineral_rich
+                            any_moon = {
+                                has_modifier = mineral_rich
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_mineral_rich_habitat
+                    }
+                }
+            }
+            # gpm_extensive_cavern_system
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_extensive_cavern_system
+                            any_moon = {
+                                has_modifier = gpm_extensive_cavern_system
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_extensive_cavern_system_habitat
+                    }
+                }
+            }
+            # gpm_crystal_moon_palace
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_crystal_moon_palace
+                            any_moon = {
+                                has_modifier = gpm_crystal_moon_palace
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_crystal_moon_palace_habitat
+                    }
+                }
+            }
+            # gpm_temple_of_the_ancient_one
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_temple_of_the_ancient_one
+                            any_moon = {
+                                has_modifier = gpm_temple_of_the_ancient_one
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_temple_of_the_ancient_one_habitat
+                    }
+                }
+            }
+            # gpm_ancient_temple
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ancient_temple
+                            any_moon = {
+                                has_modifier = gpm_ancient_temple
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ancient_temple_habitat
+                    }
+                }
+            }
+            # gpm_ultra_rich_2
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ultra_rich_2
+                            any_moon = {
+                                has_modifier = gpm_ultra_rich_2
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ultra_rich_2_habitat
+                    }
+                }
+            }
+            # gpm_mineral_rich_2
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_mineral_rich_2
+                            any_moon = {
+                                has_modifier = gpm_mineral_rich_2
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_mineral_rich_2_habitat
+                    }
+                }
+            }
+            # ultra_rich
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = ultra_rich
+                            any_moon = {
+                                has_modifier = ultra_rich
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_ultra_rich_habitat
+                    }
+                }
+            }
+            # gpm_ruined_battlefield
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ruined_battlefield
+                            any_moon = {
+                                has_modifier = gpm_ruined_battlefield
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ruined_battlefield_habitat
+                    }
+                }
+            }
+            # gpm_spaceship_graveyard
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_spaceship_graveyard
+                            any_moon = {
+                                has_modifier = gpm_spaceship_graveyard
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_spaceship_graveyard_habitat
+                    }
+                }
+            }
+            # gpm_old_world
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_old_world
+                            any_moon = {
+                                has_modifier = gpm_old_world
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_old_world_habitat
+                    }
+                }
+            }
+            # gpm_hiveworld
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_hiveworld
+                            any_moon = {
+                                has_modifier = gpm_hiveworld
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_hiveworld_habitat
+                    }
+                }
+            }
+            # gpm_surface_of_bones
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_surface_of_bones
+                            any_moon = {
+                                has_modifier = gpm_surface_of_bones
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_surface_of_bones_habitat
+                    }
+                }
+            }
+            # gpm_floating_islands
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_floating_islands
+                            any_moon = {
+                                has_modifier = gpm_floating_islands
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_floating_islands_habitat
+                    }
+                }
+            }
+            # gpm_sunken_cities
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_sunken_cities
+                            any_moon = {
+                                has_modifier = gpm_sunken_cities
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_sunken_cities_habitat
+                    }
+                }
+            }
+            # gpm_exotic_spices
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_exotic_spices
+                            any_moon = {
+                                has_modifier = gpm_exotic_spices
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_exotic_spices_habitat
+                    }
+                }
+            }
+            # gpm_precursor_remnants
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_remnants
+                            any_moon = {
+                                has_modifier = gpm_precursor_remnants
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_remnants_habitat
+                    }
+                }
+            }
+            # gpm_precursor_energy_grid
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_energy_grid
+                            any_moon = {
+                                has_modifier = gpm_precursor_energy_grid
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_energy_grid_habitat
+                    }
+                }
+            }
+            # gpm_precursor_satalite_grid
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_satalite_grid
+                            any_moon = {
+                                has_modifier = gpm_precursor_satalite_grid
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_satalite_grid_habitat
+                    }
+                }
+            }
+            # gpm_precursor_city
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_city
+                            any_moon = {
+                                has_modifier = gpm_precursor_city
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_city_habitat
+                    }
+                }
+            }
+            # gpm_precursor_shipyards
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_shipyards
+                            any_moon = {
+                                has_modifier = gpm_precursor_shipyards
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_shipyards_habitat
+                    }
+                }
+            }
+            # gpm_precursor_planetary_gun
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_planetary_gun
+                            any_moon = {
+                                has_modifier = gpm_precursor_planetary_gun
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_planetary_gun_habitat
+                    }
+                }
+            }
+            # gpm_precursor_bunker_grid
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_bunker_grid
+                            any_moon = {
+                                has_modifier = gpm_precursor_bunker_grid
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_bunker_grid_habitat
+                    }
+                }
+            }
+            # gpm_precursor_mechs
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_mechs
+                            any_moon = {
+                                has_modifier = gpm_precursor_mechs
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_mechs_habitat
+                    }
+                }
+            }
+            # gpm_precursor_planetary_shield
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_planetary_shield
+                            any_moon = {
+                                has_modifier = gpm_precursor_planetary_shield
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_planetary_shield_habitat
+                    }
+                }
+            }
+            # gpm_precursor_floating_city
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_floating_city
+                            any_moon = {
+                                has_modifier = gpm_precursor_floating_city
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_floating_city_habitat
+                    }
+                }
+            }
+            # gpm_precursor_capital_complex
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_capital_complex
+                            any_moon = {
+                                has_modifier = gpm_precursor_capital_complex
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_capital_complex_habitat
+                    }
+                }
+            }
+            # gpm_precursor_communication_hub
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_communication_hub
+                            any_moon = {
+                                has_modifier = gpm_precursor_communication_hub
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_communication_hub_habitat
+                    }
+                }
+            }
+            # gpm_precursor_singularity_drive
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_singularity_drive
+                            any_moon = {
+                                has_modifier = gpm_precursor_singularity_drive
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_singularity_drive_habitat
+                    }
+                }
+            }
+            # gpm_precursor_eternal_fortress
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_eternal_fortress
+                            any_moon = {
+                                has_modifier = gpm_precursor_eternal_fortress
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_eternal_fortress_habitat
+                    }
+                }
+            }
+            # gpm_precursor_prison_planet
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_prison_planet
+                            any_moon = {
+                                has_modifier = gpm_precursor_prison_planet
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_prison_planet_habitat
+                    }
+                }
+            }
+            # gpm_precursor_mines
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_mines
+                            any_moon = {
+                                has_modifier = gpm_precursor_mines
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_mines_habitat
+                    }
+                }
+            }
+            # gpm_precursor_manufactorium
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_manufactorium
+                            any_moon = {
+                                has_modifier = gpm_precursor_manufactorium
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_manufactorium_habitat
+                    }
+                }
+            }
+            # gpm_precursor_vaults
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_vaults
+                            any_moon = {
+                                has_modifier = gpm_precursor_vaults
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_vaults_habitat
+                    }
+                }
+            }
+            # gpm_precursor_crashed_spacestation
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_crashed_spacestation
+                            any_moon = {
+                                has_modifier = gpm_precursor_crashed_spacestation
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_crashed_spacestation_habitat
+                    }
+                }
+            }
+            # gpm_precursor_battleground_ruins
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_battleground_ruins
+                            any_moon = {
+                                has_modifier = gpm_precursor_battleground_ruins
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_battleground_ruins_habitat
+                    }
+                }
+            }
+            # gpm_precursor_outpost_ruins
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_outpost_ruins
+                            any_moon = {
+                                has_modifier = gpm_precursor_outpost_ruins
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_outpost_ruins_habitat
+                    }
+                }
+            }
+            # gpm_precursor_harbor_ruins
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_harbor_ruins
+                            any_moon = {
+                                has_modifier = gpm_precursor_harbor_ruins
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_harbor_ruins_habitat
+                    }
+                }
+            }
+            # gpm_precursor_ruins
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_ruins
+                            any_moon = {
+                                has_modifier = gpm_precursor_ruins
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_ruins_habitat
+                    }
+                }
+            }
+            # gpm_precursor_obelisks
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_precursor_obelisks
+                            any_moon = {
+                                has_modifier = gpm_precursor_obelisks
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_precursor_obelisks_habitat
+                    }
+                }
+            }
+            # gpm_ghost_in_the_machine
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ghost_in_the_machine
+                            any_moon = {
+                                has_modifier = gpm_ghost_in_the_machine
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ghost_in_the_machine_habitat
+                    }
+                }
+            }
+            # gpm_framework
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_framework
+                            any_moon = {
+                                has_modifier = gpm_framework
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_framework_habitat
+                    }
+                }
+            }
+            # gpm_giant_transmitter
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_giant_transmitter
+                            any_moon = {
+                                has_modifier = gpm_giant_transmitter
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_giant_transmitter_habitat
+                    }
+                }
+            }
+            # gpm_pleasure_planet
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_pleasure_planet
+                            any_moon = {
+                                has_modifier = gpm_pleasure_planet
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_pleasure_planet_habitat
+                    }
+                }
+            }
+            # gpm_holographic_combat_simulators
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_holographic_combat_simulators
+                            any_moon = {
+                                has_modifier = gpm_holographic_combat_simulators
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_holographic_combat_simulators_habitat
+                    }
+                }
+            }
+            # gpm_living_knowledge_base
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_living_knowledge_base
+                            any_moon = {
+                                has_modifier = gpm_living_knowledge_base
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_living_knowledge_base_habitat
+                    }
+                }
+            }
+            # gpm_rogue_programming
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_rogue_programming
+                            any_moon = {
+                                has_modifier = gpm_rogue_programming
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_rogue_programming_habitat
+                    }
+                }
+            }
+            # gpm_magnetic_wave_defence
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_magnetic_wave_defence
+                            any_moon = {
+                                has_modifier = gpm_magnetic_wave_defence
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_magnetic_wave_defence_habitat
+                    }
+                }
+            }
+            # gpm_hollow_planet
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_hollow_planet
+                            any_moon = {
+                                has_modifier = gpm_hollow_planet
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_hollow_planet_habitat
+                    }
+                }
+            }
+            # gpm_true_randomness_unit
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_true_randomness_unit
+                            any_moon = {
+                                has_modifier = gpm_true_randomness_unit
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_true_randomness_unit_habitat
+                    }
+                }
+            }
+            # gpm_organic_infestation
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_organic_infestation
+                            any_moon = {
+                                has_modifier = gpm_organic_infestation
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_organic_infestation_habitat
+                    }
+                }
+            }
+            # gpm_labyrinth_world
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_labyrinth_world
+                            any_moon = {
+                                has_modifier = gpm_labyrinth_world
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_labyrinth_world_habitat
+                    }
+                }
+            }
+            # gpm_contingency_em_shielding
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_contingency_em_shielding
+                            any_moon = {
+                                has_modifier = gpm_contingency_em_shielding
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_contingency_em_shielding_habitat
+                    }
+                }
+            }
+            # gpm_nanite_infrastructure
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_nanite_infrastructure
+                            any_moon = {
+                                has_modifier = gpm_nanite_infrastructure
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_nanite_infrastructure_habitat
+                    }
+                }
+            }
+            # gpm_planetary_databases
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_planetary_databases
+                            any_moon = {
+                                has_modifier = gpm_planetary_databases
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_planetary_databases_habitat
+                    }
+                }
+            }
+            # gpm_artificial_atmosphere
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_artificial_atmosphere
+                            any_moon = {
+                                has_modifier = gpm_artificial_atmosphere
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_artificial_atmosphere_habitat
+                    }
+                }
+            }
+            # gpm_space_elevators_machine
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_space_elevators_machine
+                            any_moon = {
+                                has_modifier = gpm_space_elevators_machine
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_space_elevators_machine_habitat
+                    }
+                }
+            }
+            # gpm_quantum_information_network
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_quantum_information_network
+                            any_moon = {
+                                has_modifier = gpm_quantum_information_network
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_quantum_information_network_habitat
+                    }
+                }
+            }
+            # gpm_planetwide_printing
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_planetwide_printing
+                            any_moon = {
+                                has_modifier = gpm_planetwide_printing
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_planetwide_printing_habitat
+                    }
+                }
+            }
+            # gpm_liquid_cooling
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_liquid_cooling
+                            any_moon = {
+                                has_modifier = gpm_liquid_cooling
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_liquid_cooling_habitat
+                    }
+                }
+            }
+            # gpm_robotic_pests
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_robotic_pests
+                            any_moon = {
+                                has_modifier = gpm_robotic_pests
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_robotic_pests_habitat
+                    }
+                }
+            }
+            # gpm_crystal_farms
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_crystal_farms
+                            any_moon = {
+                                has_modifier = gpm_crystal_farms
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_crystal_farms_habitat
+                    }
+                }
+            }
+            # gpm_smooth_architecture
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_smooth_architecture
+                            any_moon = {
+                                has_modifier = gpm_smooth_architecture
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_smooth_architecture_habitat
+                    }
+                }
+            }
+            # gpm_sharp_architecture
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_sharp_architecture
+                            any_moon = {
+                                has_modifier = gpm_sharp_architecture
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_sharp_architecture_habitat
+                    }
+                }
+            }
+            # gpm_metallic_ring
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_metallic_ring
+                            any_moon = {
+                                has_modifier = gpm_metallic_ring
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_metallic_ring_habitat
+                    }
+                }
+            }
+            # gpm_ice_ring
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ice_ring
+                            any_moon = {
+                                has_modifier = gpm_ice_ring
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ice_ring_habitat
+                    }
+                }
+            }
+            # gpm_oppertunity
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_oppertunity
+                            any_moon = {
+                                has_modifier = gpm_oppertunity
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_oppertunity_habitat
+                    }
+                }
+            }
+            # gpm_carbon_planet
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_carbon_planet
+                            any_moon = {
+                                has_modifier = gpm_carbon_planet
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_carbon_planet_habitat
+                    }
+                }
+            }
+            # gpm_stellar_irradiation
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_stellar_irradiation
+                            any_moon = {
+                                has_modifier = gpm_stellar_irradiation
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_stellar_irradiation_habitat
+                    }
+                }
+            }
+            # gpm_salt_flats
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_salt_flats
+                            any_moon = {
+                                has_modifier = gpm_salt_flats
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_salt_flats_habitat
+                    }
+                }
+            }
+            # gpm_dust_storms
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_dust_storms
+                            any_moon = {
+                                has_modifier = gpm_dust_storms
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_dust_storms_habitat
+                    }
+                }
+            }
+            # gpm_diamond_planet
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_diamond_planet
+                            any_moon = {
+                                has_modifier = gpm_diamond_planet
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_diamond_planet_habitat
+                    }
+                }
+            }
+            # gpm_red_planet
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_red_planet
+                            any_moon = {
+                                has_modifier = gpm_red_planet
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_red_planet_habitat
+                    }
+                }
+            }
+            # gpm_relic_factories
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_relic_factories
+                            any_moon = {
+                                has_modifier = gpm_relic_factories
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_relic_factories_habitat
+                    }
+                }
+            }
+            # gpm_relic_generators
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_relic_generators
+                            any_moon = {
+                                has_modifier = gpm_relic_generators
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_relic_generators_habitat
+                    }
+                }
+            }
+            # gpm_relic_laboratories
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_relic_laboratories
+                            any_moon = {
+                                has_modifier = gpm_relic_laboratories
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_relic_laboratories_habitat
+                    }
+                }
+            }
+            # gpm_relic_lower_levels
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_relic_lower_levels
+                            any_moon = {
+                                has_modifier = gpm_relic_lower_levels
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_relic_lower_levels_habitat
+                    }
+                }
+            }
+            # gpm_water_pockets
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_water_pockets
+                            any_moon = {
+                                has_modifier = gpm_water_pockets
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_water_pockets_habitat
+                    }
+                }
+            }
+            # gpm_hydrogen_ice
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_hydrogen_ice
+                            any_moon = {
+                                has_modifier = gpm_hydrogen_ice
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_hydrogen_ice_habitat
+                    }
+                }
+            }
+            # gpm_cracking_surface
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_cracking_surface
+                            any_moon = {
+                                has_modifier = gpm_cracking_surface
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_cracking_surface_habitat
+                    }
+                }
+            }
+            # gpm_deep_aquifer
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_deep_aquifer
+                            any_moon = {
+                                has_modifier = gpm_deep_aquifer
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_deep_aquifer_habitat
+                    }
+                }
+            }
+            # gpm_subsurface_ocean
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_subsurface_ocean
+                            any_moon = {
+                                has_modifier = gpm_subsurface_ocean
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_subsurface_ocean_habitat
+                    }
+                }
+            }
+            # gpm_hot_ice
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_hot_ice
+                            any_moon = {
+                                has_modifier = gpm_hot_ice
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_hot_ice_habitat
+                    }
+                }
+            }
+            # gpm_absolute_zero
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_absolute_zero
+                            any_moon = {
+                                has_modifier = gpm_absolute_zero
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_absolute_zero_habitat
+                    }
+                }
+            }
+            # gpm_supersonic_winds
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_supersonic_winds
+                            any_moon = {
+                                has_modifier = gpm_supersonic_winds
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_supersonic_winds_habitat
+                    }
+                }
+            }
+            # gpm_geometrical_polar_storm
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_geometrical_polar_storm
+                            any_moon = {
+                                has_modifier = gpm_geometrical_polar_storm
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_geometrical_polar_storm_habitat
+                    }
+                }
+            }
+            # gpm_floating_forest
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_floating_forest
+                            any_moon = {
+                                has_modifier = gpm_floating_forest
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_floating_forest_habitat
+                    }
+                }
+            }
+            # gpm_viscous_gas_layer
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_viscous_gas_layer
+                            any_moon = {
+                                has_modifier = gpm_viscous_gas_layer
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_viscous_gas_layer_habitat
+                    }
+                }
+            }
+            # gpm_everlasting_tornadoes
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_everlasting_tornadoes
+                            any_moon = {
+                                has_modifier = gpm_everlasting_tornadoes
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_everlasting_tornadoes_habitat
+                    }
+                }
+            }
+            # gpm_shrinking_giant
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_shrinking_giant
+                            any_moon = {
+                                has_modifier = gpm_shrinking_giant
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_shrinking_giant_habitat
+                    }
+                }
+            }
+            # gpm_charged_atmosphere
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_charged_atmosphere
+                            any_moon = {
+                                has_modifier = gpm_charged_atmosphere
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_charged_atmosphere_habitat
+                    }
+                }
+            }
+            # gpm_aeroplankton_clouds
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_aeroplankton_clouds
+                            any_moon = {
+                                has_modifier = gpm_aeroplankton_clouds
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_aeroplankton_clouds_habitat
+                    }
+                }
+            }
+            # gpm_radiation_storms
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_radiation_storms
+                            any_moon = {
+                                has_modifier = gpm_radiation_storms
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_radiation_storms_habitat
+                    }
+                }
+            }
+            # gpm_beautiful_storms
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_beautiful_storms
+                            any_moon = {
+                                has_modifier = gpm_beautiful_storms
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_beautiful_storms_habitat
+                    }
+                }
+            }
+            # gpm_abandoned_refineries
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_abandoned_refineries
+                            any_moon = {
+                                has_modifier = gpm_abandoned_refineries
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_abandoned_refineries_habitat
+                    }
+                }
+            }
+            # gpm_floating_kelp
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_floating_kelp
+                            any_moon = {
+                                has_modifier = gpm_floating_kelp
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_floating_kelp_habitat
+                    }
+                }
+            }
+            # gpm_thin_atmospheres_gas_giant
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_thin_atmospheres_gas_giant
+                            any_moon = {
+                                has_modifier = gpm_thin_atmospheres_gas_giant
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_thin_atmospheres_gas_giant_habitat
+                    }
+                }
+            }
+            # gpm_weak_magnetic_field_gas_giant
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_weak_magnetic_field_gas_giant
+                            any_moon = {
+                                has_modifier = gpm_weak_magnetic_field_gas_giant
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_weak_magnetic_field_gas_giant_habitat
+                    }
+                }
+            }
+            # gpm_strong_magnetic_field_gas_giant
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_strong_magnetic_field_gas_giant
+                            any_moon = {
+                                has_modifier = gpm_strong_magnetic_field_gas_giant
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_strong_magnetic_field_gas_giant_habitat
+                    }
+                }
+            }
+            # gpm_super_heated_atmosphere
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_super_heated_atmosphere
+                            any_moon = {
+                                has_modifier = gpm_super_heated_atmosphere
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_super_heated_atmosphere_habitat
+                    }
+                }
+            }
+            # gpm_floatig_behemothaurs
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_floatig_behemothaurs
+                            any_moon = {
+                                has_modifier = gpm_floatig_behemothaurs
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_floatig_behemothaurs_habitat
+                    }
+                }
+            }
+            # gpm_eater_of_light
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_eater_of_light
+                            any_moon = {
+                                has_modifier = gpm_eater_of_light
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_eater_of_light_habitat
+                    }
+                }
+            }
+            # gpm_magma_ocean
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_magma_ocean
+                            any_moon = {
+                                has_modifier = gpm_magma_ocean
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_magma_ocean_habitat
+                    }
+                }
+            }
+            # gpm_silicon_crystals
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_silicon_crystals
+                            any_moon = {
+                                has_modifier = gpm_silicon_crystals
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_silicon_crystals_habitat
+                    }
+                }
+            }
+            # gpm_lava_geysers
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_lava_geysers
+                            any_moon = {
+                                has_modifier = gpm_lava_geysers
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_lava_geysers_habitat
+                    }
+                }
+            }
+            # gpm_thin_planetary_crust
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_thin_planetary_crust
+                            any_moon = {
+                                has_modifier = gpm_thin_planetary_crust
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_thin_planetary_crust_habitat
+                    }
+                }
+            }
+            # gpm_heavy_elements
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_heavy_elements
+                            any_moon = {
+                                has_modifier = gpm_heavy_elements
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_heavy_elements_habitat
+                    }
+                }
+            }
+            # gpm_rare_metals
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_rare_metals
+                            any_moon = {
+                                has_modifier = gpm_rare_metals
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_rare_metals_habitat
+                    }
+                }
+            }
+            # gpm_crystaline_deposits
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_crystaline_deposits
+                            any_moon = {
+                                has_modifier = gpm_crystaline_deposits
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_crystaline_deposits_habitat
+                    }
+                }
+            }
+            # gpm_searing_fumes
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_searing_fumes
+                            any_moon = {
+                                has_modifier = gpm_searing_fumes
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_searing_fumes_habitat
+                    }
+                }
+            }
+            # gpm_stable_geodes
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_stable_geodes
+                            any_moon = {
+                                has_modifier = gpm_stable_geodes
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_stable_geodes_habitat
+                    }
+                }
+            }
+            # gpm_proto_planet
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_proto_planet
+                            any_moon = {
+                                has_modifier = gpm_proto_planet
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_proto_planet_habitat
+                    }
+                }
+            }
+            # gpm_mercury_atmosphere
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_mercury_atmosphere
+                            any_moon = {
+                                has_modifier = gpm_mercury_atmosphere
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_mercury_atmosphere_habitat
+                    }
+                }
+            }
+            # gpm_shearing_winds
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_shearing_winds
+                            any_moon = {
+                                has_modifier = gpm_shearing_winds
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_shearing_winds_habitat
+                    }
+                }
+            }
+            # gpm_recent_mass_extinction
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_recent_mass_extinction
+                            any_moon = {
+                                has_modifier = gpm_recent_mass_extinction
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_recent_mass_extinction_habitat
+                    }
+                }
+            }
+            # gpm_lingering_pollution
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_lingering_pollution
+                            any_moon = {
+                                has_modifier = gpm_lingering_pollution
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_lingering_pollution_habitat
+                    }
+                }
+            }
+            # gpm_decaying_structures
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_decaying_structures
+                            any_moon = {
+                                has_modifier = gpm_decaying_structures
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_decaying_structures_habitat
+                    }
+                }
+            }
+            # gpm_heavy_metal_coral
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_heavy_metal_coral
+                            any_moon = {
+                                has_modifier = gpm_heavy_metal_coral
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_heavy_metal_coral_habitat
+                    }
+                }
+            }
+            # gpm_diamond_rain
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_diamond_rain
+                            any_moon = {
+                                has_modifier = gpm_diamond_rain
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_diamond_rain_habitat
+                    }
+                }
+            }
+            # gpm_radioactive_biome
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_radioactive_biome
+                            any_moon = {
+                                has_modifier = gpm_radioactive_biome
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_radioactive_biome_habitat
+                    }
+                }
+            }
+            # gpm_decomposing_leviathan
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_decomposing_leviathan
+                            any_moon = {
+                                has_modifier = gpm_decomposing_leviathan
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_decomposing_leviathan_habitat
+                    }
+                }
+            }
+            # gpm_mushroom_forest_toxic_world
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_mushroom_forest_toxic_world
+                            any_moon = {
+                                has_modifier = gpm_mushroom_forest_toxic_world
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_mushroom_forest_toxic_world_habitat
+                    }
+                }
+            }
+            # gpm_giant_mold_blobs
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_giant_mold_blobs
+                            any_moon = {
+                                has_modifier = gpm_giant_mold_blobs
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_giant_mold_blobs_habitat
+                    }
+                }
+            }
+            # gpm_toxic_garbage
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_toxic_garbage
+                            any_moon = {
+                                has_modifier = gpm_toxic_garbage
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_toxic_garbage_habitat
+                    }
+                }
+            }
+            # gpm_corrosive_atmosphere
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_corrosive_atmosphere
+                            any_moon = {
+                                has_modifier = gpm_corrosive_atmosphere
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_corrosive_atmosphere_habitat
+                    }
+                }
+            }
+            # gpm_acid_rain
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_acid_rain
+                            any_moon = {
+                                has_modifier = gpm_acid_rain
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_acid_rain_habitat
+                    }
+                }
+            }
+            # gpm_garbage_dump
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_garbage_dump
+                            any_moon = {
+                                has_modifier = gpm_garbage_dump
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_garbage_dump_habitat
+                    }
+                }
+            }
+            # gpm_toxic_flora_fauna
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_toxic_flora_fauna
+                            any_moon = {
+                                has_modifier = gpm_toxic_flora_fauna
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_toxic_flora_fauna_habitat
+                    }
+                }
+            }
+            # gpm_massive_world
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_massive_world
+                            any_moon = {
+                                has_modifier = gpm_massive_world
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_massive_world_habitat
+                    }
+                }
+            }
+            # gpm_fast_rotation
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_fast_rotation
+                            any_moon = {
+                                has_modifier = gpm_fast_rotation
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_fast_rotation_habitat
+                    }
+                }
+            }
+            # gpm_hot_geysers
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_hot_geysers
+                            any_moon = {
+                                has_modifier = gpm_hot_geysers
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_hot_geysers_habitat
+                    }
+                }
+            }
+            # gpm_cryogeysers
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_cryogeysers
+                            any_moon = {
+                                has_modifier = gpm_cryogeysers
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_cryogeysers_habitat
+                    }
+                }
+            }
+            # gpm_very_hot_core
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_very_hot_core
+                            any_moon = {
+                                has_modifier = gpm_very_hot_core
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_very_hot_core_habitat
+                    }
+                }
+            }
+            # gpm_solidified_core
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_solidified_core
+                            any_moon = {
+                                has_modifier = gpm_solidified_core
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_solidified_core_habitat
+                    }
+                }
+            }
+            # gpm_lunar_dance
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_lunar_dance
+                            any_moon = {
+                                has_modifier = gpm_lunar_dance
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_lunar_dance_habitat
+                    }
+                }
+            }
+            # gpm_subterranean_eco_system
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_subterranean_eco_system
+                            any_moon = {
+                                has_modifier = gpm_subterranean_eco_system
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_subterranean_eco_system_habitat
+                    }
+                }
+            }
+            # gpm_abundant_natural_radioactivity
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_abundant_natural_radioactivity
+                            any_moon = {
+                                has_modifier = gpm_abundant_natural_radioactivity
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_abundant_natural_radioactivity_habitat
+                    }
+                }
+            }
+            # gpm_single_biome
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_single_biome
+                            any_moon = {
+                                has_modifier = gpm_single_biome
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_single_biome_habitat
+                    }
+                }
+            }
+            # gpm_hyper_complex_biome
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_hyper_complex_biome
+                            any_moon = {
+                                has_modifier = gpm_hyper_complex_biome
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_hyper_complex_biome_habitat
+                    }
+                }
+            }
+            # gpm_thin_atmospheres
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_thin_atmospheres
+                            any_moon = {
+                                has_modifier = gpm_thin_atmospheres
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_thin_atmospheres_habitat
+                    }
+                }
+            }
+            # gpm_dense_atmospheres
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_dense_atmospheres
+                            any_moon = {
+                                has_modifier = gpm_dense_atmospheres
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_dense_atmospheres_habitat
+                    }
+                }
+            }
+            # gpm_strong_volcanism
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_strong_volcanism
+                            any_moon = {
+                                has_modifier = gpm_strong_volcanism
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_strong_volcanism_habitat
+                    }
+                }
+            }
+            # gpm_weak_magnetic_field_2
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_weak_magnetic_field_2
+                            any_moon = {
+                                has_modifier = gpm_weak_magnetic_field_2
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_weak_magnetic_field_2_habitat
+                    }
+                }
+            }
+            # gpm_strong_magnetic_field_2
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_strong_magnetic_field_2
+                            any_moon = {
+                                has_modifier = gpm_strong_magnetic_field_2
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_strong_magnetic_field_2_habitat
+                    }
+                }
+            }
+            # gpm_unstable_tectonics_2
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_unstable_tectonics_2
+                            any_moon = {
+                                has_modifier = gpm_unstable_tectonics_2
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_unstable_tectonics_2_habitat
+                    }
+                }
+            }
+            # gpm_asteroid_impacts_2
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_asteroid_impacts_2
+                            any_moon = {
+                                has_modifier = gpm_asteroid_impacts_2
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_asteroid_impacts_2_habitat
+                    }
+                }
+            }
+            # gpm_low_gravity_2
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_low_gravity_2
+                            any_moon = {
+                                has_modifier = gpm_low_gravity_2
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_low_gravity_2_habitat
+                    }
+                }
+            }
+            # gpm_high_gravity_2
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_high_gravity_2
+                            any_moon = {
+                                has_modifier = gpm_high_gravity_2
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_high_gravity_2_habitat
+                    }
+                }
+            }
+            # gpm_hostile_flora
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_hostile_flora
+                            any_moon = {
+                                has_modifier = gpm_hostile_flora
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_hostile_flora_habitat
+                    }
+                }
+            }
+            # gpm_toxic_gas
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_toxic_gas
+                            any_moon = {
+                                has_modifier = gpm_toxic_gas
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_toxic_gas_habitat
+                    }
+                }
+            }
+            # gpm_titanic_predators
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_titanic_predators
+                            any_moon = {
+                                has_modifier = gpm_titanic_predators
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_titanic_predators_habitat
+                    }
+                }
+            }
+            # gpm_unnatural_world
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_unnatural_world
+                            any_moon = {
+                                has_modifier = gpm_unnatural_world
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_unnatural_world_habitat
+                    }
+                }
+            }
+            # gpm_atmospheric_stimulant
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_atmospheric_stimulant
+                            any_moon = {
+                                has_modifier = gpm_atmospheric_stimulant
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_atmospheric_stimulant_habitat
+                    }
+                }
+            }
+            # gpm_unusual_seasons
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_unusual_seasons
+                            any_moon = {
+                                has_modifier = gpm_unusual_seasons
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_unusual_seasons_habitat
+                    }
+                }
+            }
+            # gpm_perfect_seasons
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_perfect_seasons
+                            any_moon = {
+                                has_modifier = gpm_perfect_seasons
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_perfect_seasons_habitat
+                    }
+                }
+            }
+            # gpm_living_planet
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_living_planet
+                            any_moon = {
+                                has_modifier = gpm_living_planet
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_living_planet_habitat
+                    }
+                }
+            }
+            # gpm_gemstones
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_gemstones
+                            any_moon = {
+                                has_modifier = gpm_gemstones
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_gemstones_habitat
+                    }
+                }
+            }
+            # gpm_ideal_for_life
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ideal_for_life
+                            any_moon = {
+                                has_modifier = gpm_ideal_for_life
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ideal_for_life_habitat
+                    }
+                }
+            }
+            # gpm_endless_fish
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_endless_fish
+                            any_moon = {
+                                has_modifier = gpm_endless_fish
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_endless_fish_habitat
+                    }
+                }
+            }
+            # gpm_artificial_water
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_artificial_water
+                            any_moon = {
+                                has_modifier = gpm_artificial_water
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_artificial_water_habitat
+                    }
+                }
+            }
+            # gpm_clear_skies
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_clear_skies
+                            any_moon = {
+                                has_modifier = gpm_clear_skies
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_clear_skies_habitat
+                    }
+                }
+            }
+            # gpm_melted_ice_caps
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_melted_ice_caps
+                            any_moon = {
+                                has_modifier = gpm_melted_ice_caps
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_melted_ice_caps_habitat
+                    }
+                }
+            }
+            # gpm_small_islands
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_small_islands
+                            any_moon = {
+                                has_modifier = gpm_small_islands
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_small_islands_habitat
+                    }
+                }
+            }
+            # gpm_windy
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_windy
+                            any_moon = {
+                                has_modifier = gpm_windy
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_windy_habitat
+                    }
+                }
+            }
+            # gpm_simple_organisms
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_simple_organisms
+                            any_moon = {
+                                has_modifier = gpm_simple_organisms
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_simple_organisms_habitat
+                    }
+                }
+            }
+            # gpm_newly_evolved_complex_organisms
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_newly_evolved_complex_organisms
+                            any_moon = {
+                                has_modifier = gpm_newly_evolved_complex_organisms
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_newly_evolved_complex_organisms_habitat
+                    }
+                }
+            }
+            # gpm_friendly_wildlife
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_friendly_wildlife
+                            any_moon = {
+                                has_modifier = gpm_friendly_wildlife
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_friendly_wildlife_habitat
+                    }
+                }
+            }
+            # gpm_pleasant_weather
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_pleasant_weather
+                            any_moon = {
+                                has_modifier = gpm_pleasant_weather
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_pleasant_weather_habitat
+                    }
+                }
+            }
+            # gpm_unusual_formations
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_unusual_formations
+                            any_moon = {
+                                has_modifier = gpm_unusual_formations
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_unusual_formations_habitat
+                    }
+                }
+            }
+            # gpm_rugged_terrain
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_rugged_terrain
+                            any_moon = {
+                                has_modifier = gpm_rugged_terrain
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_rugged_terrain_habitat
+                    }
+                }
+            }
+            # gpm_many_extremophiles
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_many_extremophiles
+                            any_moon = {
+                                has_modifier = gpm_many_extremophiles
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_many_extremophiles_habitat
+                    }
+                }
+            }
+            # gpm_great_temperature_variation
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_great_temperature_variation
+                            any_moon = {
+                                has_modifier = gpm_great_temperature_variation
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_great_temperature_variation_habitat
+                    }
+                }
+            }
+            # gpm_gorgeous_sky
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_gorgeous_sky
+                            any_moon = {
+                                has_modifier = gpm_gorgeous_sky
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_gorgeous_sky_habitat
+                    }
+                }
+            }
+            # gpm_ice_age
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ice_age
+                            any_moon = {
+                                has_modifier = gpm_ice_age
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ice_age_habitat
+                    }
+                }
+            }
+            # gpm_tilted_axis
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_tilted_axis
+                            any_moon = {
+                                has_modifier = gpm_tilted_axis
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_tilted_axis_habitat
+                    }
+                }
+            }
+            # gpm_perpendicular_axis
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_perpendicular_axis
+                            any_moon = {
+                                has_modifier = gpm_perpendicular_axis
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_perpendicular_axis_habitat
+                    }
+                }
+            }
+            # gpm_locust_plagues
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_locust_plagues
+                            any_moon = {
+                                has_modifier = gpm_locust_plagues
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_locust_plagues_habitat
+                    }
+                }
+            }
+            # gpm_acidic_seas
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_acidic_seas
+                            any_moon = {
+                                has_modifier = gpm_acidic_seas
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_acidic_seas_habitat
+                    }
+                }
+            }
+            # gpm_empathic_life
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_empathic_life
+                            any_moon = {
+                                has_modifier = gpm_empathic_life
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_empathic_life_habitat
+                    }
+                }
+            }
+            # gpm_seasonal_flooding
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_seasonal_flooding
+                            any_moon = {
+                                has_modifier = gpm_seasonal_flooding
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_seasonal_flooding_habitat
+                    }
+                }
+            }
+            # gpm_thin_ozone_layer
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_thin_ozone_layer
+                            any_moon = {
+                                has_modifier = gpm_thin_ozone_layer
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_thin_ozone_layer_habitat
+                    }
+                }
+            }
+            # gpm_symbiotic_life
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_symbiotic_life
+                            any_moon = {
+                                has_modifier = gpm_symbiotic_life
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_symbiotic_life_habitat
+                    }
+                }
+            }
+            # gpm_resilent_parasites
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_resilent_parasites
+                            any_moon = {
+                                has_modifier = gpm_resilent_parasites
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_resilent_parasites_habitat
+                    }
+                }
+            }
+            # gpm_ice_flora
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ice_flora
+                            any_moon = {
+                                has_modifier = gpm_ice_flora
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ice_flora_habitat
+                    }
+                }
+            }
+            # gpm_strange_ice_river
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_strange_ice_river
+                            any_moon = {
+                                has_modifier = gpm_strange_ice_river
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_strange_ice_river_habitat
+                    }
+                }
+            }
+            # gpm_juggernaut_manta_rays
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_juggernaut_manta_rays
+                            any_moon = {
+                                has_modifier = gpm_juggernaut_manta_rays
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_juggernaut_manta_rays_habitat
+                    }
+                }
+            }
+            # gpm_black_oily_stone
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_black_oily_stone
+                            any_moon = {
+                                has_modifier = gpm_black_oily_stone
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_black_oily_stone_habitat
+                    }
+                }
+            }
+            # gpm_cities_in_the_sky
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_cities_in_the_sky
+                            any_moon = {
+                                has_modifier = gpm_cities_in_the_sky
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_cities_in_the_sky_habitat
+                    }
+                }
+            }
+            # gpm_dunes
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_dunes
+                            any_moon = {
+                                has_modifier = gpm_dunes
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_dunes_habitat
+                    }
+                }
+            }
+            # gpm_extensive_reef_systems
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_extensive_reef_systems
+                            any_moon = {
+                                has_modifier = gpm_extensive_reef_systems
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_extensive_reef_systems_habitat
+                    }
+                }
+            }
+            # gpm_trubbles
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_trubbles
+                            any_moon = {
+                                has_modifier = gpm_trubbles
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_trubbles_habitat
+                    }
+                }
+            }
+            # gpm_strange_voices
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_strange_voices
+                            any_moon = {
+                                has_modifier = gpm_strange_voices
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_strange_voices_habitat
+                    }
+                }
+            }
+            # gpm_beautiful_lakes
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_beautiful_lakes
+                            any_moon = {
+                                has_modifier = gpm_beautiful_lakes
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_beautiful_lakes_habitat
+                    }
+                }
+            }
+            # gpm_proto_forests
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_proto_forests
+                            any_moon = {
+                                has_modifier = gpm_proto_forests
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_proto_forests_habitat
+                    }
+                }
+            }
+            # gpm_dense_forests
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_dense_forests
+                            any_moon = {
+                                has_modifier = gpm_dense_forests
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_dense_forests_habitat
+                    }
+                }
+            }
+            # gpm_planetwide_forest
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_planetwide_forest
+                            any_moon = {
+                                has_modifier = gpm_planetwide_forest
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_planetwide_forest_habitat
+                    }
+                }
+            }
+            # gpm_inspirational
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_inspirational
+                            any_moon = {
+                                has_modifier = gpm_inspirational
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_inspirational_habitat
+                    }
+                }
+            }
+            # gpm_arachnophobia
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_arachnophobia
+                            any_moon = {
+                                has_modifier = gpm_arachnophobia
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_arachnophobia_habitat
+                    }
+                }
+            }
+            # gpm_giant_worm
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_giant_worm
+                            any_moon = {
+                                has_modifier = gpm_giant_worm
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_giant_worm_habitat
+                    }
+                }
+            }
+            # gpm_artificial_core
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_artificial_core
+                            any_moon = {
+                                has_modifier = gpm_artificial_core
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_artificial_core_habitat
+                    }
+                }
+            }
+            # gpm_sandstorms
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_sandstorms
+                            any_moon = {
+                                has_modifier = gpm_sandstorms
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_sandstorms_habitat
+                    }
+                }
+            }
+            # gpm_sand_tornadoes
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_sand_tornadoes
+                            any_moon = {
+                                has_modifier = gpm_sand_tornadoes
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_sand_tornadoes_habitat
+                    }
+                }
+            }
+            # gpm_quicksand
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_quicksand
+                            any_moon = {
+                                has_modifier = gpm_quicksand
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_quicksand_habitat
+                    }
+                }
+            }
+            # gpm_never_ending_aurora
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_never_ending_aurora
+                            any_moon = {
+                                has_modifier = gpm_never_ending_aurora
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_never_ending_aurora_habitat
+                    }
+                }
+            }
+            # gpm_spirals_of_ice
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_spirals_of_ice
+                            any_moon = {
+                                has_modifier = gpm_spirals_of_ice
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_spirals_of_ice_habitat
+                    }
+                }
+            }
+            # gpm_furry_packs
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_furry_packs
+                            any_moon = {
+                                has_modifier = gpm_furry_packs
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_furry_packs_habitat
+                    }
+                }
+            }
+            # gpm_blizzards
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_blizzards
+                            any_moon = {
+                                has_modifier = gpm_blizzards
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_blizzards_habitat
+                    }
+                }
+            }
+            # gpm_abominable_predators
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_abominable_predators
+                            any_moon = {
+                                has_modifier = gpm_abominable_predators
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_abominable_predators_habitat
+                    }
+                }
+            }
+            # gpm_rich_soil
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_rich_soil
+                            any_moon = {
+                                has_modifier = gpm_rich_soil
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_rich_soil_habitat
+                    }
+                }
+            }
+            # gpm_otherworldly_colours
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_otherworldly_colours
+                            any_moon = {
+                                has_modifier = gpm_otherworldly_colours
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_otherworldly_colours_habitat
+                    }
+                }
+            }
+            # gpm_misty
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_misty
+                            any_moon = {
+                                has_modifier = gpm_misty
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_misty_habitat
+                    }
+                }
+            }
+            # gpm_ecological_nervous_system
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ecological_nervous_system
+                            any_moon = {
+                                has_modifier = gpm_ecological_nervous_system
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ecological_nervous_system_habitat
+                    }
+                }
+            }
+            # gpm_carnivorous_flies
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_carnivorous_flies
+                            any_moon = {
+                                has_modifier = gpm_carnivorous_flies
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_carnivorous_flies_habitat
+                    }
+                }
+            }
+            # gpm_algae_boom
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_algae_boom
+                            any_moon = {
+                                has_modifier = gpm_algae_boom
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_algae_boom_habitat
+                    }
+                }
+            }
+            # gpm_ocean_forests
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ocean_forests
+                            any_moon = {
+                                has_modifier = gpm_ocean_forests
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ocean_forests_habitat
+                    }
+                }
+            }
+            # gpm_warm_water_lakes
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_warm_water_lakes
+                            any_moon = {
+                                has_modifier = gpm_warm_water_lakes
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_warm_water_lakes_habitat
+                    }
+                }
+            }
+            # gpm_torrential_rainstorms
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_torrential_rainstorms
+                            any_moon = {
+                                has_modifier = gpm_torrential_rainstorms
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_torrential_rainstorms_habitat
+                    }
+                }
+            }
+            # gpm_ocean_currents
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ocean_currents
+                            any_moon = {
+                                has_modifier = gpm_ocean_currents
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ocean_currents_habitat
+                    }
+                }
+            }
+            # gpm_giant_ocean_snakes
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_giant_ocean_snakes
+                            any_moon = {
+                                has_modifier = gpm_giant_ocean_snakes
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_giant_ocean_snakes_habitat
+                    }
+                }
+            }
+            # gpm_ocean_trenches
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ocean_trenches
+                            any_moon = {
+                                has_modifier = gpm_ocean_trenches
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ocean_trenches_habitat
+                    }
+                }
+            }
+            # gpm_unique_marine_habitats
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_unique_marine_habitats
+                            any_moon = {
+                                has_modifier = gpm_unique_marine_habitats
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_unique_marine_habitats_habitat
+                    }
+                }
+            }
+            # gpm_massive_waves
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_massive_waves
+                            any_moon = {
+                                has_modifier = gpm_massive_waves
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_massive_waves_habitat
+                    }
+                }
+            }
+            # gpm_ghost_ships
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_ghost_ships
+                            any_moon = {
+                                has_modifier = gpm_ghost_ships
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_ghost_ships_habitat
+                    }
+                }
+            }
+            # gpm_omnious_fog
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_omnious_fog
+                            any_moon = {
+                                has_modifier = gpm_omnious_fog
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_omnious_fog_habitat
+                    }
+                }
+            }
+            # gpm_beautiful_planet_rings
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_beautiful_planet_rings
+                            any_moon = {
+                                has_modifier = gpm_beautiful_planet_rings
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_beautiful_planet_rings_habitat
+                    }
+                }
+            }
+            # gpm_blood_moon
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_blood_moon
+                            any_moon = {
+                                has_modifier = gpm_blood_moon
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_blood_moon_habitat
+                    }
+                }
+            }
+            # gpm_solar_eclipse
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_solar_eclipse
+                            any_moon = {
+                                has_modifier = gpm_solar_eclipse
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_solar_eclipse_habitat
+                    }
+                }
+            }
+            # gpm_dark_skies
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_dark_skies
+                            any_moon = {
+                                has_modifier = gpm_dark_skies
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_dark_skies_habitat
+                    }
+                }
+            }
+            # gpm_musical_creatures
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_musical_creatures
+                            any_moon = {
+                                has_modifier = gpm_musical_creatures
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_musical_creatures_habitat
+                    }
+                }
+            }
+            # gpm_odd_cloud_shapes
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_odd_cloud_shapes
+                            any_moon = {
+                                has_modifier = gpm_odd_cloud_shapes
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_odd_cloud_shapes_habitat
+                    }
+                }
+            }
+            # gpm_colossal_cliffs
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_colossal_cliffs
+                            any_moon = {
+                                has_modifier = gpm_colossal_cliffs
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_colossal_cliffs_habitat
+                    }
+                }
+            }
+            # gpm_massive_waterfalls
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_massive_waterfalls
+                            any_moon = {
+                                has_modifier = gpm_massive_waterfalls
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_massive_waterfalls_habitat
+                    }
+                }
+            }
+            # gpm_mushroom_forest
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_mushroom_forest
+                            any_moon = {
+                                has_modifier = gpm_mushroom_forest
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_mushroom_forest_habitat
+                    }
+                }
+            }
+            # gpm_cursed_world
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_cursed_world
+                            any_moon = {
+                                has_modifier = gpm_cursed_world
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_cursed_world_habitat
+                    }
+                }
+            }
+            # gpm_titanic_geo_form
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_titanic_geo_form
+                            any_moon = {
+                                has_modifier = gpm_titanic_geo_form
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_titanic_geo_form_habitat
+                    }
+                }
+            }
+            # gpm_tidally_active
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_tidally_active
+                            any_moon = {
+                                has_modifier = gpm_tidally_active
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_tidally_active_habitat
+                    }
+                }
+            }
+            # gpm_giant_scorpioids
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_giant_scorpioids
+                            any_moon = {
+                                has_modifier = gpm_giant_scorpioids
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_giant_scorpioids_habitat
+                    }
+                }
+            }
+            # gpm_invasive_stalks
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_invasive_stalks
+                            any_moon = {
+                                has_modifier = gpm_invasive_stalks
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_invasive_stalks_habitat
+                    }
+                }
+            }
+            # gpm_machine_god
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_machine_god
+                            any_moon = {
+                                has_modifier = gpm_machine_god
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_machine_god_habitat
+                    }
+                }
+            }
+            # gpm_siren_song
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_siren_song
+                            any_moon = {
+                                has_modifier = gpm_siren_song
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_siren_song_habitat
+                    }
+                }
+            }
+            # gpm_heart_of_the_forest
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_heart_of_the_forest
+                            any_moon = {
+                                has_modifier = gpm_heart_of_the_forest
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_heart_of_the_forest_habitat
+                    }
+                }
+            }
+            # gpm_steam_vents
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_steam_vents
+                            any_moon = {
+                                has_modifier = gpm_steam_vents
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_steam_vents_habitat
+                    }
+                }
+            }
+            # gpm_mineral_pools
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_mineral_pools
+                            any_moon = {
+                                has_modifier = gpm_mineral_pools
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_mineral_pools_habitat
+                    }
+                }
+            }
+            # gpm_rich_equator
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_rich_equator
+                            any_moon = {
+                                has_modifier = gpm_rich_equator
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_rich_equator_habitat
+                    }
+                }
+            }
+            # gpm_feline_companions
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_feline_companions
+                            any_moon = {
+                                has_modifier = gpm_feline_companions
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_feline_companions_habitat
+                    }
+                }
+            }
+            # gpm_iron_oceans
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_iron_oceans
+                            any_moon = {
+                                has_modifier = gpm_iron_oceans
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_iron_oceans_habitat
+                    }
+                }
+            }
+            # gpm_foul_stench
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_foul_stench
+                            any_moon = {
+                                has_modifier = gpm_foul_stench
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_foul_stench_habitat
+                    }
+                }
+            }
+            # gpm_maw_worship
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_maw_worship
+                            any_moon = {
+                                has_modifier = gpm_maw_worship
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_maw_worship_habitat
+                    }
+                }
+            }
+            # gpm_manifest_dreams
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_manifest_dreams
+                            any_moon = {
+                                has_modifier = gpm_manifest_dreams
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_manifest_dreams_habitat
+                    }
+                }
+            }
+            # gpm_springs_of_life
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_springs_of_life
+                            any_moon = {
+                                has_modifier = gpm_springs_of_life
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_springs_of_life_habitat
+                    }
+                }
+            }
+            # gpm_aeromatic_attraction
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_aeromatic_attraction
+                            any_moon = {
+                                has_modifier = gpm_aeromatic_attraction
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_aeromatic_attraction_habitat
+                    }
+                }
+            }
+            # gpm_saphire_rains
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_saphire_rains
+                            any_moon = {
+                                has_modifier = gpm_saphire_rains
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_saphire_rains_habitat
+                    }
+                }
+            }
+            # gpm_fractal_formations
+            fromfrom.planet = {
+                if = {
+                    limit = {
+                        OR = {
+                            has_modifier = gpm_fractal_formations
+                            any_moon = {
+                                has_modifier = gpm_fractal_formations
+                            }
+                        }
+                    }
+                    # spawn matching X habitat modifier
+                    event_target:gpm_new_constructed_habitat = {
+                        set_planet_flag = is_gpm_fractal_formations_habitat
+                    }
+                }
+            }
+
+
+
+		}
+	}
+}

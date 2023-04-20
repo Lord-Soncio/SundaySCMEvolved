@@ -1,0 +1,4059 @@
+##########################################################################
+# Decisions
+##########################################################################
+# decision_gpm_habitat_ = {
+    # owned_planets_only = yes
+	# sound = event_administrative_work
+	# icon = gpm_decision_seasonal_flooding
+	# enactment_time = 360
+
+    # resources = {
+		# category = decisions
+		# cost = {
+			# alloys = 1000
+		# }
+	# }
+
+    # potential = {
+		# # owner = { is_regular_empire = yes }
+		# NOT = { has_modifier = 000000000000000 }
+		# gpm_is_planet_class_habitat = yes
+	# }
+	
+	# allow = {
+		# NOT = { has_modifier = 000000000000000 }
+	# }
+
+    # effect = {
+		# add_modifier = { modifier = 000000000000000 }
+	# }
+	
+	# ai_weight = {
+		# weight = 1000
+	# }
+# }
+
+decision_gpm_habitat_stadium = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_stadium
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 1000
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		owner = {
+			is_gestalt = no
+			NOT = { has_civic = civic_machine_servitor }
+		}
+		NOT = { has_modifier = gpm_habitat_stadium }
+		gpm_is_planet_class_habitat = yes
+	}
+	
+	allow = {
+		num_pops > 40
+	}
+
+    effect = {
+		add_modifier = { modifier = gpm_habitat_stadium }
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 4000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+# trade decision
+decision_gpm_habitat_trade_docks = {
+    owned_planets_only = yes
+	icon = decision_gpm_habitat_trade_docks
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 500
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		owner = { is_gestalt = no }
+		NOT = { has_modifier = gpm_habitat_trade_docks }
+		gpm_is_planet_class_habitat = yes
+	}
+	
+	allow = {
+		solar_system = { has_collected_system_trade_value >= 100 }
+	}
+
+    effect = {
+		add_modifier = { modifier = gpm_habitat_trade_docks }
+		hidden_effect = {
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = commercial_habitat
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+# trade decision for megacorps
+decision_gpm_habitat_hub = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_hub
+	enactment_time = 90
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		owner = { is_gestalt = no }
+		NOT = { has_modifier = gpm_habitat_spaceroute_hub }
+		gpm_is_planet_class_habitat = yes
+	}
+	
+	allow = {
+		solar_system = { has_collected_system_trade_value >= 200 }
+		solar_system = {
+			any_system_planet = {
+				NOT = { has_modifier = gpm_habitat_spaceroute_hub }
+			}
+		}
+		has_modifier = gpm_habitat_trade_docks
+	}
+
+    effect = {
+		add_modifier = { modifier = gpm_habitat_spaceroute_hub }
+		hidden_effect = {
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = commercial_habitat
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = influence
+					value >= 200
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = influence
+					value >= 600
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_holo_entertainment = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_holo_entertainment
+	enactment_time = 180
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 500
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		owner = {
+			is_gestalt = no
+			NOT = { has_civic = civic_machine_servitor }
+		}
+		NOT = { has_modifier = gpm_habitat_holonet_entertainment_systems }
+		gpm_is_planet_class_habitat = yes
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_holonet_entertainment_systems }
+		num_pops > 10
+	}
+
+    effect = {
+		add_modifier = { modifier = gpm_habitat_holonet_entertainment_systems }
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_food_recyclers = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_food_recyclers
+	enactment_time = 180
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 500
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		owner = { is_machine_empire = no }
+		NOT = { has_modifier = gpm_habitat_experimental_food_recycling }
+		gpm_is_planet_class_habitat = yes
+	}
+	
+	allow = {
+		owner = { has_technology = tech_habitat_2 }
+	}
+
+    effect = {
+		add_modifier = { modifier = gpm_habitat_experimental_food_recycling }
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_replicators = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_replicators
+	enactment_time = 180
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 500
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		owner = { is_machine_empire = no }
+		NOT = { has_modifier = gpm_habitat_replicator_systems }
+		gpm_is_planet_class_habitat = yes
+	}
+	
+	allow = {
+		has_modifier = gpm_habitat_experimental_food_recycling
+		owner = { has_technology = tech_habitat_3 }
+	}
+
+    effect = {
+		add_modifier = { modifier = gpm_habitat_replicator_systems }
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_moon_mining = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_moon_mining
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_extensive_moon_mining }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_extensive_moon_mining_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_extensive_moon_mining }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_extensive_moon_mining }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = mining_habitat
+			}
+		}
+		add_deposit = gpm_d_moon_mining_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_belt_mining = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_belt_mining
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_asteroid_belt_mining }
+		gpm_is_planet_class_habitat = yes
+		solar_system = {
+			any_system_planet = {
+				OR = {
+					has_modifier = gpm_large_asteroid 
+					has_modifier = gpm_asteroid_moon
+					has_modifier = gpm_metal_asteroid 
+					has_modifier = gpm_dense_core 
+					has_modifier = gpm_abandoned_mining_platforms 
+				}
+			}
+		}
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_asteroid_belt_mining }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_asteroid_belt_mining }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = mining_habitat
+			}
+		}
+		add_deposit = gpm_d_asteroid_mining_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_thunderstorm_research = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_thunderstorm_research
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_frequent_thunderstorms_research }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_frequent_thunderstorms_research_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_frequent_thunderstorms_research }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_frequent_thunderstorms_research }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = research_habitat
+			}
+		}
+		add_deposit = gpm_d_orbital_research_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_radioactive_mining = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_radioactive_mining
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_radioactive_mantle_mining }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_radioactive_mantle_mining_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_radioactive_mantle_mining }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_radioactive_mantle_mining }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = mining_habitat
+			}
+		}
+		add_deposit = gpm_d_alloy_mining_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_asteroid_catchers = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_asteroid_catchers
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_frequent_asteroid_flybys }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_frequent_asteroid_flybys_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_frequent_asteroid_flybys }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_frequent_asteroid_flybys }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = mining_habitat
+			}
+		}
+		add_deposit = gpm_d_asteroid_mining_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_particle_collectors = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_particle_collectors
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_highly_charged_particle_collection }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_highly_charged_particle_collection_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_highly_charged_particle_collection }
+	}
+
+    effect = {		
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_highly_charged_particle_collection }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = energy_habitat
+			}
+		}
+		add_deposit = gpm_d_particle_collecting_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_expedition_section = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_expedition_section
+	enactment_time = 720
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 500
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_ancient_temple_expeditions }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_ancient_temple_expeditions_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_ancient_temple_expeditions }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_ancient_temple_expeditions }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = research_habitat
+			}
+		}
+		add_deposit = gpm_d_archeology_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_food_recyclers = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_food_recyclers
+	enactment_time = 180
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 500
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		owner = { is_machine_empire = no }
+		NOT = { has_modifier = gpm_habitat_experimental_food_recycling }
+		gpm_is_planet_class_habitat = yes
+	}
+	
+	allow = {
+		owner = { has_technology = tech_habitat_2 }
+	}
+
+    effect = {
+		add_modifier = { modifier = gpm_habitat_experimental_food_recycling }
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_chronoton_sensors = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_chronoton_sensors
+	enactment_time = 720
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 500
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_time_displaced_planet_research }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_time_displaced_planet_research_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_time_displaced_planet_research }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_time_displaced_planet_research }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = research_habitat
+			}
+		}
+		add_deposit = gpm_d_particle_collecting_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_mining_bays = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_mining_bays
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_surface_mining }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_surface_mining_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_surface_mining }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_surface_mining }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = mining_habitat
+			}
+		}
+		add_deposit = gpm_d_mineral_mining_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+#precursor ones
+decision_gpm_habitat_archaeology_section = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_archaeology_section
+	enactment_time = 720
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 500
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_surface_expeditions }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_surface_expeditions_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_surface_expeditions }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_surface_expeditions }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = research_habitat
+			}
+		}
+		add_deposit = gpm_d_archeology_precursor_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_pleasure_palace = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_pleasure_palace
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 500
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		owner = { is_gestalt = no }
+		NOT = { has_modifier = gpm_habitat_android_pleasure_palace_tourism }
+		gpm_is_planet_class_habitat = yes
+		solar_system = {
+			any_system_planet = {
+				has_modifier = gpm_android_pleasure_palace
+			}
+		}
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_android_pleasure_palace_tourism }
+	}
+
+    effect = {
+		add_modifier = { modifier = gpm_habitat_android_pleasure_palace_tourism }
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_spice_markets = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_spice_markets
+	enactment_time = 90
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		owner = { is_gestalt = no }
+		NOT = { has_modifier = gpm_habitat_delicious_ingredients_trade }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_delicious_ingredients_trade_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_delicious_ingredients_trade }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_delicious_ingredients_trade }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = commercial_habitat
+			}
+		}
+		add_deposit = gpm_d_spice_collecting_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = influence
+					value >= 200
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = influence
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_gambling_licence = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_gambling_licence
+	enactment_time = 90
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		owner = { is_gestalt = no }
+		NOT = { has_modifier = gpm_habitat_flat_terrain_racing }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_flat_terrain_racing_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_flat_terrain_racing }
+	}
+
+    effect = {
+		add_modifier = { modifier = gpm_habitat_flat_terrain_racing }
+		if = {
+			limit = {
+				NOR = {
+					has_planet_flag = commercial_habitat
+					has_planet_flag = energy_habitat
+					has_planet_flag = mining_habitat
+					has_planet_flag = research_habitat
+				}
+			}
+			set_planet_flag = commercial_habitat
+		}
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = influence
+					value >= 200
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = influence
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_egg_containment_facility = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_egg_containment_facility
+	enactment_time = 720
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 1000
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_strange_alien_eggs_restriction }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_strange_alien_eggs_restriction_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_strange_alien_eggs_restriction }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_strange_alien_eggs_restriction }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = research_habitat
+			}
+		}
+		add_deposit = gpm_d_alien_egg_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 2000
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 4000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_hydrogen_extraction = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_hydrogen_extraction
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_hydrogen_extraction }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_hydrogen_extraction_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_hydrogen_extraction }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_hydrogen_extraction }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = energy_habitat
+			}
+		}
+		add_deposit = gpm_d_particle_collecting_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_nitrogen_extraction = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_nitrogen_extraction
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_nitrogen_extraction }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_nitrogen_extraction_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_nitrogen_extraction }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_nitrogen_extraction }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = energy_habitat
+			}
+		}
+		add_deposit = gpm_d_particle_collecting_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_chlorine_extraction = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_chlorine_extraction
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_chlorine_extraction }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_chlorine_extraction_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_chlorine_extraction }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_chlorine_extraction }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = energy_habitat
+			}
+		}
+		add_deposit = gpm_d_particle_collecting_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_phospherus_extraction = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_phospherus_extraction
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_phosphorus_extraction }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_phosphorus_extraction_habitat
+	}
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_phosphorus_extraction }
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_phosphorus_extraction }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = energy_habitat
+			}
+		}
+		add_deposit = gpm_d_particle_collecting_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_sulfur_extraction = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_sulfur_extraction
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+	potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_sulfur_extraction }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_sulfur_extraction_habitat
+	}
+	
+	allow = {
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_sulfur_extraction }
+			if = {
+				limit = {
+					NOR = {
+						has_planet_flag = commercial_habitat
+						has_planet_flag = energy_habitat
+						has_planet_flag = mining_habitat
+						has_planet_flag = research_habitat
+					}
+				}
+				set_planet_flag = energy_habitat
+			}
+		}
+		add_deposit = gpm_d_particle_collecting_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+decision_gpm_habitat_iron_extraction = {
+    owned_planets_only = yes
+	icon = decision_gpm_habitat_iron_extraction
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 150
+			alloys = 250
+		}
+	}
+
+    potential = {
+		# owner = { is_regular_empire = yes }
+		NOT = { has_modifier = gpm_habitat_iron_extraction }
+		gpm_is_planet_class_habitat = yes
+		has_planet_flag = gpm_is_iron_mining_habitat
+	}
+	
+	allow = {
+	}
+
+    effect = {
+		hidden_effect = {
+			add_modifier = { modifier = gpm_habitat_iron_extraction }
+		}
+		add_deposit = gpm_d_mineral_mining_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+
+decision_gpm_habitat_research_section = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_thunderstorm_research
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 250
+			alloys = 500
+		}
+	}
+
+    potential = {
+		gpm_is_planet_class_habitat = yes
+		OR = {
+            AND = {
+            NOT = { has_modifier = habitat_gpm_frequent_thunderstorms }
+            has_planet_flag = is_gpm_frequent_thunderstorms_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_global_thunderstorms }
+            has_planet_flag = is_gpm_global_thunderstorms_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_global_thunderstorms_gas_giant }
+            has_planet_flag = is_gpm_global_thunderstorms_gas_giant_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_ghost_in_the_machine }
+            has_planet_flag = is_gpm_ghost_in_the_machine_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_framework }
+            has_planet_flag = is_gpm_framework_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_giant_transmitter }
+            has_planet_flag = is_gpm_giant_transmitter_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_holographic_combat_simulators }
+            has_planet_flag = is_gpm_holographic_combat_simulators_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_living_knowledge_base }
+            has_planet_flag = is_gpm_living_knowledge_base_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_rogue_programming }
+            has_planet_flag = is_gpm_rogue_programming_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_magnetic_wave_defence }
+            has_planet_flag = is_gpm_magnetic_wave_defence_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_hollow_planet }
+            has_planet_flag = is_gpm_hollow_planet_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_true_randomness_unit }
+            has_planet_flag = is_gpm_true_randomness_unit_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_organic_infestation }
+            has_planet_flag = is_gpm_organic_infestation_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_labyrinth_world }
+            has_planet_flag = is_gpm_labyrinth_world_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_contingency_em_shielding }
+            has_planet_flag = is_gpm_contingency_em_shielding_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_nanite_infrastructure }
+            has_planet_flag = is_gpm_nanite_infrastructure_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_planetary_databases }
+            has_planet_flag = is_gpm_planetary_databases_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_artificial_atmosphere }
+            has_planet_flag = is_gpm_artificial_atmosphere_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_space_elevators_machine }
+            has_planet_flag = is_gpm_space_elevators_machine_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_quantum_information_network }
+            has_planet_flag = is_gpm_quantum_information_network_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_planetwide_printing }
+            has_planet_flag = is_gpm_planetwide_printing_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_liquid_cooling }
+            has_planet_flag = is_gpm_liquid_cooling_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_robotic_pests }
+            has_planet_flag = is_gpm_robotic_pests_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_water_pockets }
+            has_planet_flag = is_gpm_water_pockets_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_deep_aquifer }
+            has_planet_flag = is_gpm_deep_aquifer_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_hot_ice }
+            has_planet_flag = is_gpm_hot_ice_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_absolute_zero }
+            has_planet_flag = is_gpm_absolute_zero_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_supersonic_winds }
+            has_planet_flag = is_gpm_supersonic_winds_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_geometrical_polar_storm }
+            has_planet_flag = is_gpm_geometrical_polar_storm_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_floating_forest }
+            has_planet_flag = is_gpm_floating_forest_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_everlasting_tornadoes }
+            has_planet_flag = is_gpm_everlasting_tornadoes_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_shrinking_giant }
+            has_planet_flag = is_gpm_shrinking_giant_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_aeroplankton_clouds }
+            has_planet_flag = is_gpm_aeroplankton_clouds_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_radiation_storms }
+            has_planet_flag = is_gpm_radiation_storms_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_beautiful_storms }
+            has_planet_flag = is_gpm_beautiful_storms_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_floating_kelp }
+            has_planet_flag = is_gpm_floating_kelp_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_thin_atmospheres_gas_giant }
+            has_planet_flag = is_gpm_thin_atmospheres_gas_giant_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_weak_magnetic_field_gas_giant }
+            has_planet_flag = is_gpm_weak_magnetic_field_gas_giant_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_strong_magnetic_field_gas_giant }
+            has_planet_flag = is_gpm_strong_magnetic_field_gas_giant_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_super_heated_atmosphere }
+            has_planet_flag = is_gpm_super_heated_atmosphere_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_floatig_behemothaurs }
+            has_planet_flag = is_gpm_floatig_behemothaurs_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_eater_of_light }
+            has_planet_flag = is_gpm_eater_of_light_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_lingering_pollution }
+            has_planet_flag = is_gpm_lingering_pollution_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_decomposing_leviathan }
+            has_planet_flag = is_gpm_decomposing_leviathan_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_mushroom_forest_toxic_world }
+            has_planet_flag = is_gpm_mushroom_forest_toxic_world_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_giant_mold_blobs }
+            has_planet_flag = is_gpm_giant_mold_blobs_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_toxic_garbage }
+            has_planet_flag = is_gpm_toxic_garbage_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_acid_rain }
+            has_planet_flag = is_gpm_acid_rain_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_toxic_flora_fauna }
+            has_planet_flag = is_gpm_toxic_flora_fauna_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_massive_world }
+            has_planet_flag = is_gpm_massive_world_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_fast_rotation }
+            has_planet_flag = is_gpm_fast_rotation_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_lunar_dance }
+            has_planet_flag = is_gpm_lunar_dance_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_subterranean_eco_system }
+            has_planet_flag = is_gpm_subterranean_eco_system_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_single_biome }
+            has_planet_flag = is_gpm_single_biome_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_hyper_complex_biome }
+            has_planet_flag = is_gpm_hyper_complex_biome_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_thin_atmospheres }
+            has_planet_flag = is_gpm_thin_atmospheres_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_dense_atmospheres }
+            has_planet_flag = is_gpm_dense_atmospheres_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_weak_magnetic_field_2 }
+            has_planet_flag = is_gpm_weak_magnetic_field_2_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_strong_magnetic_field_2 }
+            has_planet_flag = is_gpm_strong_magnetic_field_2_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_low_gravity_2 }
+            has_planet_flag = is_gpm_low_gravity_2_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_high_gravity_2 }
+            has_planet_flag = is_gpm_high_gravity_2_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_hostile_flora }
+            has_planet_flag = is_gpm_hostile_flora_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_titanic_predators }
+            has_planet_flag = is_gpm_titanic_predators_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_unnatural_world }
+            has_planet_flag = is_gpm_unnatural_world_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_atmospheric_stimulant }
+            has_planet_flag = is_gpm_atmospheric_stimulant_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_unusual_seasons }
+            has_planet_flag = is_gpm_unusual_seasons_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_perfect_seasons }
+            has_planet_flag = is_gpm_perfect_seasons_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_living_planet }
+            has_planet_flag = is_gpm_living_planet_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_clear_skies }
+            has_planet_flag = is_gpm_clear_skies_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_melted_ice_caps }
+            has_planet_flag = is_gpm_melted_ice_caps_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_small_islands }
+            has_planet_flag = is_gpm_small_islands_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_simple_organisms }
+            has_planet_flag = is_gpm_simple_organisms_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_newly_evolved_complex_organisms }
+            has_planet_flag = is_gpm_newly_evolved_complex_organisms_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_friendly_wildlife }
+            has_planet_flag = is_gpm_friendly_wildlife_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_unusual_formations }
+            has_planet_flag = is_gpm_unusual_formations_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_many_extremophiles }
+            has_planet_flag = is_gpm_many_extremophiles_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_great_temperature_variation }
+            has_planet_flag = is_gpm_great_temperature_variation_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_ice_age }
+            has_planet_flag = is_gpm_ice_age_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_tilted_axis }
+            has_planet_flag = is_gpm_tilted_axis_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_perpendicular_axis }
+            has_planet_flag = is_gpm_perpendicular_axis_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_locust_plagues }
+            has_planet_flag = is_gpm_locust_plagues_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_acidic_seas }
+            has_planet_flag = is_gpm_acidic_seas_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_empathic_life }
+            has_planet_flag = is_gpm_empathic_life_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_seasonal_flooding }
+            has_planet_flag = is_gpm_seasonal_flooding_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_thin_ozone_layer }
+            has_planet_flag = is_gpm_thin_ozone_layer_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_symbiotic_life }
+            has_planet_flag = is_gpm_symbiotic_life_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_resilent_parasites }
+            has_planet_flag = is_gpm_resilent_parasites_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_ice_flora }
+            has_planet_flag = is_gpm_ice_flora_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_strange_ice_river }
+            has_planet_flag = is_gpm_strange_ice_river_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_juggernaut_manta_rays }
+            has_planet_flag = is_gpm_juggernaut_manta_rays_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_black_oily_stone }
+            has_planet_flag = is_gpm_black_oily_stone_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_cities_in_the_sky }
+            has_planet_flag = is_gpm_cities_in_the_sky_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_extensive_reef_systems }
+            has_planet_flag = is_gpm_extensive_reef_systems_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_trubbles }
+            has_planet_flag = is_gpm_trubbles_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_strange_voices }
+            has_planet_flag = is_gpm_strange_voices_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_planetwide_forest }
+            has_planet_flag = is_gpm_planetwide_forest_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_inspirational }
+            has_planet_flag = is_gpm_inspirational_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_arachnophobia }
+            has_planet_flag = is_gpm_arachnophobia_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_giant_worm }
+            has_planet_flag = is_gpm_giant_worm_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_artificial_core }
+            has_planet_flag = is_gpm_artificial_core_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_never_ending_aurora }
+            has_planet_flag = is_gpm_never_ending_aurora_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_spirals_of_ice }
+            has_planet_flag = is_gpm_spirals_of_ice_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_furry_packs }
+            has_planet_flag = is_gpm_furry_packs_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_abominable_predators }
+            has_planet_flag = is_gpm_abominable_predators_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_otherworldly_colours }
+            has_planet_flag = is_gpm_otherworldly_colours_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_ecological_nervous_system }
+            has_planet_flag = is_gpm_ecological_nervous_system_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_carnivorous_flies }
+            has_planet_flag = is_gpm_carnivorous_flies_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_giant_ocean_snakes }
+            has_planet_flag = is_gpm_giant_ocean_snakes_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_ocean_trenches }
+            has_planet_flag = is_gpm_ocean_trenches_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_unique_marine_habitats }
+            has_planet_flag = is_gpm_unique_marine_habitats_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_ghost_ships }
+            has_planet_flag = is_gpm_ghost_ships_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_omnious_fog }
+            has_planet_flag = is_gpm_omnious_fog_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_blood_moon }
+            has_planet_flag = is_gpm_blood_moon_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_musical_creatures }
+            has_planet_flag = is_gpm_musical_creatures_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_odd_cloud_shapes }
+            has_planet_flag = is_gpm_odd_cloud_shapes_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_cursed_world }
+            has_planet_flag = is_gpm_cursed_world_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_titanic_geo_form }
+            has_planet_flag = is_gpm_titanic_geo_form_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_giant_scorpioids }
+            has_planet_flag = is_gpm_giant_scorpioids_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_invasive_stalks }
+            has_planet_flag = is_gpm_invasive_stalks_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_machine_god }
+            has_planet_flag = is_gpm_machine_god_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_siren_song }
+            has_planet_flag = is_gpm_siren_song_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_heart_of_the_forest }
+            has_planet_flag = is_gpm_heart_of_the_forest_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_maw_worship }
+            has_planet_flag = is_gpm_maw_worship_habitat
+            }
+            AND = {
+            NOT = { has_modifier = habitat_gpm_fractal_formations }
+            has_planet_flag = is_gpm_fractal_formations_habitat
+            }
+            }
+        }
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_frequent_thunderstorms_research }
+	}
+    effect = {
+		hidden_effect = {
+				Switch = {
+					trigger = has_planet_flag
+					
+                        is_gpm_frequent_thunderstorms_habitat = {
+                                add_modifier = habitat_gpm_frequent_thunderstorms
+                            }
+                        is_gpm_global_thunderstorms_habitat = {
+                                add_modifier = habitat_gpm_global_thunderstorms
+                            }
+                        is_gpm_global_thunderstorms_gas_giant_habitat = {
+                                add_modifier = habitat_gpm_global_thunderstorms_gas_giant
+                            }
+                        is_gpm_ghost_in_the_machine_habitat = {
+                                add_modifier = habitat_gpm_ghost_in_the_machine
+                            }
+                        is_gpm_framework_habitat = {
+                                add_modifier = habitat_gpm_framework
+                            }
+                        is_gpm_giant_transmitter_habitat = {
+                                add_modifier = habitat_gpm_giant_transmitter
+                            }
+                        is_gpm_holographic_combat_simulators_habitat = {
+                                add_modifier = habitat_gpm_holographic_combat_simulators
+                            }
+                        is_gpm_living_knowledge_base_habitat = {
+                                add_modifier = habitat_gpm_living_knowledge_base
+                            }
+                        is_gpm_rogue_programming_habitat = {
+                                add_modifier = habitat_gpm_rogue_programming
+                            }
+                        is_gpm_magnetic_wave_defence_habitat = {
+                                add_modifier = habitat_gpm_magnetic_wave_defence
+                            }
+                        is_gpm_hollow_planet_habitat = {
+                                add_modifier = habitat_gpm_hollow_planet
+                            }
+                        is_gpm_true_randomness_unit_habitat = {
+                                add_modifier = habitat_gpm_true_randomness_unit
+                            }
+                        is_gpm_organic_infestation_habitat = {
+                                add_modifier = habitat_gpm_organic_infestation
+                            }
+                        is_gpm_labyrinth_world_habitat = {
+                                add_modifier = habitat_gpm_labyrinth_world
+                            }
+                        is_gpm_contingency_em_shielding_habitat = {
+                                add_modifier = habitat_gpm_contingency_em_shielding
+                            }
+                        is_gpm_nanite_infrastructure_habitat = {
+                                add_modifier = habitat_gpm_nanite_infrastructure
+                            }
+                        is_gpm_planetary_databases_habitat = {
+                                add_modifier = habitat_gpm_planetary_databases
+                            }
+                        is_gpm_artificial_atmosphere_habitat = {
+                                add_modifier = habitat_gpm_artificial_atmosphere
+                            }
+                        is_gpm_space_elevators_machine_habitat = {
+                                add_modifier = habitat_gpm_space_elevators_machine
+                            }
+                        is_gpm_quantum_information_network_habitat = {
+                                add_modifier = habitat_gpm_quantum_information_network
+                            }
+                        is_gpm_planetwide_printing_habitat = {
+                                add_modifier = habitat_gpm_planetwide_printing
+                            }
+                        is_gpm_liquid_cooling_habitat = {
+                                add_modifier = habitat_gpm_liquid_cooling
+                            }
+                        is_gpm_robotic_pests_habitat = {
+                                add_modifier = habitat_gpm_robotic_pests
+                            }
+                        is_gpm_water_pockets_habitat = {
+                                add_modifier = habitat_gpm_water_pockets
+                            }
+                        is_gpm_deep_aquifer_habitat = {
+                                add_modifier = habitat_gpm_deep_aquifer
+                            }
+                        is_gpm_hot_ice_habitat = {
+                                add_modifier = habitat_gpm_hot_ice
+                            }
+                        is_gpm_absolute_zero_habitat = {
+                                add_modifier = habitat_gpm_absolute_zero
+                            }
+                        is_gpm_supersonic_winds_habitat = {
+                                add_modifier = habitat_gpm_supersonic_winds
+                            }
+                        is_gpm_geometrical_polar_storm_habitat = {
+                                add_modifier = habitat_gpm_geometrical_polar_storm
+                            }
+                        is_gpm_floating_forest_habitat = {
+                                add_modifier = habitat_gpm_floating_forest
+                            }
+                        is_gpm_everlasting_tornadoes_habitat = {
+                                add_modifier = habitat_gpm_everlasting_tornadoes
+                            }
+                        is_gpm_shrinking_giant_habitat = {
+                                add_modifier = habitat_gpm_shrinking_giant
+                            }
+                        is_gpm_aeroplankton_clouds_habitat = {
+                                add_modifier = habitat_gpm_aeroplankton_clouds
+                            }
+                        is_gpm_radiation_storms_habitat = {
+                                add_modifier = habitat_gpm_radiation_storms
+                            }
+                        is_gpm_beautiful_storms_habitat = {
+                                add_modifier = habitat_gpm_beautiful_storms
+                            }
+                        is_gpm_floating_kelp_habitat = {
+                                add_modifier = habitat_gpm_floating_kelp
+                            }
+                        is_gpm_thin_atmospheres_gas_giant_habitat = {
+                                add_modifier = habitat_gpm_thin_atmospheres_gas_giant
+                            }
+                        is_gpm_weak_magnetic_field_gas_giant_habitat = {
+                                add_modifier = habitat_gpm_weak_magnetic_field_gas_giant
+                            }
+                        is_gpm_strong_magnetic_field_gas_giant_habitat = {
+                                add_modifier = habitat_gpm_strong_magnetic_field_gas_giant
+                            }
+                        is_gpm_super_heated_atmosphere_habitat = {
+                                add_modifier = habitat_gpm_super_heated_atmosphere
+                            }
+                        is_gpm_floatig_behemothaurs_habitat = {
+                                add_modifier = habitat_gpm_floatig_behemothaurs
+                            }
+                        is_gpm_eater_of_light_habitat = {
+                                add_modifier = habitat_gpm_eater_of_light
+                            }
+                        is_gpm_lingering_pollution_habitat = {
+                                add_modifier = habitat_gpm_lingering_pollution
+                            }
+                        is_gpm_decomposing_leviathan_habitat = {
+                                add_modifier = habitat_gpm_decomposing_leviathan
+                            }
+                        is_gpm_mushroom_forest_toxic_world_habitat = {
+                                add_modifier = habitat_gpm_mushroom_forest_toxic_world
+                            }
+                        is_gpm_giant_mold_blobs_habitat = {
+                                add_modifier = habitat_gpm_giant_mold_blobs
+                            }
+                        is_gpm_toxic_garbage_habitat = {
+                                add_modifier = habitat_gpm_toxic_garbage
+                            }
+                        is_gpm_acid_rain_habitat = {
+                                add_modifier = habitat_gpm_acid_rain
+                            }
+                        is_gpm_toxic_flora_fauna_habitat = {
+                                add_modifier = habitat_gpm_toxic_flora_fauna
+                            }
+                        is_gpm_massive_world_habitat = {
+                                add_modifier = habitat_gpm_massive_world
+                            }
+                        is_gpm_fast_rotation_habitat = {
+                                add_modifier = habitat_gpm_fast_rotation
+                            }
+                        is_gpm_lunar_dance_habitat = {
+                                add_modifier = habitat_gpm_lunar_dance
+                            }
+                        is_gpm_subterranean_eco_system_habitat = {
+                                add_modifier = habitat_gpm_subterranean_eco_system
+                            }
+                        is_gpm_single_biome_habitat = {
+                                add_modifier = habitat_gpm_single_biome
+                            }
+                        is_gpm_hyper_complex_biome_habitat = {
+                                add_modifier = habitat_gpm_hyper_complex_biome
+                            }
+                        is_gpm_thin_atmospheres_habitat = {
+                                add_modifier = habitat_gpm_thin_atmospheres
+                            }
+                        is_gpm_dense_atmospheres_habitat = {
+                                add_modifier = habitat_gpm_dense_atmospheres
+                            }
+                        is_gpm_weak_magnetic_field_2_habitat = {
+                                add_modifier = habitat_gpm_weak_magnetic_field_2
+                            }
+                        is_gpm_strong_magnetic_field_2_habitat = {
+                                add_modifier = habitat_gpm_strong_magnetic_field_2
+                            }
+                        is_gpm_low_gravity_2_habitat = {
+                                add_modifier = habitat_gpm_low_gravity_2
+                            }
+                        is_gpm_high_gravity_2_habitat = {
+                                add_modifier = habitat_gpm_high_gravity_2
+                            }
+                        is_gpm_hostile_flora_habitat = {
+                                add_modifier = habitat_gpm_hostile_flora
+                            }
+                        is_gpm_titanic_predators_habitat = {
+                                add_modifier = habitat_gpm_titanic_predators
+                            }
+                        is_gpm_unnatural_world_habitat = {
+                                add_modifier = habitat_gpm_unnatural_world
+                            }
+                        is_gpm_atmospheric_stimulant_habitat = {
+                                add_modifier = habitat_gpm_atmospheric_stimulant
+                            }
+                        is_gpm_unusual_seasons_habitat = {
+                                add_modifier = habitat_gpm_unusual_seasons
+                            }
+                        is_gpm_perfect_seasons_habitat = {
+                                add_modifier = habitat_gpm_perfect_seasons
+                            }
+                        is_gpm_living_planet_habitat = {
+                                add_modifier = habitat_gpm_living_planet
+                            }
+                        is_gpm_clear_skies_habitat = {
+                                add_modifier = habitat_gpm_clear_skies
+                            }
+                        is_gpm_melted_ice_caps_habitat = {
+                                add_modifier = habitat_gpm_melted_ice_caps
+                            }
+                        is_gpm_small_islands_habitat = {
+                                add_modifier = habitat_gpm_small_islands
+                            }
+                        is_gpm_simple_organisms_habitat = {
+                                add_modifier = habitat_gpm_simple_organisms
+                            }
+                        is_gpm_newly_evolved_complex_organisms_habitat = {
+                                add_modifier = habitat_gpm_newly_evolved_complex_organisms
+                            }
+                        is_gpm_friendly_wildlife_habitat = {
+                                add_modifier = habitat_gpm_friendly_wildlife
+                            }
+                        is_gpm_unusual_formations_habitat = {
+                                add_modifier = habitat_gpm_unusual_formations
+                            }
+                        is_gpm_many_extremophiles_habitat = {
+                                add_modifier = habitat_gpm_many_extremophiles
+                            }
+                        is_gpm_great_temperature_variation_habitat = {
+                                add_modifier = habitat_gpm_great_temperature_variation
+                            }
+                        is_gpm_ice_age_habitat = {
+                                add_modifier = habitat_gpm_ice_age
+                            }
+                        is_gpm_tilted_axis_habitat = {
+                                add_modifier = habitat_gpm_tilted_axis
+                            }
+                        is_gpm_perpendicular_axis_habitat = {
+                                add_modifier = habitat_gpm_perpendicular_axis
+                            }
+                        is_gpm_locust_plagues_habitat = {
+                                add_modifier = habitat_gpm_locust_plagues
+                            }
+                        is_gpm_acidic_seas_habitat = {
+                                add_modifier = habitat_gpm_acidic_seas
+                            }
+                        is_gpm_empathic_life_habitat = {
+                                add_modifier = habitat_gpm_empathic_life
+                            }
+                        is_gpm_seasonal_flooding_habitat = {
+                                add_modifier = habitat_gpm_seasonal_flooding
+                            }
+                        is_gpm_thin_ozone_layer_habitat = {
+                                add_modifier = habitat_gpm_thin_ozone_layer
+                            }
+                        is_gpm_symbiotic_life_habitat = {
+                                add_modifier = habitat_gpm_symbiotic_life
+                            }
+                        is_gpm_resilent_parasites_habitat = {
+                                add_modifier = habitat_gpm_resilent_parasites
+                            }
+                        is_gpm_ice_flora_habitat = {
+                                add_modifier = habitat_gpm_ice_flora
+                            }
+                        is_gpm_strange_ice_river_habitat = {
+                                add_modifier = habitat_gpm_strange_ice_river
+                            }
+                        is_gpm_juggernaut_manta_rays_habitat = {
+                                add_modifier = habitat_gpm_juggernaut_manta_rays
+                            }
+                        is_gpm_black_oily_stone_habitat = {
+                                add_modifier = habitat_gpm_black_oily_stone
+                            }
+                        is_gpm_cities_in_the_sky_habitat = {
+                                add_modifier = habitat_gpm_cities_in_the_sky
+                            }
+                        is_gpm_extensive_reef_systems_habitat = {
+                                add_modifier = habitat_gpm_extensive_reef_systems
+                            }
+                        is_gpm_trubbles_habitat = {
+                                add_modifier = habitat_gpm_trubbles
+                            }
+                        is_gpm_strange_voices_habitat = {
+                                add_modifier = habitat_gpm_strange_voices
+                            }
+                        is_gpm_planetwide_forest_habitat = {
+                                add_modifier = habitat_gpm_planetwide_forest
+                            }
+                        is_gpm_inspirational_habitat = {
+                                add_modifier = habitat_gpm_inspirational
+                            }
+                        is_gpm_arachnophobia_habitat = {
+                                add_modifier = habitat_gpm_arachnophobia
+                            }
+                        is_gpm_giant_worm_habitat = {
+                                add_modifier = habitat_gpm_giant_worm
+                            }
+                        is_gpm_artificial_core_habitat = {
+                                add_modifier = habitat_gpm_artificial_core
+                            }
+                        is_gpm_never_ending_aurora_habitat = {
+                                add_modifier = habitat_gpm_never_ending_aurora
+                            }
+                        is_gpm_spirals_of_ice_habitat = {
+                                add_modifier = habitat_gpm_spirals_of_ice
+                            }
+                        is_gpm_furry_packs_habitat = {
+                                add_modifier = habitat_gpm_furry_packs
+                            }
+                        is_gpm_abominable_predators_habitat = {
+                                add_modifier = habitat_gpm_abominable_predators
+                            }
+                        is_gpm_otherworldly_colours_habitat = {
+                                add_modifier = habitat_gpm_otherworldly_colours
+                            }
+                        is_gpm_ecological_nervous_system_habitat = {
+                                add_modifier = habitat_gpm_ecological_nervous_system
+                            }
+                        is_gpm_carnivorous_flies_habitat = {
+                                add_modifier = habitat_gpm_carnivorous_flies
+                            }
+                        is_gpm_giant_ocean_snakes_habitat = {
+                                add_modifier = habitat_gpm_giant_ocean_snakes
+                            }
+                        is_gpm_ocean_trenches_habitat = {
+                                add_modifier = habitat_gpm_ocean_trenches
+                            }
+                        is_gpm_unique_marine_habitats_habitat = {
+                                add_modifier = habitat_gpm_unique_marine_habitats
+                            }
+                        is_gpm_ghost_ships_habitat = {
+                                add_modifier = habitat_gpm_ghost_ships
+                            }
+                        is_gpm_omnious_fog_habitat = {
+                                add_modifier = habitat_gpm_omnious_fog
+                            }
+                        is_gpm_blood_moon_habitat = {
+                                add_modifier = habitat_gpm_blood_moon
+                            }
+                        is_gpm_musical_creatures_habitat = {
+                                add_modifier = habitat_gpm_musical_creatures
+                            }
+                        is_gpm_odd_cloud_shapes_habitat = {
+                                add_modifier = habitat_gpm_odd_cloud_shapes
+                            }
+                        is_gpm_cursed_world_habitat = {
+                                add_modifier = habitat_gpm_cursed_world
+                            }
+                        is_gpm_titanic_geo_form_habitat = {
+                                add_modifier = habitat_gpm_titanic_geo_form
+                            }
+                        is_gpm_giant_scorpioids_habitat = {
+                                add_modifier = habitat_gpm_giant_scorpioids
+                            }
+                        is_gpm_invasive_stalks_habitat = {
+                                add_modifier = habitat_gpm_invasive_stalks
+                            }
+                        is_gpm_machine_god_habitat = {
+                                add_modifier = habitat_gpm_machine_god
+                            }
+                        is_gpm_siren_song_habitat = {
+                                add_modifier = habitat_gpm_siren_song
+                            }
+                        is_gpm_heart_of_the_forest_habitat = {
+                                add_modifier = habitat_gpm_heart_of_the_forest
+                            }
+                        is_gpm_maw_worship_habitat = {
+                                add_modifier = habitat_gpm_maw_worship
+                            }
+                        is_gpm_fractal_formations_habitat = {
+                                add_modifier = habitat_gpm_fractal_formations
+                            }
+						}
+		set_planet_flag = research_habitat
+		}
+		add_deposit = gpm_d_orbital_research_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+
+decision_gpm_habitat_energy_section = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_particle_collectors
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 250
+			alloys = 500
+		}
+	}
+
+    potential = {
+		gpm_is_planet_class_habitat = yes
+		OR = {
+		AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_energy_grid }
+			has_planet_flag = is_gpm_precursor_energy_grid_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_satalite_grid }
+			has_planet_flag = is_gpm_precursor_satalite_grid_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_ice_ring }
+			has_planet_flag = is_gpm_ice_ring_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_hydrogen_ice }
+			has_planet_flag = is_gpm_hydrogen_ice_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_charged_atmosphere }
+			has_planet_flag = is_gpm_charged_atmosphere_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_proto_planet }
+			has_planet_flag = is_gpm_proto_planet_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_mercury_atmosphere }
+			has_planet_flag = is_gpm_mercury_atmosphere_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_shearing_winds }
+			has_planet_flag = is_gpm_shearing_winds_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_radioactive_biome }
+			has_planet_flag = is_gpm_radioactive_biome_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_abundant_natural_radioactivity }
+			has_planet_flag = is_gpm_abundant_natural_radioactivity_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_windy }
+			has_planet_flag = is_gpm_windy_habitat
+            }            
+		AND = {
+			NOT = { has_modifier = habitat_gpm_steam_vents }
+			has_planet_flag = is_gpm_steam_vents_habitat
+            }            
+            }
+        }
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_frequent_thunderstorms_research }
+	}
+    effect = {
+		hidden_effect = {
+				Switch = {
+					trigger = has_planet_flag
+				is_gpm_precursor_energy_grid_habitat = {
+					add_modifier = habitat_gpm_precursor_energy_grid
+		   		    }            
+            
+		   		is_gpm_precursor_satalite_grid_habitat = {
+					add_modifier = habitat_gpm_precursor_satalite_grid
+		   		    }            
+            
+		   			is_gpm_ice_ring_habitat = {
+					add_modifier = habitat_gpm_ice_ring
+		   		    }            
+            
+		   			is_gpm_hydrogen_ice_habitat = {
+					add_modifier = habitat_gpm_hydrogen_ice
+		   		    }            
+            
+		   		is_gpm_charged_atmosphere_habitat = {
+					add_modifier = habitat_gpm_charged_atmosphere
+		   		    }            
+            
+		   		is_gpm_proto_planet_habitat = {
+					add_modifier = habitat_gpm_proto_planet
+		   		    }            
+            
+		   		is_gpm_mercury_atmosphere_habitat = {
+					add_modifier = habitat_gpm_mercury_atmosphere
+		   		    }            
+            
+		   		is_gpm_shearing_winds_habitat = {
+					add_modifier = habitat_gpm_shearing_winds
+		   		    }            
+            
+		   		is_gpm_radioactive_biome_habitat = {
+					add_modifier = habitat_gpm_radioactive_biome
+		   		    }            
+            
+		   		is_gpm_abundant_natural_radioactivity_habitat = {
+					add_modifier = habitat_gpm_abundant_natural_radioactivity
+		   		    }            
+            
+		   		is_gpm_windy_habitat = {
+					add_modifier = habitat_gpm_windy
+		   		    }            
+            
+		   		is_gpm_steam_vents_habitat = {
+					add_modifier = habitat_gpm_steam_vents
+		   		    }            
+						}
+		set_planet_flag = energy_habitat
+		}
+		add_deposit = gpm_d_particle_collecting_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+
+decision_gpm_habitat_mineral_section = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_mining_bays
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 250
+			alloys = 500
+		}
+	}
+
+    potential = {
+		gpm_is_planet_class_habitat = yes
+		OR = {
+        AND = {
+        NOT = { has_modifier = habitat_mineral_rich }
+        has_planet_flag = is_mineral_rich_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_extensive_cavern_system }
+        has_planet_flag = is_gpm_extensive_cavern_system_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_ultra_rich_2 }
+        has_planet_flag = is_gpm_ultra_rich_2_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_mineral_rich_2 }
+        has_planet_flag = is_gpm_mineral_rich_2_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_ultra_rich }
+        has_planet_flag = is_ultra_rich_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_metallic_ring }
+        has_planet_flag = is_gpm_metallic_ring_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_carbon_planet }
+        has_planet_flag = is_gpm_carbon_planet_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_salt_flats }
+        has_planet_flag = is_gpm_salt_flats_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_dust_storms }
+        has_planet_flag = is_gpm_dust_storms_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_cracking_surface }
+        has_planet_flag = is_gpm_cracking_surface_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_thin_planetary_crust }
+        has_planet_flag = is_gpm_thin_planetary_crust_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_garbage_dump }
+        has_planet_flag = is_gpm_garbage_dump_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_unstable_tectonics_2 }
+        has_planet_flag = is_gpm_unstable_tectonics_2_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_asteroid_impacts_2 }
+        has_planet_flag = is_gpm_asteroid_impacts_2_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_dunes }
+        has_planet_flag = is_gpm_dunes_habitat
+            }
+        AND = {
+        NOT = { has_modifier = habitat_gpm_mineral_pools }
+        has_planet_flag = is_gpm_mineral_pools_habitat
+            }	
+            }
+        }
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_frequent_thunderstorms_research }
+	}
+    effect = {
+		hidden_effect = {
+				Switch = {
+					trigger = has_planet_flag
+
+                        is_mineral_rich_habitat = {
+                            add_modifier = habitat_mineral_rich
+                            }
+                        is_gpm_extensive_cavern_system_habitat = {
+                            add_modifier = habitat_gpm_extensive_cavern_system
+                            }
+                        is_gpm_ultra_rich_2_habitat = {
+                            add_modifier = habitat_gpm_ultra_rich_2
+                            }
+                        is_gpm_mineral_rich_2_habitat = {
+                            add_modifier = habitat_gpm_mineral_rich_2
+                            }
+                        is_ultra_rich_habitat = {
+                            add_modifier = habitat_ultra_rich
+                            }
+                        is_gpm_metallic_ring_habitat = {
+                            add_modifier = habitat_gpm_metallic_ring
+                            }
+                        is_gpm_carbon_planet_habitat = {
+                            add_modifier = habitat_gpm_carbon_planet
+                            }
+                        is_gpm_salt_flats_habitat = {
+                            add_modifier = habitat_gpm_salt_flats
+                            }
+                        is_gpm_dust_storms_habitat = {
+                            add_modifier = habitat_gpm_dust_storms
+                            }
+                        is_gpm_cracking_surface_habitat = {
+                            add_modifier = habitat_gpm_cracking_surface
+                            }
+                        is_gpm_thin_planetary_crust_habitat = {
+                            add_modifier = habitat_gpm_thin_planetary_crust
+                            }
+                        is_gpm_garbage_dump_habitat = {
+                            add_modifier = habitat_gpm_garbage_dump
+                            }
+                        is_gpm_unstable_tectonics_2_habitat = {
+                            add_modifier = habitat_gpm_unstable_tectonics_2
+                            }
+                        is_gpm_asteroid_impacts_2_habitat = {
+                            add_modifier = habitat_gpm_asteroid_impacts_2
+                            }
+                        is_gpm_dunes_habitat = {
+                            add_modifier = habitat_gpm_dunes
+                            }
+                        is_gpm_mineral_pools_habitat = {
+                            add_modifier = habitat_gpm_mineral_pools
+                            }
+						}
+		set_planet_flag = mining_habitat
+		}
+		add_deposit = gpm_d_mineral_mining_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+
+decision_gpm_habitat_alloy_section = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_radioactive_mining
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 250
+			alloys = 500
+		}
+	}
+
+    potential = {
+		gpm_is_planet_class_habitat = yes
+		OR = {
+			AND = {
+			NOT = { has_modifier = habitat_gpm_stellar_irradiation }
+			has_planet_flag = is_gpm_stellar_irradiation_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_magma_ocean }
+			has_planet_flag = is_gpm_magma_ocean_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_lava_geysers }
+			has_planet_flag = is_gpm_lava_geysers_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_heavy_elements }
+			has_planet_flag = is_gpm_heavy_elements_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_rare_metals }
+			has_planet_flag = is_gpm_rare_metals_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_heavy_metal_coral }
+			has_planet_flag = is_gpm_heavy_metal_coral_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_very_hot_core }
+			has_planet_flag = is_gpm_very_hot_core_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_solidified_core }
+			has_planet_flag = is_gpm_solidified_core_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_strong_volcanism }
+			has_planet_flag = is_gpm_strong_volcanism_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_rich_equator }
+			has_planet_flag = is_gpm_rich_equator_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_iron_oceans }
+			has_planet_flag = is_gpm_iron_oceans_habitat
+            }
+            }
+        }
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_frequent_thunderstorms_research }
+	}
+    effect = {
+		hidden_effect = {
+				Switch = {
+					trigger = has_planet_flag
+                        is_gpm_stellar_irradiation_habitat = {
+                            add_modifier = habitat_gpm_stellar_irradiation
+                            }
+                        is_gpm_magma_ocean_habitat = {
+                            add_modifier = habitat_gpm_magma_ocean
+                            }
+                        is_gpm_lava_geysers_habitat = {
+                            add_modifier = habitat_gpm_lava_geysers
+                            }
+                        is_gpm_heavy_elements_habitat = {
+                            add_modifier = habitat_gpm_heavy_elements
+                            }
+                        is_gpm_rare_metals_habitat = {
+                            add_modifier = habitat_gpm_rare_metals
+                            }
+                        is_gpm_heavy_metal_coral_habitat = {
+                            add_modifier = habitat_gpm_heavy_metal_coral
+                            }
+                        is_gpm_very_hot_core_habitat = {
+                            add_modifier = habitat_gpm_very_hot_core
+                            }
+                        is_gpm_solidified_core_habitat = {
+                            add_modifier = habitat_gpm_solidified_core
+                            }
+                        is_gpm_strong_volcanism_habitat = {
+                            add_modifier = habitat_gpm_strong_volcanism
+                            }
+                        is_gpm_rich_equator_habitat = {
+                            add_modifier = habitat_gpm_rich_equator
+                            }
+                        is_gpm_iron_oceans_habitat = {
+                            add_modifier = habitat_gpm_iron_oceans
+                            }
+						}
+		set_planet_flag = mining_habitat
+		}
+		add_deposit = gpm_d_alloy_mining_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+
+decision_gpm_habitat_archeological_section = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_habitat_archaeology_section
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 250
+			alloys = 500
+		}
+	}
+
+    potential = {
+		gpm_is_planet_class_habitat = yes
+		OR = {
+			AND = {
+			NOT = { has_modifier = habitat_gpm_crystal_moon_palace }
+			has_planet_flag = is_gpm_crystal_moon_palace_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_temple_of_the_ancient_one }
+			has_planet_flag = is_gpm_temple_of_the_ancient_one_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_ancient_temple }
+			has_planet_flag = is_gpm_ancient_temple_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_ruined_battlefield }
+			has_planet_flag = is_gpm_ruined_battlefield_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_spaceship_graveyard }
+			has_planet_flag = is_gpm_spaceship_graveyard_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_old_world }
+			has_planet_flag = is_gpm_old_world_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_hiveworld }
+			has_planet_flag = is_gpm_hiveworld_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_surface_of_bones }
+			has_planet_flag = is_gpm_surface_of_bones_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_floating_islands }
+			has_planet_flag = is_gpm_floating_islands_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_sunken_cities }
+			has_planet_flag = is_gpm_sunken_cities_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_remnants }
+			has_planet_flag = is_gpm_precursor_remnants_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_city }
+			has_planet_flag = is_gpm_precursor_city_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_shipyards }
+			has_planet_flag = is_gpm_precursor_shipyards_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_planetary_gun }
+			has_planet_flag = is_gpm_precursor_planetary_gun_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_bunker_grid }
+			has_planet_flag = is_gpm_precursor_bunker_grid_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_mechs }
+			has_planet_flag = is_gpm_precursor_mechs_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_planetary_shield }
+			has_planet_flag = is_gpm_precursor_planetary_shield_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_floating_city }
+			has_planet_flag = is_gpm_precursor_floating_city_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_capital_complex }
+			has_planet_flag = is_gpm_precursor_capital_complex_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_communication_hub }
+			has_planet_flag = is_gpm_precursor_communication_hub_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_singularity_drive }
+			has_planet_flag = is_gpm_precursor_singularity_drive_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_eternal_fortress }
+			has_planet_flag = is_gpm_precursor_eternal_fortress_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_prison_planet }
+			has_planet_flag = is_gpm_precursor_prison_planet_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_mines }
+			has_planet_flag = is_gpm_precursor_mines_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_manufactorium }
+			has_planet_flag = is_gpm_precursor_manufactorium_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_vaults }
+			has_planet_flag = is_gpm_precursor_vaults_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_crashed_spacestation }
+			has_planet_flag = is_gpm_precursor_crashed_spacestation_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_battleground_ruins }
+			has_planet_flag = is_gpm_precursor_battleground_ruins_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_outpost_ruins }
+			has_planet_flag = is_gpm_precursor_outpost_ruins_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_harbor_ruins }
+			has_planet_flag = is_gpm_precursor_harbor_ruins_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_ruins }
+			has_planet_flag = is_gpm_precursor_ruins_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_precursor_obelisks }
+			has_planet_flag = is_gpm_precursor_obelisks_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_relic_factories }
+			has_planet_flag = is_gpm_relic_factories_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_relic_generators }
+			has_planet_flag = is_gpm_relic_generators_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_relic_laboratories }
+			has_planet_flag = is_gpm_relic_laboratories_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_relic_lower_levels }
+			has_planet_flag = is_gpm_relic_lower_levels_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_recent_mass_extinction }
+			has_planet_flag = is_gpm_recent_mass_extinction_habitat
+            }
+			AND = {
+			NOT = { has_modifier = habitat_gpm_decaying_structures }
+			has_planet_flag = is_gpm_decaying_structures_habitat
+            }
+            }
+        }
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_frequent_thunderstorms_research }
+	}
+    effect = {
+		hidden_effect = {
+				Switch = {
+					trigger = has_planet_flag
+					
+                        is_gpm_crystal_moon_palace_habitat = {
+                               add_modifier = habitat_gpm_crystal_moon_palace
+                            }
+                        is_gpm_temple_of_the_ancient_one_habitat = {
+                               add_modifier = habitat_gpm_temple_of_the_ancient_one
+                            }
+                        is_gpm_ancient_temple_habitat = {
+                               add_modifier = habitat_gpm_ancient_temple
+                            }
+                        is_gpm_ruined_battlefield_habitat = {
+                               add_modifier = habitat_gpm_ruined_battlefield
+                            }
+                        is_gpm_spaceship_graveyard_habitat = {
+                               add_modifier = habitat_gpm_spaceship_graveyard
+                            }
+                        is_gpm_old_world_habitat = {
+                               add_modifier = habitat_gpm_old_world
+                            }
+                        is_gpm_hiveworld_habitat = {
+                               add_modifier = habitat_gpm_hiveworld
+                            }
+                        is_gpm_surface_of_bones_habitat = {
+                               add_modifier = habitat_gpm_surface_of_bones
+                            }
+                        is_gpm_floating_islands_habitat = {
+                               add_modifier = habitat_gpm_floating_islands
+                            }
+                        is_gpm_sunken_cities_habitat = {
+                               add_modifier = habitat_gpm_sunken_cities
+                            }
+                        is_gpm_precursor_remnants_habitat = {
+                               add_modifier = habitat_gpm_precursor_remnants
+                            }
+                        is_gpm_precursor_city_habitat = {
+                               add_modifier = habitat_gpm_precursor_city
+                            }
+                        is_gpm_precursor_shipyards_habitat = {
+                               add_modifier = habitat_gpm_precursor_shipyards
+                            }
+                        is_gpm_precursor_planetary_gun_habitat = {
+                               add_modifier = habitat_gpm_precursor_planetary_gun
+                            }
+                        is_gpm_precursor_bunker_grid_habitat = {
+                               add_modifier = habitat_gpm_precursor_bunker_grid
+                            }
+                        is_gpm_precursor_mechs_habitat = {
+                               add_modifier = habitat_gpm_precursor_mechs
+                            }
+                        is_gpm_precursor_planetary_shield_habitat = {
+                               add_modifier = habitat_gpm_precursor_planetary_shield
+                            }
+                        is_gpm_precursor_floating_city_habitat = {
+                               add_modifier = habitat_gpm_precursor_floating_city
+                            }
+                        is_gpm_precursor_capital_complex_habitat = {
+                               add_modifier = habitat_gpm_precursor_capital_complex
+                            }
+                        is_gpm_precursor_communication_hub_habitat = {
+                               add_modifier = habitat_gpm_precursor_communication_hub
+                            }
+                        is_gpm_precursor_singularity_drive_habitat = {
+                               add_modifier = habitat_gpm_precursor_singularity_drive
+                            }
+                        is_gpm_precursor_eternal_fortress_habitat = {
+                               add_modifier = habitat_gpm_precursor_eternal_fortress
+                            }
+                        is_gpm_precursor_prison_planet_habitat = {
+                               add_modifier = habitat_gpm_precursor_prison_planet
+                            }
+                        is_gpm_precursor_mines_habitat = {
+                               add_modifier = habitat_gpm_precursor_mines
+                            }
+                        is_gpm_precursor_manufactorium_habitat = {
+                               add_modifier = habitat_gpm_precursor_manufactorium
+                            }
+                        is_gpm_precursor_vaults_habitat = {
+                               add_modifier = habitat_gpm_precursor_vaults
+                            }
+                        is_gpm_precursor_crashed_spacestation_habitat = {
+                               add_modifier = habitat_gpm_precursor_crashed_spacestation
+                            }
+                        is_gpm_precursor_battleground_ruins_habitat = {
+                               add_modifier = habitat_gpm_precursor_battleground_ruins
+                            }
+                        is_gpm_precursor_outpost_ruins_habitat = {
+                               add_modifier = habitat_gpm_precursor_outpost_ruins
+                            }
+                        is_gpm_precursor_harbor_ruins_habitat = {
+                               add_modifier = habitat_gpm_precursor_harbor_ruins
+                            }
+                        is_gpm_precursor_ruins_habitat = {
+                               add_modifier = habitat_gpm_precursor_ruins
+                            }
+                        is_gpm_precursor_obelisks_habitat = {
+                               add_modifier = habitat_gpm_precursor_obelisks
+                            }
+                        is_gpm_relic_factories_habitat = {
+                               add_modifier = habitat_gpm_relic_factories
+                            }
+                        is_gpm_relic_generators_habitat = {
+                               add_modifier = habitat_gpm_relic_generators
+                            }
+                        is_gpm_relic_laboratories_habitat = {
+                               add_modifier = habitat_gpm_relic_laboratories
+                            }
+                        is_gpm_relic_lower_levels_habitat = {
+                               add_modifier = habitat_gpm_relic_lower_levels
+                            }
+                        is_gpm_recent_mass_extinction_habitat = {
+                               add_modifier = habitat_gpm_recent_mass_extinction
+                            }
+                        is_gpm_decaying_structures_habitat = {
+                               add_modifier = habitat_gpm_decaying_structures
+                            }
+						}
+		set_planet_flag = research_habitat
+		}
+		add_deposit = gpm_d_archeology_precursor_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
+
