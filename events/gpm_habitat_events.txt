@@ -443,7 +443,7 @@ country_event = {
 			}
 #
 # 
-# ADDITIONAL EVENTS SONCIO
+# ADDITIONAL EVENTS SCM (Soncio)
 #
 #
             # gpm_frequent_thunderstorms
@@ -4798,9 +4798,6 @@ country_event = {
                     }
                 }
             }
-
-
-
 		}
 	}
 }
