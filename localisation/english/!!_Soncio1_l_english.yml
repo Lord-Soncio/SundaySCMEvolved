@@ -13,3 +13,18 @@
  decision_gpm_habitat_alloy_section:0 "Build advanced foundries facilities within this habitat."
  decision_gpm_habitat_archeological_section:0 "Build Archeological Infrastructure"
  decision_gpm_habitat_archeological_section:0 "Build advanced archeological facilities within this habitat."
+ decision_gpm_habitat_food_section:0 "Build Food Infrastructure"
+ decision_gpm_habitat_food_section_desc:0 "Build advanced farming facilities within this habitat."
+
+ gpm_d_food_collecting_infrastructure:0 "Food Collecting Infrastructure"
+ gpm_d_food_collecting_infrastructure_desc:0 "Specialised habitat infrastructure to support the collection of food."
+
+ job_gpm_orbital_food_collector:0 "Orbital Food Collector"
+ job_gpm_orbital_food_collector_plural:0 "Orbital Food Collectors"
+ job_gpm_orbital_food_collector_desc:0 "Specialised food harvesters are the backbone of this workforce and are so strong they can withstand extreme environments."
+ job_gpm_orbital_food_collector_effect_desc:0 "£job_gpm_orbital_food_collector£ $job_gpm_orbital_food_collector_plural$ produce £food£ §G$food$§!"
+
+ job_gpm_orbital_food_collector_drone:0 "Orbital Food Extractor"
+ job_gpm_orbital_food_collector_drone_plural:0 "Orbital Food Extractors"
+ job_gpm_orbital_food_collector_drone_desc:0 "$job_gpm_orbital_food_collector_desc$"
+ job_gpm_orbital_food_collector_drone_effect_desc:0 "£job_gpm_orbital_food_collector_drone£ $job_gpm_orbital_food_collector_drone_plural$ produce £food£ §G$food$§!"

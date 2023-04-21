@@ -291,15 +291,17 @@ country_event = {
 					}
 				}
 			}
-			# gpm_delicious_ingredients
+			# gpm_delicious_ingredients / gpm_exotic_spices
 			fromfrom.planet = {
 				if = {
 					limit = {
 						OR = {
 							has_modifier = gpm_delicious_ingredients
+                            has_modifier = gpm_exotic_spices
 							any_moon = {
 								OR = {
 									has_modifier = gpm_delicious_ingredients
+                                    has_modifier = gpm_exotic_spices
 								}
 							}
 						}
@@ -443,7 +445,7 @@ country_event = {
 			}
 #
 # 
-# ADDITIONAL EVENTS SCM (Soncio)
+# ADDITIONAL EVENTS SCM (by Soncio)
 #
 #
             # gpm_frequent_thunderstorms

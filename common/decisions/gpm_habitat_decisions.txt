@@ -509,7 +509,7 @@ decision_gpm_habitat_moon_mining = {
 		category = decisions
 		cost = {
 			unity = 150
-			alloys = 250
+			alloys = 1000
 		}
 	}
 
@@ -1444,7 +1444,7 @@ decision_gpm_habitat_spice_markets = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
+			unity = 250
 		}
 	}
 
@@ -2138,7 +2138,7 @@ decision_gpm_habitat_iron_extraction = {
 		hidden_effect = {
 			add_modifier = { modifier = gpm_habitat_iron_extraction }
 		}
-		add_deposit = gpm_d_mineral_mining_infrastructure
+		add_deposit = gpm_d_alloy_mining_infrastructure
 	}
 	
 	ai_weight = {
@@ -2183,7 +2183,11 @@ decision_gpm_habitat_iron_extraction = {
 		}
 	}
 }
-
+#
+# 
+# ADDITIONAL DECISIONS SCM (by Soncio)
+#
+#
 decision_gpm_habitat_research_section = {
     owned_planets_only = yes
 	sound = event_administrative_work
@@ -3338,10 +3342,6 @@ decision_gpm_habitat_mineral_section = {
         has_planet_flag = is_ultra_rich_habitat
             }
         AND = {
-        NOT = { has_modifier = habitat_gpm_metallic_ring }
-        has_planet_flag = is_gpm_metallic_ring_habitat
-            }
-        AND = {
         NOT = { has_modifier = habitat_gpm_carbon_planet }
         has_planet_flag = is_gpm_carbon_planet_habitat
             }
@@ -3406,9 +3406,6 @@ decision_gpm_habitat_mineral_section = {
                             }
                         is_ultra_rich_habitat = {
                             add_modifier = habitat_ultra_rich
-                            }
-                        is_gpm_metallic_ring_habitat = {
-                            add_modifier = habitat_gpm_metallic_ring
                             }
                         is_gpm_carbon_planet_habitat = {
                             add_modifier = habitat_gpm_carbon_planet
@@ -3507,6 +3504,10 @@ decision_gpm_habitat_alloy_section = {
 		gpm_is_planet_class_habitat = yes
 		OR = {
 			AND = {
+			NOT = { has_modifier = habitat_gpm_metallic_ring }
+			has_planet_flag = is_gpm_metallic_ring_habitat
+			}		
+			AND = {
 			NOT = { has_modifier = habitat_gpm_stellar_irradiation }
 			has_planet_flag = is_gpm_stellar_irradiation_habitat
             }
@@ -3560,7 +3561,10 @@ decision_gpm_habitat_alloy_section = {
 		hidden_effect = {
 				Switch = {
 					trigger = has_planet_flag
-                        is_gpm_stellar_irradiation_habitat = {
+						is_gpm_metallic_ring_habitat = {
+							add_modifier = habitat_gpm_metallic_ring
+							}
+						is_gpm_stellar_irradiation_habitat = {
                             add_modifier = habitat_gpm_stellar_irradiation
                             }
                         is_gpm_magma_ocean_habitat = {
@@ -3985,3 +3989,121 @@ decision_gpm_habitat_archeological_section = {
 	}
 }
 
+decision_gpm_habitat_food_section = {
+    owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_gpm_evolve_simple_organisms
+	enactment_time = 360
+
+    resources = {
+		category = decisions
+		cost = {
+			unity = 250
+			alloys = 500
+		}
+	}
+
+    potential = {
+		gpm_is_planet_class_habitat = yes
+		OR = {
+			AND = {
+				NOT = { has_modifier = habitat_gpm_ideal_for_life }
+				has_planet_flag = is_gpm_ideal_for_life_habitat
+			}
+            AND = {
+				NOT = { has_modifier = habitat_gpm_endless_fish }
+				has_planet_flag = is_gpm_endless_fish_habitat
+			}
+            AND = {
+				NOT = { has_modifier = habitat_gpm_artificial_water }
+				has_planet_flag = is_gpm_artificial_water_habitat
+			}
+            AND = {
+				NOT = { has_modifier = habitat_gpm_rich_soil }
+				has_planet_flag = is_gpm_rich_soil_habitat
+			}
+            AND = {
+				NOT = { has_modifier = habitat_gpm_algae_boom }
+				has_planet_flag = is_gpm_algae_boom_habitat
+			}
+            AND = {
+				NOT = { has_modifier = habitat_gpm_mushroom_forest }
+				has_planet_flag = is_gpm_mushroom_forest_habitat
+			}
+            }
+        }
+	
+	allow = {
+		# NOT = { has_modifier = gpm_habitat_frequent_thunderstorms_research }
+	}
+    effect = {
+		hidden_effect = {
+			Switch = {
+				trigger = has_planet_flag
+	
+				is_gpm_ideal_for_life_habitat = {
+					add_modifier = habitat_gpm_ideal_for_life
+					}
+				is_gpm_endless_fish_habitat = {
+					add_modifier = habitat_gpm_endless_fish
+					}
+				is_gpm_artificial_water_habitat = {
+					add_modifier = habitat_gpm_artificial_water
+					}
+				is_gpm_rich_soil_habitat = {
+					add_modifier = habitat_gpm_rich_soil
+					}
+				is_gpm_algae_boom_habitat = {
+					add_modifier = habitat_gpm_algae_boom
+					}
+				is_gpm_mushroom_forest_habitat = {
+					add_modifier = habitat_gpm_mushroom_forest
+					}
+				}
+		set_planet_flag = tec_food_habitat
+		}
+		add_deposit = gpm_d_alloy_mining_infrastructure
+	}
+	
+	ai_weight = {
+		weight = 100
+		modifier = {
+			factor = 10
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 500
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			from = {
+				resource_stockpile_compare = {
+					resource = alloys
+					value >= 1000
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+		modifier = {
+			factor = 0
+			from = { is_at_war = yes }
+		}
+		modifier = {
+			factor = 1
+			is_planet_class = pc_habitat
+		}
+		modifier = {
+			factor = 5
+			has_planet_flag = advanced_habitat
+		}
+		modifier = {
+			factor = 10
+			has_planet_flag = advanced_habitat_2
+		}
+	}
+}
