@@ -116,7 +116,6 @@ decision_gpm_habitat_trade_docks = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
 			alloys = 500
 		}
 	}
@@ -201,7 +200,7 @@ decision_gpm_habitat_hub = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
+			unity = 250
 		}
 	}
 
@@ -290,7 +289,6 @@ decision_gpm_habitat_holo_entertainment = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
 			alloys = 500
 		}
 	}
@@ -365,8 +363,7 @@ decision_gpm_habitat_food_recyclers = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 500
+			alloys = 250
 		}
 	}
 
@@ -436,8 +433,7 @@ decision_gpm_habitat_replicators = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 500
+			alloys = 250
 		}
 	}
 
@@ -508,8 +504,8 @@ decision_gpm_habitat_moon_mining = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 1000
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -593,8 +589,8 @@ decision_gpm_habitat_belt_mining = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -688,8 +684,8 @@ decision_gpm_habitat_thunderstorm_research = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -773,8 +769,8 @@ decision_gpm_habitat_radioactive_mining = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -858,8 +854,8 @@ decision_gpm_habitat_asteroid_catchers = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -943,8 +939,8 @@ decision_gpm_habitat_particle_collectors = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1028,8 +1024,8 @@ decision_gpm_habitat_expedition_section = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1112,8 +1108,8 @@ decision_gpm_habitat_chronoton_sensors = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1197,8 +1193,8 @@ decision_gpm_habitat_mining_bays = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1283,8 +1279,8 @@ decision_gpm_habitat_archaeology_section = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1368,8 +1364,7 @@ decision_gpm_habitat_pleasure_palace = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 500
+			unity = 750
 		}
 	}
 
@@ -1444,7 +1439,7 @@ decision_gpm_habitat_spice_markets = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 250
+			unity = 750
 		}
 	}
 
@@ -1612,7 +1607,6 @@ decision_gpm_habitat_egg_containment_facility = {
 		category = decisions
 		cost = {
 			unity = 150
-			alloys = 1000
 		}
 	}
 
@@ -1696,8 +1690,8 @@ decision_gpm_habitat_hydrogen_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1781,8 +1775,8 @@ decision_gpm_habitat_nitrogen_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1866,8 +1860,8 @@ decision_gpm_habitat_chlorine_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1951,8 +1945,8 @@ decision_gpm_habitat_phospherus_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -2036,8 +2030,8 @@ decision_gpm_habitat_sulfur_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -2119,8 +2113,8 @@ decision_gpm_habitat_iron_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 150
-			alloys = 250
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -2197,8 +2191,8 @@ decision_gpm_habitat_research_section = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 250
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -3266,8 +3260,8 @@ decision_gpm_habitat_energy_section = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 250
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -3423,8 +3417,8 @@ decision_gpm_habitat_mineral_section = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 250
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -3620,8 +3614,8 @@ decision_gpm_habitat_alloy_section = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 250
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -3792,8 +3786,8 @@ decision_gpm_habitat_archeological_section = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 250
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -4181,8 +4175,8 @@ decision_gpm_habitat_food_section = {
     resources = {
 		category = decisions
 		cost = {
-			unity = 250
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
