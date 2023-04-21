@@ -1,0 +1,41 @@
+
+
+
+
+
+gpm_habitat_research_section = {
+	show_only_custom_tooltip = yes
+	custom_tooltip = add_gpm_habitat_research_section
+	icon = "gfx/interface/icons/planet_modifiers/gpm_habitat_science_specialisation.dds"
+	icon_frame = 11
+}
+gpm_habitat_mineral_section = {
+	show_only_custom_tooltip = yes
+	custom_tooltip = add_gpm_habitat_mineral_section
+	icon = "gfx/interface/icons/planet_modifiers/gpm_habitat_minerals_specialisation.dds"
+	icon_frame = 11
+}
+gpm_habitat_energy_section = {
+	show_only_custom_tooltip = yes
+	custom_tooltip = add_gpm_habitat_energy_section
+	icon = "gfx/interface/icons/planet_modifiers/gpm_pulsar_clock.dds"
+	icon_frame = 11
+}
+gpm_habitat_food_section = {
+	show_only_custom_tooltip = yes
+	custom_tooltip = add_gpm_habitat_food_section
+	icon = "gfx/interface/icons/planet_modifiers/gpm_habitat_food_specialisation.dds"
+	icon_frame = 11
+}
+gpm_habitat_archeological_section = {
+	show_only_custom_tooltip = yes
+	custom_tooltip = add_gpm_habitat_archeological_section
+	icon = "gfx/interface/icons/planet_modifiers/gpm_precursor_energy_grid.dds"
+	icon_frame = 11
+}
+gpm_habitat_alloy_section = {
+	show_only_custom_tooltip = yes
+	custom_tooltip = add_gpm_habitat_alloy_section
+	icon = "gfx/interface/icons/planet_modifiers/gpm_habitat_iron_extraction.dds"
+	icon_frame = 11
+}

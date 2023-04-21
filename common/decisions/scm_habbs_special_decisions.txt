@@ -11,10 +11,10 @@ decision_prospect_void = {
 	}
 
 	potential = {
-		is_planet_class = pc_habitat
 		owner = {
 			has_active_tradition = tr_adaptability_void_finish
 		}
+		is_planet_class = pc_habitat
 		NAND = {
 			has_planet_flag = energy_habitat
 			has_planet_flag = mining_habitat

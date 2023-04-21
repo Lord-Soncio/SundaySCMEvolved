@@ -28,3 +28,10 @@
  job_gpm_orbital_food_collector_drone_plural:0 "Orbital Food Extractors"
  job_gpm_orbital_food_collector_drone_desc:0 "$job_gpm_orbital_food_collector_desc$"
  job_gpm_orbital_food_collector_drone_effect_desc:0 "£job_gpm_orbital_food_collector_drone£ $job_gpm_orbital_food_collector_drone_plural$ produce £food£ §G$food$§!"
+
+ add_gpm_habitat_mineral_section:0 "Planetary Feature: §H$gpm_d_mineral_mining_infrastructure$§!"
+ add_gpm_habitat_research_section:0 "Planetary Feature: §H$gpm_d_orbital_research_infrastructure$§!"
+ add_gpm_habitat_energy_section:0 "Planetary Feature: §H$gpm_d_particle_collecting_infrastructure$§!"
+ add_gpm_habitat_archeological_section:0 "Planetary Feature: §H$gpm_d_archeology_precursor_infrastructure$§!"
+ add_gpm_habitat_food_section:0 "Planetary Feature: §H$gpm_d_food_collecting_infrastructure$§!"
+ add_gpm_habitat_alloy_section:0 "Planetary Feature: §H$gpm_d_alloy_mining_infrastructure$§!"
