@@ -17,11 +17,11 @@ reptilian_02_hat = {
 	
 		default = "gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds"
 
-		random = {
-			list = {
-				"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds"
-			}
-		}	
+		#random = {
+		#	list = {
+		#		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds"
+		#	}
+		#}	
 	}
 	
 	
@@ -62,7 +62,7 @@ reptilian_02_hat = {
 	#leader scope
 	ruler = { #for rulers
 
-		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  always=yes }
+		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  always = yes }
 		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_divine_empire } }
 		#"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = transcendent_empire } }
 		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_theocratic_oligarchy } }

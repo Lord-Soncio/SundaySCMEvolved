@@ -12,11 +12,14 @@ NGameplay = {
 
 	RESOLUTION_VOTE_TIMER 						= 360					# number of days a resolution will be on the senate floor before being passed/failed
 	RESOLUTION_VOTE_PREMATURE_TIMER 			= 180			# number of days until the custodian/emperor can prematurely end the senate session
-	SENATE_RECESS_TIMER 						= 760	
-	CHANGE_VOTE_COOLDOWN 						= 60
+	SENATE_RECESS_TIMER 						= 360	
+	CHANGE_VOTE_COOLDOWN 						= 30
 	#/TEST
 	#RESOLUTION_VOTE_TIMER = 10					# number of days a resolution will be on the senate floor before being passed/failed
 	#SENATE_RECESS_TIMER = 10	
+	CATEGORY_VOTE_COOLDOWN 						= 1800	# days before another resolution in a given category can proposed again
+	TYPE_VOTE_COOLDOWN							= 1800
+
 
 	MOVE_CAPITAL_INFLUENCE_COST					= 200	# Influence cost to move the empire capital to another planet.
 	MOVE_CAPITAL_COOLDOWN_YEARS 				= 10	# Cooldown in years for moving capital.
