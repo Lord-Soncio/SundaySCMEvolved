@@ -25,11 +25,16 @@ per_relation = {
 	# scope: this = current country, FROM : other country in the relation
 	federation = {
 		trigger = {
-				is_in_federation_with = FROM
-		}
+			is_in_federation_with = FROM
+			AND = {
+				NOT = { federation = { has_federation_type = imperial_loyalists_federation } }
+				NOT = { federation = { has_federation_flag = empire_rebels } }
+				}
+			}
+			
 		resources = {
+			category = federation
 			upkeep = {
-				
 				influence = 1
 			}
 		}
