@@ -504,8 +504,8 @@ decision_gpm_habitat_moon_mining = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -545,7 +545,7 @@ decision_gpm_habitat_moon_mining = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -589,8 +589,8 @@ decision_gpm_habitat_belt_mining = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -684,8 +684,8 @@ decision_gpm_habitat_thunderstorm_research = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -725,7 +725,7 @@ decision_gpm_habitat_thunderstorm_research = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -769,8 +769,8 @@ decision_gpm_habitat_radioactive_mining = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -810,7 +810,7 @@ decision_gpm_habitat_radioactive_mining = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -854,8 +854,8 @@ decision_gpm_habitat_asteroid_catchers = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -895,7 +895,7 @@ decision_gpm_habitat_asteroid_catchers = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -939,8 +939,8 @@ decision_gpm_habitat_particle_collectors = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -980,7 +980,7 @@ decision_gpm_habitat_particle_collectors = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -1024,8 +1024,8 @@ decision_gpm_habitat_expedition_section = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1108,8 +1108,8 @@ decision_gpm_habitat_chronoton_sensors = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1193,8 +1193,8 @@ decision_gpm_habitat_mining_bays = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1234,7 +1234,7 @@ decision_gpm_habitat_mining_bays = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -1279,8 +1279,8 @@ decision_gpm_habitat_archaeology_section = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1489,7 +1489,7 @@ decision_gpm_habitat_spice_markets = {
 			from = {
 				resource_stockpile_compare = {
 					resource = influence
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -1571,7 +1571,7 @@ decision_gpm_habitat_gambling_licence = {
 			from = {
 				resource_stockpile_compare = {
 					resource = influence
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -1690,8 +1690,8 @@ decision_gpm_habitat_hydrogen_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1731,7 +1731,7 @@ decision_gpm_habitat_hydrogen_extraction = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -1775,8 +1775,8 @@ decision_gpm_habitat_nitrogen_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1816,7 +1816,7 @@ decision_gpm_habitat_nitrogen_extraction = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -1860,8 +1860,8 @@ decision_gpm_habitat_chlorine_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1901,7 +1901,7 @@ decision_gpm_habitat_chlorine_extraction = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -1945,8 +1945,8 @@ decision_gpm_habitat_phospherus_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -1986,7 +1986,7 @@ decision_gpm_habitat_phospherus_extraction = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -2030,8 +2030,8 @@ decision_gpm_habitat_sulfur_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -2070,7 +2070,7 @@ decision_gpm_habitat_sulfur_extraction = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -2113,8 +2113,8 @@ decision_gpm_habitat_iron_extraction = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -2142,7 +2142,7 @@ decision_gpm_habitat_iron_extraction = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -2191,8 +2191,8 @@ decision_gpm_habitat_research_section = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -3215,7 +3215,7 @@ decision_gpm_habitat_research_section = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -3260,8 +3260,8 @@ decision_gpm_habitat_energy_section = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -3372,7 +3372,7 @@ decision_gpm_habitat_energy_section = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -3417,8 +3417,8 @@ decision_gpm_habitat_mineral_section = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -3569,7 +3569,7 @@ decision_gpm_habitat_mineral_section = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -3614,8 +3614,8 @@ decision_gpm_habitat_alloy_section = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -3741,7 +3741,7 @@ decision_gpm_habitat_alloy_section = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -3786,8 +3786,8 @@ decision_gpm_habitat_archeological_section = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -4130,7 +4130,7 @@ decision_gpm_habitat_archeological_section = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}
@@ -4175,8 +4175,8 @@ decision_gpm_habitat_food_section = {
     resources = {
 		category = decisions
 		cost = {
-			influence = 20
-			alloys = 500
+			influence = 25
+			alloys = 750
 		}
 	}
 
@@ -4255,7 +4255,7 @@ decision_gpm_habitat_food_section = {
 			from = {
 				resource_stockpile_compare = {
 					resource = alloys
-					value >= 500
+					value >= 750
 				}
 			}
 		}

@@ -5,7 +5,7 @@ tec_cyberpsionic_entropy_scaling = {
 	base = 0
 	add = owner.value:scripted_modifier_mult|MODIFIER|tec_entropy|
 	subtract = 1
-	mult = 4
+	mult = 3
 	subtract = 1
 	min = 0.1
 	square_root = yes
@@ -15,7 +15,7 @@ tec_cyberpsionic_entropy_scaling_display = {
 	base = 0
 	add = owner.value:scripted_modifier_mult|MODIFIER|tec_entropy|
 	subtract = 1
-	mult = 4
+	mult = 3
 	square_root = yes
 	round_to = 0.01
 }
