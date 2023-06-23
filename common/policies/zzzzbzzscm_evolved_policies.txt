@@ -72,7 +72,7 @@ tec_drone_overclock = {
 			pop_category_drones_physics_research_produces_add = 0.5
 			pop_category_drones_society_research_produces_add = 0.5
 			pop_category_drones_engineering_research_produces_add = 0.5
-			pop_category_drones_energy_upkeep_add = 0.75
+			pop_category_drones_energy_upkeep_add = 0.25
 		}
 
 		AI_weight = {
@@ -116,7 +116,7 @@ tec_drone_overclock = {
 			pop_category_drones_physics_research_produces_add = 1
 			pop_category_drones_society_research_produces_add = 1
 			pop_category_drones_engineering_research_produces_add = 1
-			pop_category_drones_energy_upkeep_add = 1.5
+			pop_category_drones_energy_upkeep_add = 0.5
 		}
 
 		AI_weight = {
