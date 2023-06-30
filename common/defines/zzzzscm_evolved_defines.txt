@@ -54,7 +54,7 @@ NGameplay = {
 
 	#Tweak over time, tech cost penalty might need to be increased.
 	EMPIRE_SIZE_TECH_COST_PENALTY			= 0.0015	#0.001 Per empire size above base
-	EMPIRE_SIZE_TRADITION_COST_PENALTY		= 0.003	#0.002 Per empire size above base
+	EMPIRE_SIZE_TRADITION_COST_PENALTY		= 0.002	#0.002 Per empire size above base
 }
 
 NEconomy = {
