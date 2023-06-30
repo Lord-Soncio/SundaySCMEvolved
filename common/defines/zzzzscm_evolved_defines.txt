@@ -36,25 +36,25 @@ NGameplay = {
 	# Federation changes
 
 	#Planetary Diversity: Electric Boogaloo
-	BASE_PLANET_BUILDING_SLOTS				= 2
-	MIN_BLOCKED_DEPOSITS = 2		# Always try to have this many blocker deposits on planets when generating the galaxy
-	MIN_UNBLOCKED_DEPOSITS = 3		# Always try to have this many non-blocker deposits on planets when generating the galaxy
-	DEPOSIT_USED_CATEGORY_WEIGHT = 2.5 # The higher this is, the more randomization will tend to diversify planet deposit types // Base = 0.25 // RARE PLANETARY FEATURES SLIDER
+	BASE_PLANET_BUILDING_SLOTS				= 1 #1
+	MIN_BLOCKED_DEPOSITS = 1		#1 Always try to have this many blocker deposits on planets when generating the galaxy
+	MIN_UNBLOCKED_DEPOSITS = 3		#3 Always try to have this many non-blocker deposits on planets when generating the galaxy
+	DEPOSIT_USED_CATEGORY_WEIGHT = 0.5 #0.25 The higher this is, the more randomization will tend to diversify planet deposit types // Base = 0.25 // RARE PLANETARY FEATURES SLIDER
 
 	#Trade Balancing // Still need to test if this is "balanced"
-	BRANCH_OFFICE_INCOME_SCALE				= 0.5 # Per planet trade value
-	BRANCH_OFFICE_COST_INCREASE_MIN_RANGE	= 3		# Above this number of hyperlane jumps away, increase cost for branch offices
-	BRANCH_OFFICE_COST_INCREASE_SCALE		= 0.3	# Additional cost per jump
+	BRANCH_OFFICE_INCOME_SCALE				= 0.4 #0.5 Per planet trade value
+	BRANCH_OFFICE_COST_INCREASE_MIN_RANGE	= 3		#3 Above this number of hyperlane jumps away, increase cost for branch offices
+	BRANCH_OFFICE_COST_INCREASE_SCALE		= 0.3	#0.1 Additional cost per jump
 
 	#passive war exhaustion, only change if increased amount of cheese.
-	WAR_EXHAUSTION_PASSIVE_GAIN_YEARLY		= 0.25		# The amount of yearly war exhaustion gained during war while under WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF
-	#WAR_EXHAUSTION_PASSIVE_WAR_SIZE_DIV		= 0.1
-	#WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF		= 1.0		# At this amount of war exhaustion (excluding occupation) you stop getting war exhaustion passively over time
+	WAR_EXHAUSTION_PASSIVE_GAIN_YEARLY		= 0.25		#0.1 The amount of yearly war exhaustion gained during war while under WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF
+	#WAR_EXHAUSTION_PASSIVE_WAR_SIZE_DIV		= 0.1	#0.1
+	#WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF		= 1.0		#1.0 At this amount of war exhaustion (excluding occupation) you stop getting war exhaustion passively over time
 
 
 	#Tweak over time, tech cost penalty might need to be increased.
-	EMPIRE_SIZE_TECH_COST_PENALTY			= 0.0015	# Per empire size above base
-	EMPIRE_SIZE_TRADITION_COST_PENALTY		= 0.0025	# Per empire size above base
+	EMPIRE_SIZE_TECH_COST_PENALTY			= 0.0015	#0.001 Per empire size above base
+	EMPIRE_SIZE_TRADITION_COST_PENALTY		= 0.003	#0.002 Per empire size above base
 }
 
 NEconomy = {
