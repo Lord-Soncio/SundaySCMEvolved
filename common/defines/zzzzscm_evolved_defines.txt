@@ -36,7 +36,7 @@ NGameplay = {
 	# Federation changes
 
 	#Planetary Diversity: Electric Boogaloo
-	BASE_PLANET_BUILDING_SLOTS				= 1 #1
+	BASE_PLANET_BUILDING_SLOTS				= 2 #1
 	MIN_BLOCKED_DEPOSITS = 1		#1 Always try to have this many blocker deposits on planets when generating the galaxy
 	MIN_UNBLOCKED_DEPOSITS = 3		#3 Always try to have this many non-blocker deposits on planets when generating the galaxy
 	DEPOSIT_USED_CATEGORY_WEIGHT = 0.75 #0.25 The higher this is, the more randomization will tend to diversify planet deposit types // Base = 0.25 // RARE PLANETARY FEATURES SLIDER

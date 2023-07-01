@@ -7,13 +7,14 @@ Decisions
 Defines
 - Decreased resolution vote time to 2 years
 - Decreased resolution recess time to 1 years
-- increased federation opposing ethic penalty
+- Increased federation opposing ethic penalty
 - Increased cohesion range (was 100, now 300) (more cohesive federation will have the chance to grow faster if played accordingly)
 - Reduced by 20% branch office conversion rate (was 50% of planet trade value, now is 40%)
 - Increased the additional cost for each jump of distance for branch offices (to promote less sniping branch offices on the other side of the galaxy by only one megacorp)
 - Increased passive war exhaustion gain
-- Slightly increased empire size cost penalty for research and traditions
+- Slightly increased empire size cost penalty for research
 - Changed claim gal.com. favor resource from influence to unity
+- Increased colony base building slots ( 1 -> 2 )
 Deposits
 - Nerfed most habitat unique deposits decisions to grant less districts slots and/or less jobs
 - Added new unique deposit giving food jobs, took some of the modifiers grantig researcher jobs and switched them to food harvester jobs
@@ -39,6 +40,8 @@ Scripted effects
 - Hardcoded habitat amount limit ( cap = 5, 10 if VD origin)
 Starbase modules
 - Limited amount of detection arrays on a single starbase to 6 (reaching detection lvl 10 was too easy thanks to evolved additional slots, while still possible it requires a matching investment to cloack lvl 10)
+Static Modifiers
+- Heavily nerfed some of the machine worlds GPM special decision (flat bonuses 4 -> 1)
 Traditions
 - Psionics tree now requires at least 2 ascension perks before being available (slowed downt to match other AP paths timings)
 
