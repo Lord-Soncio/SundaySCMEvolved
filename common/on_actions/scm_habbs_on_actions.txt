@@ -21,9 +21,3 @@ on_destroy_planet_with_PLANET_KILLER_SHIELDER = {
 		habbscap.3
 	}
 }
-
-on_monthly_pulse_country = {
-	events = {
-		scmgeneral.1
-	}
-}
