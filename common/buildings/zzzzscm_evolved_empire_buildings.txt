@@ -1,154 +1,4 @@
-# ----------------------------------------
-#		ETHIC BUILDINGS
-# ----------------------------------------
-
 # ------------------------------------------------- Cyberpsionic
-building_tec_cyberpsionic_extractor = {
-	base_buildtime = @b3_time
-	base_cap_amount = 5
-	position_priority = 12		# Important
-	can_be_disabled = no
-	can_be_ruined = no
-	category = research
-
-	potential = {
-		exists = owner
-		owner = {
-			has_country_flag = tec_cyberpsionic_buildings
-		}
-	}
-
-	resources = {
-		category = planet_buildings
-		inline_script = {
-			script = buildings/resources/inline_evolved_resource_cost
-			tier = 3
-		}
-		cost = {
-			alloys = 250
-			sr_zro = 50
-		}
-		produces = {	
-			sr_zro = 1
-		}
-		produces = {
-			energy = 5
-			multiplier = value:tec_cyberpsionic_entropy_scaling
-		}
-	}
-
-	triggered_country_modifier = {
-		potential = {
-			always = yes
-		}
-		tec_entropy = 0.15
-	}
-
-	# Warnings
-		triggered_desc = {
-			trigger = {
-				exists = owner
-				owner = {
-					check_modifier_value = {
-						modifier = tec_entropy
-						value < 0.50
-					}
-				}
-			}
-			text = building_tec_cyberpsionic_extractor_danger_0
-		}
-
-		triggered_desc = {
-			trigger = {
-				exists = owner
-				owner = {
-					check_modifier_value = {
-						modifier = tec_entropy
-						value >= 0.50
-					}
-					check_modifier_value = {
-						modifier = tec_entropy
-						value < 0.75
-					}
-				}
-			}
-			text = building_tec_cyberpsionic_extractor_danger_1
-		}
-		
-		triggered_desc = {
-			trigger = {
-				exists = owner
-				owner = {
-					check_modifier_value = {
-						modifier = tec_entropy
-						value >= 0.75
-					}
-					check_modifier_value = {
-						modifier = tec_entropy
-						value < 1
-					}
-				}
-			}
-			text = building_tec_cyberpsionic_extractor_danger_2
-		}
-		
-		triggered_desc = {
-			trigger = {
-				exists = owner
-				owner = {
-					check_modifier_value = {
-						modifier = tec_entropy
-						value >= 1
-					}
-					check_modifier_value = {
-						modifier = tec_entropy
-						value < 1.5
-					}
-				}
-			}
-			text = building_tec_cyberpsionic_extractor_danger_3
-		}
-
-		triggered_desc = {
-			trigger = {
-				exists = owner
-				owner = {
-					check_modifier_value = {
-						modifier = tec_entropy
-						value >= 1.5
-					}
-					check_modifier_value = {
-						modifier = tec_entropy
-						value < 2
-					}
-				}
-			}
-			text = building_tec_cyberpsionic_extractor_danger_4
-		}
-
-		triggered_desc = {
-			trigger = {
-				exists = owner
-				owner = {
-					check_modifier_value = {
-						modifier = tec_entropy
-						value >= 2
-					}
-				}
-			}
-			text = building_tec_cyberpsionic_extractor_danger_5
-		}
-	# /
-
-	on_built = {
-		hidden_effect = {
-			owner = {
-				set_country_flag = tec_cyberpsionic_entropy_check
-			}
-		}
-	}
-}
-
 building_tec_cyberpsionic_transmuter = {
 	base_buildtime = @b3_time
 	base_cap_amount = 5
@@ -156,6 +6,7 @@ building_tec_cyberpsionic_transmuter = {
 	can_be_disabled = no
 	can_be_ruined = no
 	category = research
+	ai_estimate_without_unemployment = yes
 
 	potential = {
 		exists = owner
@@ -306,12 +157,18 @@ building_tec_cyberpsionic_gate = {
 	can_be_disabled = no
 	can_be_ruined = no
 	category = research
+	ai_estimate_without_unemployment = yes
 
 	potential = {
 		exists = owner
 		owner = {
 			has_country_flag = tec_cyberpsionic_buildings
 		}
+	}
+
+	allow = {
+		has_upgraded_capital = yes
+		tec_ai_allow_cyberpsionic_gate_building = yes
 	}
 
 	resources = {
@@ -393,4 +250,24 @@ building_tec_cyberpsionic_gate = {
 			multiplier = value:tec_cyberpsionic_entropy_scaling
 		}
 	# /
+
+	inline_script = {
+		script = buildings/inline_evolved_aibait
+		trigger = "
+ 			OR = {
+				tec_is_arcology = yes
+				AND = {
+					exists = owner
+					owner = { tec_uses_trade_value = yes }
+					OR = {
+						has_trade_designation = yes
+						check_variable_arithmetic = {
+							which = value:trade_combined_value
+							value >= 4
+						}
+					}
+				}
+			}
+		"
+	}
 }

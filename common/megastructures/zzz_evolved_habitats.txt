@@ -11,7 +11,7 @@ habitat_0 = {
 
 	place_entity_on_planet_plane = yes
 	entity_offset = { x = -7 y = -7 }
-	build_time = 1800
+	build_time = 900
 
 	resources = {
 		category = megastructures_habitat
@@ -206,28 +206,37 @@ habitat_0 = {
 			exists = sector
 			sector = { has_sector_type = core_sector }
 		}
-		modifier = {
-			factor = 2
-			any_neighbor_system = {
-				exists = owner
-				is_same_value = owner.capital_scope.solar_system
+			}
+
+	on_build_start = {
+		from = {
+			create_variable_if_not_exists = {
+				VARIABLE = tec_ai_habitats_in_queue
+				VALUE_IF_CREATED = 0
+		}
+			change_variable = {
+				which = tec_ai_habitats_in_queue
+				value = 1
 			}
 		}
-
-		modifier = {
-			factor = 0.1
-			any_neighbor_system = {
-				exists = owner
-				owner = { NOT = { is_same_value = from } }
+	}
+	on_build_cancel = {
+		from = {
+			change_variable = {
+				which = tec_ai_habitats_in_queue
+				value = -1
 			}
 		}
 	}
 
-	on_build_start = {}
-	on_build_cancel = {}
-
 	on_build_complete = {
 		hidden_effect = {	# Ai tweaks
+			from = {
+				change_variable = {
+					which = tec_ai_habitats_in_queue
+					value = -1
+				}
+			}
 			if = {
 				limit = {
 					from = {
@@ -632,7 +641,7 @@ tec_arkship_0 = {
 	build_time = 1800
 		
 	resources = {
-		category = habitats
+		category = megastructures_habitat
 		cost = {
 			alloys = 1500
 			influence = 150

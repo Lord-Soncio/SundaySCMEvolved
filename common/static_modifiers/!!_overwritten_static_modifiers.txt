@@ -1,0 +1,72 @@
+# 08_static_modifiers_megacorp.txt
+
+crime_lord_deal = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_crime.dds"
+	icon_frame = 2
+	planet_stability_add = 5
+	planet_crime_mult = 0.5
+}
+
+
+crime_lord_deal_broken = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_crime.dds"
+	icon_frame = 2
+	planet_stability_add = -5
+}
+
+
+prosp_uni_mod = {
+	pop_happiness = 0.10
+	planet_amenities_mult = 0.20
+	planet_jobs_produces_mult = 0.1
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_from_space.dds"
+}
+
+# Federations
+prosp_uni_mod_gestalt = {
+	planet_amenities_mult = 0.25
+	planet_jobs_produces_mult = 0.1
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_from_space.dds"
+}
+
+pop_habitability = {
+	pop_amenities_usage_mult = 1
+	planet_pops_upkeep_mult = 1
+	planet_jobs_produces_mult = -0.5
+	pop_growth_speed = -0.5
+	pop_job_trade_mult = -0.5
+}
+
+# use correct modifier
+unemployment_benefits = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_resources_2.dds"
+	icon_frame = 2
+	unemployment_resources_consumer_goods_upkeep_add = 2
+}
+
+
+# Resolutions
+
+resolution_galacticstudies_astral_studies_network = {
+	planet_sensor_range_add = 1
+	station_researchers_produces_mult = 0.1
+	diplo_weight_technology_mult = 0.2
+	starbases_upkeep_mult = 0.05
+	starbase_physics_research_modules_physics_research_produces_add = 2
+	starbase_society_research_modules_society_research_produces_add = 2
+	starbase_engineering_research_modules_engineering_research_produces_add = 2
+}
+
+resolution_greatergood_five_year_plans = {
+	show_only_custom_tooltip = no
+	custom_tooltip = resolution_greatergood_five_year_plans_tooltip
+	diplo_weight_pops_mult = 0.2
+	pop_cat_worker_political_power = 0.15
+	starbase_energy_production_modules_energy_produces_add = 2
+	starbase_minerals_production_modules_minerals_produces_add = 2
+	starbase_food_production_modules_food_produces_add = 2
+}
+
+# 16_static_modifiers_paragon.txt
+########################################################################
+#reverted gov -2

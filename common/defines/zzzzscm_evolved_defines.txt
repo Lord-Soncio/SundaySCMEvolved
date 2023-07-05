@@ -2,17 +2,9 @@ NGameplay = {
 
 	LEADER_SCIENTIST_ASSIST_CLOAKING_DETECTION_MULT				= 0.10		# Assist Cloaking Detection modifier-mult per skill level (this value times skill level equals modifier)
 
-	
-	POP_ETHOS_LOWER_ETHIC_THRESHOLD				= 0.5	# If the % of pops following an ethic is <= this relative to its attraction do not diverge away from it
-	POP_ETHOS_UPPER_ETHIC_THRESHOLD				= 2.0	# If the % of pops following an ethic is >= this relative to its attraction do not diverge to it
-	POP_ETHOS_DIVERGENCE_INTERVAL				= 480	# Number of days until a Pop has a change to diverge from empire ethos
-	POP_ETHOS_DIVERGENCE_RATE_MULT				= 0.05		# Chance of a pop evaluating its ethics every year
-	POP_CHANGE_FACTION_CHANCE					= 0.05	# Once every month a pop has X chance to change faction but only if the pop wants to
-	POP_CURRENT_FACTION_WEIGHT					= 2.00	# Weight for current faction is multiplied by this much for pops
-
 	RESOLUTION_VOTE_TIMER 						= 720					# number of days a resolution will be on the senate floor before being passed/failed
 	RESOLUTION_VOTE_PREMATURE_TIMER 			= 360			# number of days until the custodian/emperor can prematurely end the senate session
-	SENATE_RECESS_TIMER 						= 720	
+	SENATE_RECESS_TIMER 						= 360	
 	CHANGE_VOTE_COOLDOWN 						= 30
 	#/TEST
 	#RESOLUTION_VOTE_TIMER = 10					# number of days a resolution will be on the senate floor before being passed/failed
@@ -21,16 +13,7 @@ NGameplay = {
 	TYPE_VOTE_COOLDOWN							= 1800
 
 
-	MOVE_CAPITAL_INFLUENCE_COST					= 200	# Influence cost to move the empire capital to another planet.
-	MOVE_CAPITAL_COOLDOWN_YEARS 				= 10	# Cooldown in years for moving capital.
 
-	STARBASE_CAPACITY_SYSTEM_MULT				= 0.15
-	
-	EXPERIMENTAL_SUBSPACE_NAVIGATION_TIME_MULT 	= 0.75
-
-	EMERGENCY_MEASURES_COOLDOWN 				= 3600
-
-	
 
 	#fed changes
 	FEDERATION_PERK_EXPERATION_MONTHS			= 3		#Month for picked perk to expire if level lost
@@ -51,4 +34,30 @@ NGameplay = {
 	FEDERATION_LEAVE_COHESION_PENALTY			= -50	# Cohesion loss every time a member leaves the federation
 	FEDERATION_SWITCH_COHESION_PENALTY			= -50	# Cohesion loss when you switch federation type
 	# Federation changes
+
+	#Planetary Diversity: Electric Boogaloo
+	BASE_PLANET_BUILDING_SLOTS				= 2 #1
+	MIN_BLOCKED_DEPOSITS = 1		#1 Always try to have this many blocker deposits on planets when generating the galaxy
+	MIN_UNBLOCKED_DEPOSITS = 3		#3 Always try to have this many non-blocker deposits on planets when generating the galaxy
+	DEPOSIT_USED_CATEGORY_WEIGHT = 0.75 #0.25 The higher this is, the more randomization will tend to diversify planet deposit types // Base = 0.25 // RARE PLANETARY FEATURES SLIDER
+
+	#Trade Balancing // Still need to test if this is "balanced"
+	BRANCH_OFFICE_INCOME_SCALE				= 0.4 #0.5 Per planet trade value
+	BRANCH_OFFICE_COST_INCREASE_MIN_RANGE	= 3		#3 Above this number of hyperlane jumps away, increase cost for branch offices
+	BRANCH_OFFICE_COST_INCREASE_SCALE		= 0.3	#0.1 Additional cost per jump
+
+	#passive war exhaustion, only change if increased amount of cheese.
+	WAR_EXHAUSTION_PASSIVE_GAIN_YEARLY		= 0.25		#0.1 The amount of yearly war exhaustion gained during war while under WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF
+	#WAR_EXHAUSTION_PASSIVE_WAR_SIZE_DIV		= 0.1	#0.1
+	#WAR_EXHAUSTION_PASSIVE_GAIN_CUTOFF		= 1.0		#1.0 At this amount of war exhaustion (excluding occupation) you stop getting war exhaustion passively over time
+
+
+	#Tweak over time, tech cost penalty might need to be increased.
+	EMPIRE_SIZE_TECH_COST_PENALTY			= 0.0015	#0.001 Per empire size above base
+	EMPIRE_SIZE_TRADITION_COST_PENALTY		= 0.002	#0.002 Per empire size above base
+}
+
+NEconomy = {
+	BORROW_DIPLO_WEIGHT_FAVOR_RESOURCE	= { "unity" }
+	BORROW_DIPLO_WEIGHT_FAVOR_COST		= { 50 }
 }
