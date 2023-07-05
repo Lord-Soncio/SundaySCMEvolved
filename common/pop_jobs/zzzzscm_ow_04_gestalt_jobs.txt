@@ -29,7 +29,7 @@ calculator = {
 			society_research = 4
 		}
 		upkeep = {
-			energy = 4
+			energy = 6
 		}
 		inline_script = {
 			script = jobs/resources/inline_evolved_science_requisition_resources
