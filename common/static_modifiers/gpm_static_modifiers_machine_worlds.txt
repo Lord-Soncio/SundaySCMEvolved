@@ -108,7 +108,7 @@ gpm_quantum_information_network = {
 	icon_frame = 8
 }
 gpm_framework = {
-	planet_technician_energy_produces_add = 1 #4
+	planet_technician_energy_produces_add = 2 #4
 	planet_district_generator_uncapped_build_speed_mult = 0.40
 	icon = "gfx/interface/icons/planet_modifiers/gpm_framework.dds"
 	icon_frame = 8
@@ -122,7 +122,7 @@ gpm_space_elevators_machine = {
 	icon_frame = 8
 }
 gpm_robotic_pests = {
-	planet_miners_minerals_produces_add = 1 #4
+	planet_miners_minerals_produces_add = 2 #4
 	planet_district_mining_uncapped_build_speed_mult = 0.40
 	icon = "gfx/interface/icons/planet_modifiers/gpm_robotic_pests.dds"
 	icon_frame = 8
