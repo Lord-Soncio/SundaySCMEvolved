@@ -1,0 +1,51 @@
+operation_extort_favors = {
+	target = none
+	categories = { op_cat_manipulation op_cat_diplomacy }
+	picture = GFX_evt_galactic_senate
+	desc = operation_extort_favors_desc
+	stages = 3
+	spy_power_cost = 60
+	resources = {
+		category = operations
+		cost = {
+			influence = 100
+		}
+		upkeep = {
+			energy = 12
+		}
+	}
+
+	potential = {
+		has_nemesis = yes
+		owner = { is_homicidal = no }
+		target = {
+			is_homicidal = no
+			is_primitive = no
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			is_running_espionage_operation = no
+			fail_text = operation_one_at_a_time
+		}
+	}
+	stage = {
+		difficulty = 10
+		icon = GFX_espionage_chapter_icon_surveillance
+		event = operation.6250
+	}
+	stage = {
+		difficulty = 10
+		icon = GFX_espionage_chapter_icon_target
+		event = operation.6251
+	}
+	stage = {
+		difficulty = 10
+		icon = GFX_espionage_chapter_icon_document
+		event = operation.6252
+	}
+	on_roll_failed = {
+		standard_espionage_operation_on_roll_failed = { RANDOM_EVENTS = operation_random_events_generic }
+	}
+	on_create = {}
+}
