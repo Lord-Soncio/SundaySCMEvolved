@@ -185,7 +185,7 @@ tec_hydrorelay_drone = {
 			physics_research = 12
 		}
 		upkeep = {
-			energy = 4
+			energy = 6
 		}
 	}
 
