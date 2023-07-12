@@ -47,3 +47,5 @@ Traditions
 - Psionics tree now requires at least 2 ascension perks before being available (slowed downt to match other AP paths timings)
 Events
 - Mercenary enclave upgrade cost increased (cost matches the following formula, "1 additional merc naval cap = 100 Alloys, 200 EC")
+
+Webhook test
