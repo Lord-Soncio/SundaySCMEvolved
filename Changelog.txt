@@ -24,6 +24,7 @@ Diplomatic actions
 ~ Hard coded the limit to create federations/subjugate/become subjugated to match rules (xenophiles can always, non xenophobe can after year 30, xenophobe and gestalt can after year 50)
 Megastructures
 + Halfed build time of most megastructures (not included, orbital rings, habitats, old refineries/mining drills)
+£
 AI personalities
 + Removed xenophobic fallen empire request to keep clear borders (due to player's capital spawning inside those systems at game start)
 Planet classes
@@ -47,5 +48,3 @@ Traditions
 - Psionics tree now requires at least 2 ascension perks before being available (slowed downt to match other AP paths timings)
 Events
 - Mercenary enclave upgrade cost increased (cost matches the following formula, "1 additional merc naval cap = 100 Alloys, 200 EC")
-
-Webhook test
