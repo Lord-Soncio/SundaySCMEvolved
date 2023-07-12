@@ -1,39 +1,40 @@
 Buildings
 - Rebalanced cyberpsionic transmuter to have equal output value for each colony designation
 Decisions
-- Fixed most habitat decision missing check for planet modifiers although having the modifiers already in place
+~ Fixed most habitat decision missing check for planet modifiers although having the modifiers already in place
 - Tripled the cost of alloys for habitats unique deposits decisions, replaced unity cost with influence (so to match the gate currency used by evolved, aka influence)
 - Increased the cost of alloys for GPM standard decisions
 Defines
-- Decreased resolution vote time to 2 years
-- Decreased resolution recess time to 1 years
+~ Decreased resolution vote time to 2 years
+~ Decreased resolution recess time to 1 years
 - Increased federation opposing ethic penalty
-- Increased cohesion range (was 100, now 300) (more cohesive federation will have the chance to grow faster if played accordingly)
++ Increased cohesion range (was 100, now 300) (more cohesive federation will have the chance to grow faster if played accordingly)
 - Reduced by 20% branch office conversion rate (was 50% of planet trade value, now is 40%)
 - Increased the additional cost for each jump of distance for branch offices (to promote less sniping branch offices on the other side of the galaxy by only one megacorp)
 - Increased passive war exhaustion gain
 - Slightly increased empire size cost penalty for research
-- Changed claim gal.com. favor resource from influence to unity
-- Increased colony base building slots ( 1 -> 2 )
++ Changed claim gal.com. favor resource from influence to unity
++ Increased colony base building slots ( 1 -> 2 )
 Deposits
 - Nerfed most habitat unique deposits decisions to grant less districts slots and/or less jobs
-- Added new unique deposit giving food jobs, took some of the modifiers grantig researcher jobs and switched them to food harvester jobs
+~ Added new unique deposit giving food jobs, took some of the modifiers grantig researcher jobs and switched them to food harvester jobs
 Diplomacy economy
 - Federation influence upkeep now scales based on members count (1 influence for each member)
 Diplomatic actions
-- Hard coded the limit to create federations/subjugate/become subjugated to match rules (xenophiles can always, non xenophobe can after year 30, xenophobe and gestalt can after year 50)
+~ Hard coded the limit to create federations/subjugate/become subjugated to match rules (xenophiles can always, non xenophobe can after year 30, xenophobe and gestalt can after year 50)
 Megastructures
-- Halfed build time of most megastructures (not included, orbital rings, habitats, old refineries/mining drills)
++ Halfed build time of most megastructures (not included, orbital rings, habitats, old refineries/mining drills)
 AI personalities
-- Removed xenophobic fallen empire request to keep clear borders (due to player's capital spawning inside those systems at game start)
++ Removed xenophobic fallen empire request to keep clear borders (due to player's capital spawning inside those systems at game start)
 Planet classes
 - Reworked ancient arcaeopolis districts (now using standard districts)
 Policies
 - Increased upkeep from evolved civic drone overclock (too much research for too low cost)
 Pop jobs
 - Massively increased habitat unique deposits jobs consumer goods upkeep, largely reduced jobs production
-- Massively increased calculator drone jobs upkeep
-- slightly reduced assembler drone monthly assembly production
+- Substantially increased calculator drone jobs upkeep
+- Slightly reduced assembler drone monthly assembly production
+~ Hydro relay drones now have both the output and upkeep (had no job upkeep) of a calculator drone
 Scripted values
 - Reworked cyberpsionic buildings entropy scaling formula (was sqrt(x), is now sqrt(3(x-1)) ) (less early production while still being decent lategame)
 Scripted effects
@@ -44,4 +45,5 @@ Static Modifiers
 - Heavily nerfed some of the machine worlds GPM special decision (flat bonuses 4 -> 1)
 Traditions
 - Psionics tree now requires at least 2 ascension perks before being available (slowed downt to match other AP paths timings)
-
+Events
+- Mercenary enclave upgrade cost increased (cost matches the following formula, "1 additional merc naval cap = 100 Alloys, 200 EC")

@@ -1,0 +1,229 @@
+# Mercenary Enclave: Expand Mercenary Fleet
+# This = player country; event_target:mercenary_enclave_country = enclave country
+country_event = {
+	id = enclave.235
+	base = enclave.205
+	desc_clear = yes
+	option_clear = yes
+
+	desc = {
+		trigger = {
+			event_target:mercenary_enclave_country = {
+				NOT = { has_modifier = mercenary_fleet_size_upgrade_1 }
+			}
+		}
+		text = enclave.235.1.desc
+	}
+	desc = {
+		trigger = {
+			event_target:mercenary_enclave_country = {
+				NOT = { has_modifier = mercenary_fleet_size_upgrade_2 }
+				has_modifier = mercenary_fleet_size_upgrade_1
+			}
+		}
+		text = enclave.235.2.desc
+	}
+	desc = {
+		trigger = {
+			event_target:mercenary_enclave_country = {
+				NOT = { has_modifier = mercenary_fleet_size_upgrade_3 }
+				has_modifier = mercenary_fleet_size_upgrade_2
+			}
+		}
+		text = enclave.235.3.desc
+	}
+	desc = {
+		trigger = {
+			event_target:mercenary_enclave_country = {
+				NOT = { has_modifier = mercenary_fleet_size_upgrade_4 }
+				has_modifier = mercenary_fleet_size_upgrade_3
+			}
+		}
+		text = enclave.235.4.desc
+	}
+	desc = {
+		trigger = {
+			event_target:mercenary_enclave_country = {
+				NOT = { has_modifier = mercenary_fleet_size_upgrade_5 }
+				has_modifier = mercenary_fleet_size_upgrade_4
+			}
+		}
+		text = enclave.235.5.desc
+	}
+
+	#Discuss another matter (return to menu)
+	option = {
+		name = enclave.215.a
+		default_hide_option = yes
+		hidden_effect = {
+			country_event = { id = enclave.205 }
+		}
+	}
+
+	#First Increase
+	option = {
+		name = DEAL
+		trigger = {
+			event_target:mercenary_enclave_country = {
+				NOT = { has_modifier = mercenary_fleet_size_upgrade_1 }
+			}
+		}
+		allow = {
+			resource_stockpile_compare = { resource = energy value >= 4000 } #1000
+			resource_stockpile_compare = { resource = alloys value >= 2000 } #500
+		}
+		add_resource = { energy = -4000  } #1000
+		add_resource = { alloys = -2000  } #500
+		custom_tooltip = opinion20
+		hidden_effect = {
+			event_target:mercenary_enclave_country = {
+				add_trust = {
+					who = root
+					amount = 20
+				}
+				add_modifier = {
+					modifier = mercenary_fleet_size_upgrade_1
+					days = -1
+				}
+				upgrade_mercenary_starbase = {
+					TIER = 1
+				}
+			}
+			country_event = { id = enclave.225 }
+		}
+	}
+	#Second Increase
+	option = {
+		name = DEAL
+		trigger = {
+			event_target:mercenary_enclave_country = {
+				NOT = { has_modifier = mercenary_fleet_size_upgrade_2 }
+				has_modifier = mercenary_fleet_size_upgrade_1
+			}
+		}
+		allow = {
+		resource_stockpile_compare = { resource = energy value >= 6000 } #2500
+			resource_stockpile_compare = { resource = alloys value >= 3000 } #1250
+		}
+		add_resource = { energy = -6000 } #2500
+		add_resource = { alloys = -3000 } #1250
+		custom_tooltip = opinion20
+		hidden_effect = {
+			event_target:mercenary_enclave_country = {
+				add_trust = {
+					who = root
+					amount = 20
+				}
+				add_modifier = {
+					modifier = mercenary_fleet_size_upgrade_2
+					days = -1
+				}
+				upgrade_mercenary_starbase = {
+					TIER = 2
+				}
+			}
+			country_event = { id = enclave.225 }
+		}
+	}
+	#Third Increase
+	option = {
+		name = DEAL
+		trigger = {
+			event_target:mercenary_enclave_country = {
+				NOT = { has_modifier = mercenary_fleet_size_upgrade_3 }
+				has_modifier = mercenary_fleet_size_upgrade_2
+			}
+		}
+		allow = {
+			#opinion trigger ?
+			resource_stockpile_compare = { resource = energy value >= 10000 } #5500
+			resource_stockpile_compare = { resource = alloys value >= 5000 } #2750
+		}
+		add_resource = { energy = -10000 } #5500
+		add_resource = { alloys = -5000 } #2750
+		custom_tooltip = opinion20
+		hidden_effect = {
+			event_target:mercenary_enclave_country = {
+				add_trust = {
+					who = root
+					amount = 20
+				}
+				add_modifier = {
+					modifier = mercenary_fleet_size_upgrade_3
+					days = -1
+				}
+				upgrade_mercenary_starbase = {
+					TIER = 3
+				}
+			}
+			country_event = { id = enclave.225 }
+		}
+	}
+	#Fourth Increase
+	option = {
+		name = DEAL
+		trigger = {
+			event_target:mercenary_enclave_country = {
+				NOT = { has_modifier = mercenary_fleet_size_upgrade_4 }
+				has_modifier = mercenary_fleet_size_upgrade_3
+			}
+		}
+		allow = {
+			resource_stockpile_compare = { resource = energy value >= 16000 } #10000
+			resource_stockpile_compare = { resource = alloys value >= 8000 } #5000
+		}
+		add_resource = { energy = -16000 } #10000
+		add_resource = { alloys = -8000 } #5000
+		custom_tooltip = opinion20
+		hidden_effect = {
+			event_target:mercenary_enclave_country = {
+				add_trust = {
+					who = root
+					amount = 20
+				}
+				add_modifier = {
+					modifier = mercenary_fleet_size_upgrade_4
+					days = -1
+				}
+				upgrade_mercenary_starbase = {
+					TIER = 4
+				}
+			}
+			country_event = { id = enclave.225 }
+		}
+	}
+	#Fifth Increase
+	option = {
+		name = DEAL
+		trigger = {
+			event_target:mercenary_enclave_country = {
+				NOT = { has_modifier = mercenary_fleet_size_upgrade_5 }
+				has_modifier = mercenary_fleet_size_upgrade_4
+			}
+		}
+		allow = {
+			resource_stockpile_compare = { resource = energy value >= 20000 } #13000
+			resource_stockpile_compare = { resource = alloys value >= 10000 } #6500
+		}
+		add_resource = { energy = -20000 } #13000
+		add_resource = { alloys = -10000 } #6500
+		custom_tooltip = opinion20
+		hidden_effect = {
+			event_target:mercenary_enclave_country = {
+				add_trust = {
+					who = root
+					amount = 20
+				}
+				add_modifier = {
+					modifier = mercenary_fleet_size_upgrade_5
+					days = -1
+				}
+				upgrade_mercenary_starbase = {
+					TIER = 5
+				}
+				set_country_flag = maximally_effective_achievement
+			}
+			country_event = { id = enclave.225 }
+		}
+	}
+}
