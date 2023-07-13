@@ -44,6 +44,8 @@ Starbase modules
 - Limited amount of detection arrays on a single starbase to 6 (reaching detection lvl 10 was too easy thanks to evolved additional slots, while still possible it requires a matching investment to cloack lvl 10)
 Static Modifiers
 - Heavily nerfed some of the machine worlds GPM special decision (flat bonuses 4 -> 1)
+Technology 
+- Shield and Armor technologies now also grant a small amount of hardening (enhanced for rare techs, reduced for repeatables)
 Traditions
 - Psionics tree now requires at least 2 ascension perks before being available (slowed downt to match other AP paths timings)
 Events
