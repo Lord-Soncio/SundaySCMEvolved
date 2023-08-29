@@ -1,0 +1,34 @@
+# Desiccators
+d_tec_desiccators_deposit = {
+	is_for_colonizable = yes
+	icon = d_fuming_bog
+	category = deposit_cat_rare
+
+	potential = { always = no }
+
+	resources = {
+		category = deposit_blockers_natural
+	}
+
+	planet_modifier = {
+		planet_technician_energy_produces_add = 1
+		planet_max_districts_add = 5
+	}
+}
+
+d_tec_desiccators_deposit_rw = {
+	is_for_colonizable = yes
+	icon = d_fuming_bog
+	category = deposit_cat_rare
+
+	potential = { always = no }
+
+	resources = {
+		category = deposit_blockers_natural
+	}
+
+	planet_modifier = {
+		planet_technician_energy_produces_add = 1
+		planet_max_districts_add = 2
+	}
+}
